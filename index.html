@@ -1069,6 +1069,56 @@
       font-family: 'Heebo', sans-serif; transition: all .2s;
     }
     .karaoke-mode-btn.active { background: var(--blue); color: #fff; }
+
+    /* ──────────────── FEEDBACK MODALS ──────────────── */
+    .feedback-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.7); z-index: 500;
+      align-items: center; justify-content: center; padding: 16px;
+    }
+    .feedback-overlay.open { display: flex; }
+    .feedback-box {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 24px 22px; width: 100%; max-width: 480px;
+      max-height: 90vh; overflow-y: auto; direction: rtl;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      animation: modalIn .25s ease;
+    }
+    @keyframes modalIn { from { transform: scale(.9); opacity:0; } to { transform: scale(1); opacity:1; } }
+    .fb-modal-icon { font-size: 2rem; text-align: center; margin-bottom: 6px; }
+    .fb-modal-title { font-size: 1.3rem; font-weight: 900; text-align: center; margin-bottom: 4px; }
+    .fb-modal-sub { font-size: 0.82rem; color: var(--muted); text-align: center; margin-bottom: 18px; }
+    .fb-field { margin-bottom: 14px; }
+    .fb-field label { display: block; font-size: 0.82rem; font-weight: 700; color: var(--muted); margin-bottom: 5px; }
+    .fb-field input, .fb-field textarea, .fb-field select {
+      width: 100%; background: var(--bg2); border: 1.5px solid var(--border);
+      border-radius: 10px; color: var(--text); font-family: 'Heebo', sans-serif;
+      font-size: 0.92rem; padding: 9px 12px; outline: none;
+      transition: border .2s; direction: rtl; resize: vertical;
+    }
+    .fb-field input:focus, .fb-field textarea:focus, .fb-field select:focus { border-color: var(--blue); }
+    .fb-field textarea { min-height: 90px; }
+    .fb-actions { display: flex; gap: 10px; margin-top: 18px; }
+    .fb-submit-btn {
+      flex: 1; padding: 11px; border: none; border-radius: 10px;
+      font-family: 'Heebo', sans-serif; font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: all .2s;
+    }
+    .fb-submit-btn.bug  { background: linear-gradient(135deg, var(--red), #c0392b); color: #fff; }
+    .fb-submit-btn.sug  { background: linear-gradient(135deg, var(--green), #0d9e76); color: #fff; }
+    .fb-submit-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    .fb-cancel-btn {
+      padding: 11px 18px; background: var(--card2); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--muted); font-family: 'Heebo', sans-serif;
+      font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all .2s;
+    }
+    .fb-cancel-btn:hover { border-color: var(--text); color: var(--text); }
+    .fb-sent-msg {
+      text-align: center; padding: 24px 12px; display: none;
+    }
+    .fb-sent-msg .sent-icon { font-size: 3rem; margin-bottom: 10px; }
+    .fb-sent-msg .sent-text { font-size: 1.1rem; font-weight: 700; color: var(--green); }
+    .fb-sent-msg .sent-sub { font-size: 0.82rem; color: var(--muted); margin-top: 6px; }
   </style>
 </head>
 <body>
@@ -1110,6 +1160,8 @@
       <div class="home-extra-btns">
         <button class="btn-secondary-sm" onclick="showStats()">📊 הסטטיסטיקות שלי</button>
         <button class="btn-secondary-sm" onclick="showFavoritesGame()">⭐ מילים מועדפות</button>
+        <button class="btn-secondary-sm" onclick="openBugReport()" style="color:var(--red);border-color:var(--red)">🐛 Report a Bug</button>
+        <button class="btn-secondary-sm" onclick="openSuggest()" style="color:var(--green);border-color:var(--green)">💡 הצע עדכון</button>
       </div>
     </div>
     <div id="wod-container"></div>
@@ -1245,6 +1297,112 @@
   <button class="bn-btn" onclick="showStats()"><span class="bn-icon">📊</span>סטטס</button>
   <button class="bn-btn" onclick="showRec()"><span class="bn-icon">🎲</span>המלצות</button>
 </nav>
+
+<!-- BUG REPORT MODAL -->
+<div class="feedback-overlay" id="bug-overlay" onclick="closeFeedbackModal('bug-overlay', event)">
+  <div class="feedback-box">
+    <div id="bug-form-wrap">
+      <div class="fb-modal-icon">🐛</div>
+      <div class="fb-modal-title">Report a Bug</div>
+      <div class="fb-modal-sub">מצאת תקלה? ספר לנו ונתקן מיד</div>
+      <div class="fb-field">
+        <label>כותרת הבאג *</label>
+        <input id="bug-title" type="text" placeholder="תיאור קצר של הבעיה..." maxlength="120">
+      </div>
+      <div class="fb-field">
+        <label>באיזה משחק / מסך קרה?</label>
+        <select id="bug-section">
+          <option value="">-- בחר --</option>
+          <option>דף הבית</option>
+          <option>בחירת רמה / נושא</option>
+          <option>כרטיסיות (Flashcards)</option>
+          <option>חידון (Quiz)</option>
+          <option>משחק זיכרון</option>
+          <option>מרוץ נגד הזמן</option>
+          <option>השלם את המשפט</option>
+          <option>לומדים שיר</option>
+          <option>סטטיסטיקות</option>
+          <option>מוזיקת רקע</option>
+          <option>אחר</option>
+        </select>
+      </div>
+      <div class="fb-field">
+        <label>תיאור הבעיה *</label>
+        <textarea id="bug-desc" placeholder="מה קרה? מה ציפית שיקרה?"></textarea>
+      </div>
+      <div class="fb-field">
+        <label>צעדים לשחזור (אופציונלי)</label>
+        <textarea id="bug-steps" placeholder="1. לחצתי על...&#10;2. אחר כך...&#10;3. ואז ראיתי..." style="min-height:70px"></textarea>
+      </div>
+      <div class="fb-field">
+        <label>מכשיר / דפדפן (אופציונלי)</label>
+        <input id="bug-device" type="text" placeholder="לדוגמה: Chrome על Windows, iPhone Safari...">
+      </div>
+      <div class="fb-actions">
+        <button class="fb-submit-btn bug" onclick="submitBugReport()">🐛 שלח דיווח</button>
+        <button class="fb-cancel-btn" onclick="closeFeedbackModal('bug-overlay')">ביטול</button>
+      </div>
+    </div>
+    <div class="fb-sent-msg" id="bug-sent">
+      <div class="sent-icon">✅</div>
+      <div class="sent-text">תודה על הדיווח!</div>
+      <div class="sent-sub">הדיווח נשלח למפתח — ננסה לתקן בהקדם</div>
+      <button class="fb-cancel-btn" style="margin-top:16px;width:100%" onclick="closeFeedbackModal('bug-overlay')">סגור</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUGGEST UPDATE MODAL -->
+<div class="feedback-overlay" id="suggest-overlay" onclick="closeFeedbackModal('suggest-overlay', event)">
+  <div class="feedback-box">
+    <div id="suggest-form-wrap">
+      <div class="fb-modal-icon">💡</div>
+      <div class="fb-modal-title">הצע עדכון</div>
+      <div class="fb-modal-sub">יש לך רעיון לשיפור האתר? שמחים לשמוע!</div>
+      <div class="fb-field">
+        <label>כותרת ההצעה *</label>
+        <input id="sug-title" type="text" placeholder="תיאור קצר של הרעיון..." maxlength="120">
+      </div>
+      <div class="fb-field">
+        <label>קטגוריה</label>
+        <select id="sug-category">
+          <option value="">-- בחר --</option>
+          <option>מילים חדשות / קטגוריות</option>
+          <option>משחק חדש</option>
+          <option>שיפור משחק קיים</option>
+          <option>שירים חדשים</option>
+          <option>עיצוב / ממשק</option>
+          <option>נגישות</option>
+          <option>ביצועים</option>
+          <option>תכונה חדשה</option>
+          <option>אחר</option>
+        </select>
+      </div>
+      <div class="fb-field">
+        <label>תיאור מפורט *</label>
+        <textarea id="sug-desc" placeholder="תאר את הרעיון — מה רוצית שיהיה באתר?"></textarea>
+      </div>
+      <div class="fb-field">
+        <label>למה זה יעזור? (אופציונלי)</label>
+        <textarea id="sug-why" placeholder="איך זה ישפר את חווית הלמידה?" style="min-height:70px"></textarea>
+      </div>
+      <div class="fb-field">
+        <label>דוגמה / השראה (אופציונלי)</label>
+        <input id="sug-example" type="text" placeholder="לדוגמה: כמו ב-Duolingo, כמו ב-...">
+      </div>
+      <div class="fb-actions">
+        <button class="fb-submit-btn sug" onclick="submitSuggest()">💡 שלח הצעה</button>
+        <button class="fb-cancel-btn" onclick="closeFeedbackModal('suggest-overlay')">ביטול</button>
+      </div>
+    </div>
+    <div class="fb-sent-msg" id="suggest-sent">
+      <div class="sent-icon">🙏</div>
+      <div class="sent-text">תודה על ההצעה!</div>
+      <div class="sent-sub">ההצעה נשלחה — נשקול אותה ברצינות</div>
+      <button class="fb-cancel-btn" style="margin-top:16px;width:100%" onclick="closeFeedbackModal('suggest-overlay')">סגור</button>
+    </div>
+  </div>
+</div>
 
 <!-- TOAST -->
 <div id="toast"></div>
@@ -4174,6 +4332,110 @@ function setSongTab(tab) { _songState.tab = tab; _renderSongView(); }
 function closeSong(e) {
   if (!e || e.target===document.getElementById('song-overlay') || !e.target)
     document.getElementById('song-overlay').classList.remove('open');
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  FEEDBACK — BUG REPORT & SUGGEST UPDATE
+// ═══════════════════════════════════════════════════════════════════════
+const _FEEDBACK_EMAIL = 'samehhiadry40@gmail.com';
+
+function openBugReport() {
+  document.getElementById('bug-form-wrap').style.display = 'block';
+  document.getElementById('bug-sent').style.display = 'none';
+  document.getElementById('bug-title').value = '';
+  document.getElementById('bug-section').value = '';
+  document.getElementById('bug-desc').value = '';
+  document.getElementById('bug-steps').value = '';
+  document.getElementById('bug-device').value = '';
+  document.getElementById('bug-overlay').classList.add('open');
+}
+
+function openSuggest() {
+  document.getElementById('suggest-form-wrap').style.display = 'block';
+  document.getElementById('suggest-sent').style.display = 'none';
+  document.getElementById('sug-title').value = '';
+  document.getElementById('sug-category').value = '';
+  document.getElementById('sug-desc').value = '';
+  document.getElementById('sug-why').value = '';
+  document.getElementById('sug-example').value = '';
+  document.getElementById('suggest-overlay').classList.add('open');
+}
+
+function closeFeedbackModal(overlayId, event) {
+  if (event && event.target !== document.getElementById(overlayId)) return;
+  document.getElementById(overlayId).classList.remove('open');
+}
+
+function submitBugReport() {
+  const title   = document.getElementById('bug-title').value.trim();
+  const section = document.getElementById('bug-section').value;
+  const desc    = document.getElementById('bug-desc').value.trim();
+  const steps   = document.getElementById('bug-steps').value.trim();
+  const device  = document.getElementById('bug-device').value.trim();
+
+  if (!title) { showToast('נא למלא כותרת', 't-wrong', 1500); return; }
+  if (!desc)  { showToast('נא למלא תיאור הבעיה', 't-wrong', 1500); return; }
+
+  const subject = encodeURIComponent(`[BUG] ${title}`);
+  const body = encodeURIComponent(
+`🐛 דיווח באג — ערבית בשחק
+================================
+כותרת: ${title}
+מסך / משחק: ${section || 'לא צוין'}
+
+תיאור הבעיה:
+${desc}
+
+צעדים לשחזור:
+${steps || 'לא צוין'}
+
+מכשיר / דפדפן:
+${device || 'לא צוין'}
+
+================================
+נשלח מ: ${window.location.href}
+תאריך: ${new Date().toLocaleString('he-IL')}
+`);
+
+  window.open(`mailto:${_FEEDBACK_EMAIL}?subject=${subject}&body=${body}`);
+  document.getElementById('bug-form-wrap').style.display = 'none';
+  document.getElementById('bug-sent').style.display = 'block';
+}
+
+function submitSuggest() {
+  const title    = document.getElementById('sug-title').value.trim();
+  const category = document.getElementById('sug-category').value;
+  const desc     = document.getElementById('sug-desc').value.trim();
+  const why      = document.getElementById('sug-why').value.trim();
+  const example  = document.getElementById('sug-example').value.trim();
+
+  if (!title) { showToast('נא למלא כותרת', 't-wrong', 1500); return; }
+  if (!desc)  { showToast('נא למלא תיאור ההצעה', 't-wrong', 1500); return; }
+
+  const subject = encodeURIComponent(`[SUGGEST] ${title}`);
+  const body = encodeURIComponent(
+`💡 הצעת עדכון — ערבית בשחק
+================================
+כותרת: ${title}
+קטגוריה: ${category || 'לא צוין'}
+
+תיאור ההצעה:
+${desc}
+
+למה זה יעזור:
+${why || 'לא צוין'}
+
+דוגמה / השראה:
+${example || 'לא צוין'}
+
+================================
+נשלח מ: ${window.location.href}
+תאריך: ${new Date().toLocaleString('he-IL')}
+`);
+
+  window.open(`mailto:${_FEEDBACK_EMAIL}?subject=${subject}&body=${body}`);
+  document.getElementById('suggest-form-wrap').style.display = 'none';
+  document.getElementById('suggest-sent').style.display = 'block';
 }
 
 // ═══════════════════════════════════════════════════════════════════════
