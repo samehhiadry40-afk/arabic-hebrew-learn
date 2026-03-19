@@ -877,6 +877,198 @@
       .fc-meaning { font-size: 1.7rem; }
       .quiz-options, .sp-options, .fb-options { grid-template-columns: 1fr; }
     }
+
+    /* ──────────────── LIGHT MODE ──────────────── */
+    html.light-mode {
+      --bg:     #f0f0f7;
+      --bg2:    #ffffff;
+      --card:   #ffffff;
+      --card2:  #e8e8f5;
+      --text:   #1a1a3a;
+      --muted:  #6677aa;
+      --border: #d0d0e8;
+    }
+    html.light-mode body { background: var(--bg); }
+    html.light-mode .navbar { background: #fff; }
+    html.light-mode .flashcard { box-shadow: 0 8px 32px rgba(0,0,0,.12); }
+
+    /* ──────────────── DARK/LIGHT TOGGLE ──────────────── */
+    .theme-btn {
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 20px; padding: 5px 12px; cursor: pointer;
+      font-size: 1rem; color: var(--text); transition: all .2s;
+    }
+    .theme-btn:hover { background: var(--card); border-color: var(--gold); }
+
+    /* ──────────────── XP BAR & STREAK ──────────────── */
+    .xp-streak-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 20px; background: var(--card2);
+      border-bottom: 1px solid var(--border); flex-wrap: wrap;
+    }
+    .streak-badge {
+      display: flex; align-items: center; gap: 5px;
+      background: rgba(240,192,64,.15); border: 1px solid rgba(240,192,64,.3);
+      border-radius: 20px; padding: 4px 12px; font-size: 0.82rem; color: var(--gold);
+      font-weight: 700;
+    }
+    .xp-section {
+      flex: 1; min-width: 120px; display: flex; flex-direction: column; gap: 2px;
+    }
+    .xp-label { font-size: 0.72rem; color: var(--muted); }
+    .xp-bar-outer {
+      width: 100%; height: 7px; background: var(--bg2);
+      border-radius: 4px; overflow: hidden;
+    }
+    .xp-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), #ff9920);
+      border-radius: 4px; transition: width .5s;
+    }
+    .mastery-badge {
+      background: rgba(0,200,150,.12); border: 1px solid rgba(0,200,150,.3);
+      border-radius: 20px; padding: 4px 12px; font-size: 0.82rem;
+      color: var(--green); font-weight: 700;
+    }
+    .home-extra-btns {
+      display: flex; gap: 8px; justify-content: center;
+      margin-top: 10px; flex-wrap: wrap;
+    }
+    .btn-secondary-sm {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--text); border-radius: 20px; padding: 6px 16px;
+      font-size: 0.85rem; font-weight: 700; cursor: pointer;
+      font-family: 'Heebo', sans-serif; transition: all .2s;
+    }
+    .btn-secondary-sm:hover { border-color: var(--blue); background: var(--card2); }
+
+    /* ──────────────── WORD OF DAY ──────────────── */
+    .wod-card {
+      background: linear-gradient(135deg, rgba(77,143,255,.1), rgba(170,85,255,.1));
+      border: 1px solid rgba(77,143,255,.3);
+      border-radius: 18px; padding: 16px 22px; margin: 14px 0;
+      text-align: center; cursor: pointer; transition: all .2s;
+    }
+    .wod-card:hover { transform: translateY(-2px); border-color: var(--blue); }
+    .wod-label { font-size: 0.72rem; color: var(--blue); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .wod-arabic { font-family: 'Noto Sans Arabic', sans-serif; font-size: 2.2rem; color: var(--text); font-weight: 900; }
+    .wod-translit { font-size: 0.88rem; color: var(--muted); margin-top: 2px; }
+    .wod-meaning { font-size: 1rem; color: var(--green); font-weight: 700; margin-top: 4px; }
+    .wod-flip-hint { font-size: 0.72rem; color: var(--muted); margin-top: 8px; }
+
+    /* ──────────────── SEARCH BOX ──────────────── */
+    .search-wrap { margin-bottom: 16px; position: relative; }
+    .search-input {
+      width: 100%; padding: 10px 16px 10px 40px;
+      background: var(--card); border: 1.5px solid var(--border);
+      border-radius: 12px; color: var(--text); font-size: 0.95rem;
+      font-family: 'Heebo', sans-serif; outline: none; transition: border .2s;
+      direction: rtl;
+    }
+    .search-input:focus { border-color: var(--blue); }
+    .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+
+    /* ──────────────── FAVORITES BUTTON ──────────────── */
+    .fav-btn {
+      background: transparent; border: 1.5px solid var(--border);
+      border-radius: 8px; padding: 6px 14px; cursor: pointer;
+      font-size: 1rem; color: var(--muted); transition: all .2s;
+      font-family: 'Heebo', sans-serif;
+    }
+    .fav-btn.active { color: var(--gold); border-color: var(--gold); background: rgba(240,192,64,.1); }
+    .fav-btn:hover { border-color: var(--gold); }
+
+    /* ──────────────── STATS VIEW ──────────────── */
+    .stats-grid { display: flex; flex-direction: column; gap: 14px; }
+    .stats-section-title { font-size: 1rem; font-weight: 700; color: var(--gold); margin-bottom: 10px; }
+    .stats-big-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .stats-big-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 16px 20px; flex: 1; min-width: 100px; text-align: center;
+    }
+    .sbc-num { font-size: 2rem; font-weight: 900; color: var(--gold); }
+    .sbc-lbl { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+    .cat-stat-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 12px; background: var(--card); border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .cat-stat-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .cat-stat-info { flex: 1; min-width: 0; }
+    .cat-stat-name { font-size: 0.85rem; font-weight: 700; }
+    .cat-stat-count { font-size: 0.72rem; color: var(--muted); }
+    .cat-stat-bar { flex: 2; height: 6px; background: var(--bg2); border-radius: 3px; overflow: hidden; }
+    .cat-stat-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--blue)); border-radius: 3px; transition: width .5s; }
+    .cat-stat-pct { font-size: 0.72rem; color: var(--muted); min-width: 32px; text-align: left; }
+    .badge-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .badge-item {
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 10px 14px; text-align: center;
+      min-width: 80px; transition: all .2s;
+    }
+    .badge-item.earned { border-color: var(--gold); background: rgba(240,192,64,.1); }
+    .badge-item .badge-icon { font-size: 1.6rem; }
+    .badge-item .badge-name { font-size: 0.7rem; color: var(--muted); margin-top: 4px; }
+    .badge-item.earned .badge-name { color: var(--gold); }
+
+    /* ──────────────── REVERSE QUIZ TOGGLE ──────────────── */
+    .quiz-dir-toggle {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 4px 10px; font-size: 0.78rem; color: var(--muted);
+      cursor: pointer; transition: all .2s;
+    }
+    .quiz-dir-toggle.active { border-color: var(--purple); color: var(--purple); background: rgba(170,85,255,.1); }
+
+    /* ──────────────── MOBILE BOTTOM NAV ──────────────── */
+    .bottom-nav {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--bg2); border-top: 1px solid var(--border);
+      z-index: 200; padding: 6px 0 env(safe-area-inset-bottom, 0);
+      justify-content: space-around; align-items: center;
+    }
+    .bn-btn {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 2px; background: transparent; border: none; color: var(--muted);
+      font-family: 'Heebo', sans-serif; font-size: 0.65rem; font-weight: 600;
+      cursor: pointer; padding: 4px 8px; transition: color .2s;
+    }
+    .bn-btn.active { color: var(--gold); }
+    .bn-btn:hover { color: var(--text); }
+    .bn-icon { font-size: 1.3rem; }
+    @media (max-width: 600px) {
+      .bottom-nav { display: flex; }
+      .view { padding-bottom: 64px; }
+    }
+
+    /* ──────────────── KARAOKE MODE ──────────────── */
+    .karaoke-wrap {
+      max-height: 100%; overflow-y: auto; padding: 8px 0;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .karaoke-line {
+      padding: 10px 14px; border-radius: 10px; cursor: pointer;
+      transition: all .2s; border: 1px solid transparent;
+    }
+    .karaoke-line.kl-past { opacity: 0.35; }
+    .karaoke-line.kl-current {
+      background: rgba(77,143,255,.12); border-color: var(--blue);
+      transform: scale(1.02);
+    }
+    .karaoke-line.kl-future { opacity: 0.55; }
+    .karaoke-line .kl-ar {
+      font-family: 'Noto Sans Arabic', sans-serif;
+      font-size: 1.15rem; direction: rtl;
+    }
+    .karaoke-line.kl-current .kl-ar { font-size: 1.3rem; color: var(--text); }
+    .karaoke-line .kl-he { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+    .karaoke-mode-btn {
+      background: rgba(77,143,255,.12); border: 1px solid var(--blue);
+      color: var(--blue); border-radius: 8px; padding: 5px 12px;
+      font-size: 0.78rem; font-weight: 700; cursor: pointer;
+      font-family: 'Heebo', sans-serif; transition: all .2s;
+    }
+    .karaoke-mode-btn.active { background: var(--blue); color: #fff; }
   </style>
 </head>
 <body>
@@ -885,16 +1077,27 @@
 <section id="view-home" class="view active">
   <nav class="navbar">
     <div class="logo" onclick="goHome()">ערבית<span> בשחק</span></div>
-    <div class="music-bar">
-      <select id="music-select" class="music-select" onchange="onMusicChange(this.value)">
-        <option value="off">🔇 ללא מוזיקה</option>
-        <option value="oud">🪕 עוד אמביינט</option>
-        <option value="oriental">🎶 אוריינטל עליז</option>
-        <option value="meditate">🧘 מדיטציה שקטה</option>
-        <option value="maqam">🎼 מקאם ערבי</option>
-      </select>
+    <div class="nav-right">
+      <div class="music-bar">
+        <select id="music-select" class="music-select" onchange="onMusicChange(this.value)">
+          <option value="off">🔇 ללא מוזיקה</option>
+          <option value="oud">🪕 עוד אמביינט</option>
+          <option value="oriental">🎶 אוריינטל עליז</option>
+          <option value="meditate">🧘 מדיטציה שקטה</option>
+          <option value="maqam">🎼 מקאם ערבי</option>
+        </select>
+      </div>
+      <button class="theme-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="החלף מצב תאורה">🌙</button>
     </div>
   </nav>
+  <div class="xp-streak-row" id="xp-streak-row">
+    <div class="streak-badge" id="streak-badge">🔥 0 ימים</div>
+    <div class="xp-section">
+      <div class="xp-label" id="xp-label">XP: 0 | רמה 1</div>
+      <div class="xp-bar-outer"><div class="xp-bar-fill" id="xp-bar-fill" style="width:0%"></div></div>
+    </div>
+    <div class="mastery-badge" id="mastery-badge">⭐ 0 מילים נרכשו</div>
+  </div>
   <div class="content">
     <div class="home-hero anim-in">
       <div class="arabic-title">تعلم العربية المحكية</div>
@@ -904,7 +1107,12 @@
         <button class="btn-primary" onclick="showLevels()">!יאללה, נתחיל</button>
         <button class="btn-primary" style="background:linear-gradient(135deg,#8e44ad,#c0392b)" onclick="showSongs()">🎵 בוא נלמד שיר</button>
       </div>
+      <div class="home-extra-btns">
+        <button class="btn-secondary-sm" onclick="showStats()">📊 הסטטיסטיקות שלי</button>
+        <button class="btn-secondary-sm" onclick="showFavoritesGame()">⭐ מילים מועדפות</button>
+      </div>
     </div>
+    <div id="wod-container"></div>
     <div class="stats-bar anim-in" id="home-stats">
       <div class="stat-card">
         <div class="num" id="stat-words">0</div>
@@ -947,6 +1155,11 @@
   <div class="content">
     <div class="section-title anim-in">בחר נושא</div>
     <div class="section-sub anim-in">איזה מילים תרצה ללמוד?</div>
+    <div class="search-wrap anim-in">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" id="cat-search" type="text" placeholder="חפש מילה..." oninput="filterVocabSearch(this.value)">
+    </div>
+    <div id="vocab-search-results" style="display:none;margin-bottom:14px;"></div>
     <div class="categories-grid" id="categories-grid"></div>
   </div>
 </section>
@@ -1010,6 +1223,28 @@
 <div class="song-overlay" id="song-overlay" onclick="closeSong(event)">
   <div class="song-detail" id="song-detail-box"></div>
 </div>
+
+<!-- ═══════════════════════════════════════════ VIEW: STATS ═══════════════════════════════════════════ -->
+<section id="view-stats" class="view">
+  <nav class="navbar">
+    <div class="logo" onclick="goHome()">ערבית<span> בשחק</span></div>
+    <button class="back-btn" onclick="goHome()">← בית</button>
+  </nav>
+  <div class="content">
+    <div class="section-title anim-in">📊 הסטטיסטיקות שלי</div>
+    <div class="section-sub anim-in">מעקב התקדמות מלא</div>
+    <div class="stats-grid" id="stats-grid"></div>
+  </div>
+</section>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="bottom-nav" id="bottom-nav">
+  <button class="bn-btn" onclick="goHome()"><span class="bn-icon">🏠</span>בית</button>
+  <button class="bn-btn" onclick="showLevels()"><span class="bn-icon">📚</span>לומדים</button>
+  <button class="bn-btn" onclick="showSongs()"><span class="bn-icon">🎵</span>שירים</button>
+  <button class="bn-btn" onclick="showStats()"><span class="bn-icon">📊</span>סטטס</button>
+  <button class="bn-btn" onclick="showRec()"><span class="bn-icon">🎲</span>המלצות</button>
+</nav>
 
 <!-- TOAST -->
 <div id="toast"></div>
@@ -1965,11 +2200,29 @@ function saveGameResult(catId, gameId, score, total) {
   if (!S.progress[key] || stars > S.progress[key].stars) {
     S.progress[key] = { stars, score, total, ts: Date.now() };
   }
-  // Track unique words learned
   if (!S.progress.learnedWords) S.progress.learnedWords = [];
   S.words.forEach(w => { if (!S.progress.learnedWords.includes(w.id)) S.progress.learnedWords.push(w.id); });
   if (!S.progress.gamesPlayed) S.progress.gamesPlayed = 0;
   S.progress.gamesPlayed++;
+  // XP bonus for completing a game
+  const bonus = stars === 3 ? 20 : stars === 2 ? 10 : stars >= 1 ? 5 : 2;
+  if (!S.progress.xp) S.progress.xp = 0;
+  S.progress.xp += bonus;
+  updateStreak();
+  localStorage.setItem('arabicGameProgress', JSON.stringify(S.progress));
+  updateXPDisplay();
+  checkBadgeUnlocks();
+}
+function checkBadgeUnlocks() {
+  const mastered = getMasteredCount();
+  const streak = S.progress.streak || 0;
+  const g = S.progress.gamesPlayed || 0;
+  const prev = S.progress._lastBadge || {};
+  if (mastered >= 10  && !prev.m10)  { showToast('🏅 הישג: 10 מילים נרכשו!', 't-correct', 3000); S.progress._lastBadge = { ...prev, m10: 1 }; }
+  if (mastered >= 50  && !prev.m50)  { showToast('🎖️ הישג: 50 מילים נרכשו!', 't-correct', 3000); S.progress._lastBadge = { ...prev, m50: 1 }; }
+  if (mastered >= 100 && !prev.m100) { showToast('🏆 הישג: 100 מילים! מדהים!', 't-correct', 3000); S.progress._lastBadge = { ...prev, m100: 1 }; }
+  if (streak >= 3     && !prev.s3)   { showToast('🔥 הישג: 3 ימים ברצף!', 't-correct', 3000); S.progress._lastBadge = { ...prev, s3: 1 }; }
+  if (streak >= 7     && !prev.s7)   { showToast('🔥🔥 שבוע רצוף!', 't-correct', 3000); S.progress._lastBadge = { ...prev, s7: 1 }; }
   localStorage.setItem('arabicGameProgress', JSON.stringify(S.progress));
 }
 function getTotalStars() {
@@ -2288,6 +2541,8 @@ function goHome() {
   stopMemTimer();
   loadProgress();
   updateHomeStats();
+  updateXPDisplay();
+  renderWordOfDay();
   showView('view-home');
 }
 
@@ -2457,7 +2712,7 @@ function startGame(gameId) {
 //  GAME 1 — FLASHCARDS
 // ═══════════════════════════════════════════════════════════════════════
 function initFlashcards() {
-  S.fc = { idx: 0, seen: new Set(), words: shuffle([...S.words]) };
+  S.fc = { idx: 0, seen: new Set(), words: getSpacedPool([...S.words]) };
   renderFlashcard();
 }
 
@@ -2485,7 +2740,7 @@ function renderFlashcard() {
       <div class="flashcard" id="fc-card" onclick="flipCard()">
         <div class="fc-inner">
           <div class="fc-front">
-            <div class="fc-label">עברית</div>
+            <div class="fc-label">עברית ${isWordMastered(w.id) ? '<span style="color:var(--green);font-size:0.75rem">✓ נרכש</span>' : ''}</div>
             <div class="fc-meaning">${w.meaning}</div>
             <div class="fc-hint">לחץ להפוך ←→</div>
           </div>
@@ -2496,8 +2751,11 @@ function renderFlashcard() {
           </div>
         </div>
       </div>
-      <div class="fc-nav">
+      <div class="fc-nav" style="gap:8px;flex-wrap:wrap;">
         <button class="nav-btn" id="fc-prev" onclick="fcPrev()" ${idx === 0 ? 'disabled' : ''}>→ הקודם</button>
+        <button id="fav-btn-${w.id}" class="fav-btn${getFavorites().has(w.id)?' active':''}" onclick="toggleFavorite('${w.id}');event.stopPropagation()">
+          ${getFavorites().has(w.id) ? '⭐ מועדף' : '☆ מועדף'}
+        </button>
         ${idx < words.length - 1
           ? `<button class="nav-btn" onclick="fcNext()">הבא ←</button>`
           : `<button class="nav-btn done-btn" onclick="fcDone()">סיימתי! ✓</button>`
@@ -2527,17 +2785,50 @@ function fcDone() {
 //  GAME 2 — QUIZ
 // ═══════════════════════════════════════════════════════════════════════
 function initQuiz() {
-  S.qz = { idx: 0, score: 0, answered: false, words: shuffle([...S.words]) };
+  S.qz = { idx: 0, score: 0, answered: false, words: getSpacedPool([...S.words]) };
   renderQuiz();
 }
 
 function renderQuiz() {
   const { idx, score, words } = S.qz;
   if (idx >= words.length) { showResults(score, words.length, 'quiz'); return; }
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion() {
+  const { idx, score, words } = S.qz;
+  if (idx >= words.length) { showResults(score, words.length, 'quiz'); return; }
   const w = words[idx];
-  const opts = rand4(w, words);
   const pct = Math.round(idx / words.length * 100);
   S.qz.answered = false;
+
+  const mastered = isWordMastered(w.id);
+  const masteredDot = mastered ? '<span style="color:var(--green);font-size:0.7rem;margin-right:4px">✓ נרכש</span>' : '';
+
+  let questionHtml, optsHtml;
+  if (_quizReverse) {
+    // Hebrew → Arabic
+    const opts = rand4(w, words).map(opt => ({...opt, label: opt.arabic, subLabel: opt.translit}));
+    questionHtml = `
+      <div class="quiz-q-label">מה הערבית של:</div>
+      <div class="quiz-q-arabic" style="font-size:2.2rem;font-family:'Heebo',sans-serif">${w.meaning}</div>
+      <div class="quiz-q-translit">${masteredDot}</div>`;
+    optsHtml = opts.map(opt => `
+      <button class="quiz-option" data-optid="${opt.id}" onclick="qzSelect(this,'${opt.id}','${w.id}')">
+        <div style="font-family:'Noto Sans Arabic',sans-serif;font-size:1.2rem">${opt.arabic}</div>
+        <div style="font-size:0.72rem;color:var(--muted)">${opt.translit}</div>
+      </button>`).join('');
+  } else {
+    const opts = rand4(w, words);
+    questionHtml = `
+      <div class="quiz-q-label">מה המשמעות? ${masteredDot}</div>
+      <div class="quiz-q-arabic">${w.arabic}</div>
+      <div class="quiz-q-translit">${w.translit}</div>`;
+    optsHtml = opts.map(opt => `
+      <button class="quiz-option" data-optid="${opt.id}" onclick="qzSelect(this,'${opt.id}','${w.id}')">
+        ${opt.meaning}
+      </button>`).join('');
+  }
 
   const content = document.getElementById('game-content');
   content.innerHTML = `
@@ -2545,19 +2836,12 @@ function renderQuiz() {
       <div class="quiz-hdr">
         <div class="quiz-score-box">נכון: <span>${score}</span> / <span>${words.length}</span></div>
         <div class="quiz-prog-bar"><div class="quiz-prog-fill" style="width:${pct}%"></div></div>
-        <div style="font-size:0.85rem;color:var(--muted);white-space:nowrap">${idx + 1}/${words.length}</div>
+        <button id="quiz-dir-btn" class="quiz-dir-toggle${_quizReverse?' active':''}" onclick="toggleQuizDirection()">
+          ${_quizReverse ? '🔄 עברית ← ערבית' : '🔄 ערבית → עברית'}
+        </button>
       </div>
-      <div class="quiz-q-card">
-        <div class="quiz-q-label">מה המשמעות?</div>
-        <div class="quiz-q-arabic">${w.arabic}</div>
-        <div class="quiz-q-translit">${w.translit}</div>
-      </div>
-      <div class="quiz-options">
-        ${opts.map(opt => `
-          <button class="quiz-option" data-optid="${opt.id}" onclick="qzSelect(this,'${opt.id}','${w.id}')">
-            ${opt.meaning}
-          </button>`).join('')}
-      </div>
+      <div class="quiz-q-card">${questionHtml}</div>
+      <div class="quiz-options">${optsHtml}</div>
     </div>
   `;
 }
@@ -2566,6 +2850,7 @@ function qzSelect(el, optId, correctId) {
   if (S.qz.answered) return;
   S.qz.answered = true;
   const correct = optId === correctId;
+  recordWordAnswer(correctId, correct);
   if (correct) {
     el.classList.add('correct');
     S.qz.score++;
@@ -2573,7 +2858,6 @@ function qzSelect(el, optId, correctId) {
   } else {
     el.classList.add('wrong');
     el.classList.add('shake');
-    // highlight correct
     const correctBtn = document.querySelector(`.quiz-option[data-optid="${correctId}"]`);
     if (correctBtn) correctBtn.classList.add('correct');
     showToast('✗ לא נכון', 't-wrong', 900);
@@ -2759,6 +3043,7 @@ function spSelect(el, optId, correctId) {
   if (S.sp.answered || S.sp.timeLeft <= 0) return;
   S.sp.answered = true;
   const correct = optId === correctId;
+  recordWordAnswer(correctId, correct);
   document.querySelectorAll('.sp-option').forEach(b => b.style.pointerEvents = 'none');
 
   if (correct) {
@@ -2772,7 +3057,6 @@ function spSelect(el, optId, correctId) {
     el.classList.add('fl-wrong');
     S.sp.combo = 0;
     showToast('✗', 't-wrong', 500);
-    // show correct
     const correctSpBtn = document.querySelector(`.sp-option[data-optid="${correctId}"]`);
     if (correctSpBtn) correctSpBtn.classList.add('fl-correct');
   }
@@ -2883,12 +3167,20 @@ function showResults(score, total, gameId, allCards = false) {
     ? `<div class="results-score-big">✓</div><div class="results-score-label">עברת על כל ${total} הכרטיסיות</div>`
     : `<div class="results-score-big">${Math.round(pct * 100)}%</div><div class="results-score-label">${score} נכון מתוך ${total}</div>`;
 
+  const xpBefore = S.progress.xp || 0;
+  const bonus = stars === 3 ? 20 : stars === 2 ? 10 : stars >= 1 ? 5 : 2;
+  const masteredNow = getMasteredCount();
+
   document.getElementById('results-wrap').innerHTML = `
     <div style="font-size:1rem;color:var(--muted)">${gameNames[gameId] || gameId}</div>
     <div class="results-title">סיימת!</div>
     ${scoreDisplay}
     <div class="results-stars">${starsHtml}</div>
     <div class="results-msg">${msg}</div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:12px 0">
+      <span style="background:rgba(240,192,64,.15);border:1px solid rgba(240,192,64,.3);border-radius:20px;padding:4px 14px;font-size:0.85rem;color:var(--gold)">+${bonus} XP</span>
+      <span style="background:rgba(0,200,150,.12);border:1px solid rgba(0,200,150,.3);border-radius:20px;padding:4px 14px;font-size:0.85rem;color:var(--green)">⭐ ${masteredNow} מילים נרכשו</span>
+    </div>
     <div class="results-actions">
       <button class="btn-primary" onclick="selectGame('${gameId}')">שחק שוב</button>
       <button class="btn-secondary" onclick="showGames()">משחק אחר</button>
@@ -3736,7 +4028,7 @@ const SONGS = [
 ];
 
 // ── State ──
-let _songState = { id: null, lineIdx: 0, tab: 'all' };
+let _songState = { id: null, lineIdx: 0, tab: 'all', karaoke: false };
 
 function showSongs() {
   showView('view-songs');
@@ -3787,6 +4079,7 @@ function _buildSongDetail(s) {
     {k:'all',label:'הכל'},{k:'arabic',label:'ערבית'},
     {k:'translit',label:'תעתיק'},{k:'literal',label:'מילולי'},{k:'meaning',label:'משמעות'},
   ].map(t => `<button class="song-tab${tab===t.k?' active':''}" onclick="setSongTab('${t.k}')">${t.label}</button>`).join('');
+  const karaokeActive = _songState.karaoke;
 
   function lineEl(l, cls) {
     if (!l) return `<div class="sd-line ${cls}"></div>`;
@@ -3808,16 +4101,30 @@ function _buildSongDetail(s) {
           <div class="sd-title-he">${s.title_he}</div>
           <div class="sd-artist">🎤 ${s.artist_he} · ${s.dialect} · רמה ${s.level}</div>
         </div>
-        <button class="sd-info-btn" onclick="toggleSongAbout()">ℹ️ פרטים</button>
+        <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end">
+          <button class="sd-info-btn" onclick="toggleSongAbout()">ℹ️ פרטים</button>
+          <button class="karaoke-mode-btn${karaokeActive?' active':''}" onclick="toggleKaraoke()">🎤 קריוקי</button>
+        </div>
       </div>
       <div id="sd-about" class="sd-about">${s.about}</div>
       <div class="sd-tabs">${tabs}</div>
     </div>
+    ${karaokeActive ? `
+    <div class="sd-stage" id="sd-stage" style="overflow-y:auto;padding:8px 0;">
+      <div class="karaoke-wrap">
+        ${s.lines.map((line, i) => `
+          <div class="karaoke-line ${i < idx ? 'kl-past' : i === idx ? 'kl-current' : 'kl-future'}"
+               onclick="_songState.lineIdx=${i};_renderSongView()" id="kl-${i}">
+            <div class="kl-ar">${line.ar}</div>
+            <div class="kl-he">${tab==='all'||tab==='meaning' ? line.meaning : tab==='translit' ? line.translit : tab==='literal' ? line.literal : ''}</div>
+          </div>`).join('')}
+      </div>
+    </div>` : `
     <div class="sd-stage" id="sd-stage">
       ${lineEl(s.lines[idx-1],'sd-prev')}
       ${lineEl(s.lines[idx],'sd-current')}
       ${lineEl(s.lines[idx+1],'sd-next')}
-    </div>
+    </div>`}
     <div class="sd-footer">
       <div class="sd-nav">
         <button class="sd-nav-btn" onclick="songNextLine()" ${idx===total-1?'disabled':''}>←</button>
@@ -3833,16 +4140,34 @@ function _buildSongDetail(s) {
   `;
 }
 
+function toggleKaraoke() {
+  _songState.karaoke = !_songState.karaoke;
+  _renderSongView();
+  if (_songState.karaoke) {
+    setTimeout(() => {
+      const el = document.getElementById(`kl-${_songState.lineIdx}`);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+  }
+}
 function toggleSongAbout() {
   const el = document.getElementById('sd-about');
   if (el) el.style.display = el.style.display==='block' ? 'none' : 'block';
 }
 function songNextLine() {
   const s = SONGS.find(x=>x.id===_songState.id);
-  if (s && _songState.lineIdx < s.lines.length-1) { _songState.lineIdx++; _renderSongView(); }
+  if (s && _songState.lineIdx < s.lines.length-1) {
+    _songState.lineIdx++;
+    _renderSongView();
+    if (_songState.karaoke) setTimeout(() => { const el = document.getElementById(`kl-${_songState.lineIdx}`); if (el) el.scrollIntoView({ behavior:'smooth', block:'center' }); }, 80);
+  }
 }
 function songPrevLine() {
-  if (_songState.lineIdx > 0) { _songState.lineIdx--; _renderSongView(); }
+  if (_songState.lineIdx > 0) {
+    _songState.lineIdx--;
+    _renderSongView();
+    if (_songState.karaoke) setTimeout(() => { const el = document.getElementById(`kl-${_songState.lineIdx}`); if (el) el.scrollIntoView({ behavior:'smooth', block:'center' }); }, 80);
+  }
 }
 function setSongTab(tab) { _songState.tab = tab; _renderSongView(); }
 
@@ -3852,11 +4177,318 @@ function closeSong(e) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════
+//  LIGHT / DARK MODE
+// ═══════════════════════════════════════════════════════════════════════
+function initTheme() {
+  const saved = localStorage.getItem('theme') || 'dark';
+  if (saved === 'light') {
+    document.documentElement.classList.add('light-mode');
+    const btn = document.getElementById('theme-toggle-btn');
+    if (btn) btn.textContent = '☀️';
+  }
+}
+function toggleTheme() {
+  const isLight = document.documentElement.classList.toggle('light-mode');
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  const btn = document.getElementById('theme-toggle-btn');
+  if (btn) btn.textContent = isLight ? '☀️' : '🌙';
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  XP + STREAK SYSTEM
+// ═══════════════════════════════════════════════════════════════════════
+function addXP(amount) {
+  if (!S.progress.xp) S.progress.xp = 0;
+  S.progress.xp += amount;
+  localStorage.setItem('arabicGameProgress', JSON.stringify(S.progress));
+}
+function getXPLevel() {
+  const xp = S.progress.xp || 0;
+  const level = Math.floor(xp / 150) + 1;
+  const xpInLevel = xp % 150;
+  return { level, xpInLevel, xpNeeded: 150, xp };
+}
+function updateStreak() {
+  const today = new Date().toDateString();
+  const last = S.progress.lastPlayDate;
+  const yesterday = new Date(Date.now() - 86400000).toDateString();
+  if (last === today) return;
+  if (last === yesterday) {
+    S.progress.streak = (S.progress.streak || 0) + 1;
+  } else {
+    S.progress.streak = 1;
+  }
+  S.progress.lastPlayDate = today;
+  localStorage.setItem('arabicGameProgress', JSON.stringify(S.progress));
+  if (S.progress.streak > 1) showToast(`🔥 ${S.progress.streak} ימים רצופים!`, 't-correct', 2000);
+}
+function updateXPDisplay() {
+  const { level, xpInLevel, xpNeeded, xp } = getXPLevel();
+  const streak = S.progress.streak || 0;
+  const mastered = getMasteredCount();
+  const fill = document.getElementById('xp-bar-fill');
+  const label = document.getElementById('xp-label');
+  const streakEl = document.getElementById('streak-badge');
+  const mastEl = document.getElementById('mastery-badge');
+  if (fill)    fill.style.width = Math.round(xpInLevel / xpNeeded * 100) + '%';
+  if (label)   label.textContent = `XP: ${xp} | רמה ${level}`;
+  if (streakEl) streakEl.textContent = `🔥 ${streak} יום${streak!==1?'ים':''}`;
+  if (mastEl)  mastEl.textContent = `⭐ ${mastered} נרכשו`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  WORD MASTERY + SPACED REPETITION
+// ═══════════════════════════════════════════════════════════════════════
+function recordWordAnswer(wordId, correct) {
+  if (!S.progress.wordStats) S.progress.wordStats = {};
+  if (!S.progress.wordStats[wordId]) S.progress.wordStats[wordId] = { c: 0, w: 0 };
+  if (correct) {
+    S.progress.wordStats[wordId].c++;
+    addXP(1);
+  } else {
+    S.progress.wordStats[wordId].w++;
+  }
+  localStorage.setItem('arabicGameProgress', JSON.stringify(S.progress));
+}
+function isWordMastered(wordId) {
+  const s = (S.progress.wordStats || {})[wordId];
+  return s && s.c >= 3;
+}
+function getMasteredCount() {
+  const ws = S.progress.wordStats || {};
+  return Object.values(ws).filter(s => s.c >= 3).length;
+}
+function getSpacedPool(words) {
+  const ws = S.progress.wordStats || {};
+  return [...words].sort((a, b) => {
+    const sa = ws[a.id] || { c: 0, w: 0 };
+    const sb = ws[b.id] || { c: 0, w: 0 };
+    const scoreA = sa.c - sa.w * 0.5;
+    const scoreB = sb.c - sb.w * 0.5;
+    return scoreA - scoreB;
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  FAVORITES
+// ═══════════════════════════════════════════════════════════════════════
+function getFavorites() {
+  try { return new Set(JSON.parse(localStorage.getItem('arabicFavorites') || '[]')); }
+  catch(e) { return new Set(); }
+}
+function saveFavorites(set) {
+  localStorage.setItem('arabicFavorites', JSON.stringify([...set]));
+}
+function toggleFavorite(wordId) {
+  const favs = getFavorites();
+  if (favs.has(wordId)) { favs.delete(wordId); showToast('הוסר ממועדפים', 't-info', 1000); }
+  else { favs.add(wordId); showToast('נוסף למועדפים ⭐', 't-correct', 1000); }
+  saveFavorites(favs);
+  const btn = document.getElementById(`fav-btn-${wordId}`);
+  if (btn) { btn.classList.toggle('active', favs.has(wordId)); btn.textContent = favs.has(wordId) ? '⭐ מועדף' : '☆ מועדף'; }
+}
+function showFavoritesGame() {
+  const favs = getFavorites();
+  if (!favs.size) { showToast('אין מילים מועדפות עדיין — סמן ⭐ בכרטיסיות', 't-info', 2500); return; }
+  S.level = 5; S.category = 'favorites';
+  S.words = VOCAB.filter(w => favs.has(w.id));
+  renderGames(); showView('view-games');
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  WORD OF THE DAY
+// ═══════════════════════════════════════════════════════════════════════
+function getWordOfDay() {
+  const d = new Date(); const seed = d.getFullYear()*10000 + (d.getMonth()+1)*100 + d.getDate();
+  const idx = seed % VOCAB.length;
+  return VOCAB[idx];
+}
+function renderWordOfDay() {
+  const w = getWordOfDay();
+  const container = document.getElementById('wod-container');
+  if (!container) return;
+  let flipped = false;
+  container.innerHTML = `
+    <div class="wod-card" id="wod-card" onclick="flipWOD()">
+      <div class="wod-label">🌟 מילת היום</div>
+      <div id="wod-front">
+        <div class="wod-arabic">${w.arabic}</div>
+        <div class="wod-translit">${w.translit}</div>
+        <div class="wod-flip-hint">לחץ לגלות את המשמעות</div>
+      </div>
+      <div id="wod-back" style="display:none">
+        <div class="wod-meaning">${w.meaning}</div>
+        <div class="wod-translit">${w.translit}</div>
+      </div>
+    </div>`;
+  window._wodWord = w;
+}
+function flipWOD() {
+  const front = document.getElementById('wod-front');
+  const back = document.getElementById('wod-back');
+  if (!front) return;
+  const showing = front.style.display !== 'none';
+  front.style.display = showing ? 'none' : 'block';
+  back.style.display  = showing ? 'block' : 'none';
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  SEARCH
+// ═══════════════════════════════════════════════════════════════════════
+function filterVocabSearch(query) {
+  const resultsEl = document.getElementById('vocab-search-results');
+  const gridEl    = document.getElementById('categories-grid');
+  if (!query.trim()) {
+    if (resultsEl) resultsEl.style.display = 'none';
+    if (gridEl)    gridEl.style.display = '';
+    return;
+  }
+  const q = query.trim().toLowerCase();
+  const matches = VOCAB.filter(w =>
+    w.meaning.toLowerCase().includes(q) ||
+    w.arabic.includes(q) ||
+    w.translit.toLowerCase().includes(q)
+  ).slice(0, 30);
+
+  if (gridEl) gridEl.style.display = 'none';
+  if (!resultsEl) return;
+  if (!matches.length) {
+    resultsEl.style.display = 'block';
+    resultsEl.innerHTML = `<div style="text-align:center;padding:20px;color:var(--muted)">לא נמצאו תוצאות</div>`;
+    return;
+  }
+  resultsEl.style.display = 'block';
+  resultsEl.innerHTML = `
+    <div style="font-size:0.82rem;color:var(--muted);margin-bottom:8px">${matches.length} תוצאות</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      ${matches.map(w => `
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-family:'Noto Sans Arabic',sans-serif;font-size:1.1rem">${w.arabic}</div>
+            <div style="font-size:0.75rem;color:var(--muted)">${w.translit}</div>
+          </div>
+          <div style="font-weight:700;color:var(--green)">${w.meaning}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  STATS PAGE
+// ═══════════════════════════════════════════════════════════════════════
+function showStats() {
+  renderStatsPage();
+  showView('view-stats');
+}
+function renderStatsPage() {
+  const grid = document.getElementById('stats-grid');
+  if (!grid) return;
+  const { level, xp, xpInLevel, xpNeeded } = getXPLevel();
+  const streak = S.progress.streak || 0;
+  const mastered = getMasteredCount();
+  const gamesPlayed = S.progress.gamesPlayed || 0;
+  const learned = (S.progress.learnedWords || []).length;
+  const totalStars = getTotalStars();
+
+  const BADGES = [
+    { icon:'🌱', name:'התחלה', earned: learned >= 1,      req:'לימד מילה ראשונה' },
+    { icon:'🔥', name:'3 ימים', earned: streak >= 3,       req:'3 ימים ברצף' },
+    { icon:'⭐', name:'10 מלות', earned: mastered >= 10,   req:'10 מילים נרכשו' },
+    { icon:'🏅', name:'50 מלות', earned: mastered >= 50,   req:'50 מילים נרכשו' },
+    { icon:'🎖️', name:'100 מלות',earned: mastered >= 100,  req:'100 מילים נרכשו' },
+    { icon:'🚀', name:'50 משחקים', earned: gamesPlayed>=50, req:'50 משחקים' },
+    { icon:'🏆', name:'מאסטר', earned: mastered >= 200,   req:'200 מילים נרכשו' },
+    { icon:'💎', name:'אגדה',   earned: streak >= 30,      req:'30 ימים ברצף' },
+  ];
+
+  grid.innerHTML = `
+    <div>
+      <div class="stats-section-title">סיכום כללי</div>
+      <div class="stats-big-row">
+        <div class="stats-big-card"><div class="sbc-num">${xp}</div><div class="sbc-lbl">XP סה"כ</div></div>
+        <div class="stats-big-card"><div class="sbc-num">${level}</div><div class="sbc-lbl">רמת XP</div></div>
+        <div class="stats-big-card"><div class="sbc-num">${streak}🔥</div><div class="sbc-lbl">ימים ברצף</div></div>
+        <div class="stats-big-card"><div class="sbc-num">${mastered}</div><div class="sbc-lbl">מילים נרכשו</div></div>
+        <div class="stats-big-card"><div class="sbc-num">${gamesPlayed}</div><div class="sbc-lbl">משחקים</div></div>
+        <div class="stats-big-card"><div class="sbc-num">${totalStars}★</div><div class="sbc-lbl">כוכבים</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="stats-section-title">התקדמות לפי נושא</div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        ${CATEGORIES.filter(c => c.id !== 'all').map(cat => {
+          const total = VOCAB.filter(w => w.category === cat.id).length;
+          if (!total) return '';
+          const done = (S.progress.learnedWords || []).filter(id => VOCAB.find(w => w.id === id && w.category === cat.id)).length;
+          const pct = total ? Math.round(done/total*100) : 0;
+          return `<div class="cat-stat-row">
+            <div class="cat-stat-icon">${cat.icon}</div>
+            <div class="cat-stat-info">
+              <div class="cat-stat-name">${cat.name}</div>
+              <div class="cat-stat-count">${done}/${total}</div>
+            </div>
+            <div class="cat-stat-bar"><div class="cat-stat-fill" style="width:${pct}%"></div></div>
+            <div class="cat-stat-pct">${pct}%</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+    <div>
+      <div class="stats-section-title">הישגים</div>
+      <div class="badge-grid">
+        ${BADGES.map(b => `
+          <div class="badge-item${b.earned?' earned':''}" title="${b.req}">
+            <div class="badge-icon">${b.earned ? b.icon : '🔒'}</div>
+            <div class="badge-name">${b.name}</div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  REVERSE QUIZ MODE
+// ═══════════════════════════════════════════════════════════════════════
+let _quizReverse = false;
+
+function toggleQuizDirection() {
+  _quizReverse = !_quizReverse;
+  const btn = document.getElementById('quiz-dir-btn');
+  if (btn) { btn.classList.toggle('active', _quizReverse); btn.textContent = _quizReverse ? '🔄 עברית ← ערבית' : '🔄 ערבית → עברית'; }
+  if (S.game === 'quiz') renderQuizQuestion();
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  PWA MANIFEST
+// ═══════════════════════════════════════════════════════════════════════
+(function initPWA() {
+  try {
+    const manifest = {
+      name: 'ערבית בשחק — לומדים פלסטינית',
+      short_name: 'ערבית בשחק',
+      description: 'לומדים ערבית מדוברת בלהג פלסטיני',
+      start_url: './',
+      display: 'standalone',
+      background_color: '#08080f',
+      theme_color: '#08080f',
+      icons: [{ src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🎮</text></svg>', sizes: 'any', type: 'image/svg+xml' }]
+    };
+    const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('link');
+    link.rel = 'manifest'; link.href = url;
+    document.head.appendChild(link);
+  } catch(e) {}
+})();
+
+// ═══════════════════════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════════════════════
 loadProgress();
 updateHomeStats();
+updateStreak();
+updateXPDisplay();
+renderWordOfDay();
 initMusic();
+initTheme();
 </script>
 </body>
 </html>
