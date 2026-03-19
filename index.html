@@ -757,6 +757,27 @@
     }
     .fab-rec:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.5); }
 
+    /* floating feedback buttons — bottom right */
+    .fab-feedback-group {
+      position: fixed; bottom: 24px; right: 16px;
+      display: flex; flex-direction: column; gap: 8px;
+      align-items: flex-end; z-index: 1000;
+    }
+    .fab-feedback-btn {
+      border: none; border-radius: 50px;
+      padding: 9px 16px; font-size: 0.8rem; font-weight: 700;
+      cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+      transition: transform .2s, box-shadow .2s;
+      font-family: 'Heebo', sans-serif; white-space: nowrap;
+    }
+    .fab-feedback-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(0,0,0,0.5); }
+    .fab-bug  { background: linear-gradient(135deg, #ff4d62, #c0392b); color: #fff; }
+    .fab-sug  { background: linear-gradient(135deg, #00c896, #0d9e76); color: #fff; }
+    @media (max-width: 600px) {
+      .fab-feedback-group { bottom: 74px; }
+      .fab-rec            { bottom: 74px; }
+    }
+
     /* ── Song Grid ── */
     .song-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -1160,8 +1181,6 @@
       <div class="home-extra-btns">
         <button class="btn-secondary-sm" onclick="showStats()">📊 הסטטיסטיקות שלי</button>
         <button class="btn-secondary-sm" onclick="showFavoritesGame()">⭐ מילים מועדפות</button>
-        <button class="btn-secondary-sm" onclick="openBugReport()" style="color:var(--red);border-color:var(--red)">🐛 Report a Bug</button>
-        <button class="btn-secondary-sm" onclick="openSuggest()" style="color:var(--green);border-color:var(--green)">💡 הצע עדכון</button>
       </div>
     </div>
     <div id="wod-container"></div>
@@ -1425,6 +1444,10 @@
 
 <!-- FLOATING REC BUTTON -->
 <button class="fab-rec" onclick="showRec()">🎲 המלץ לי!</button>
+<div class="fab-feedback-group">
+  <button class="fab-feedback-btn fab-sug" onclick="openSuggest()">💡 הצע עדכון</button>
+  <button class="fab-feedback-btn fab-bug" onclick="openBugReport()">🐛 Report a Bug</button>
+</div>
 
 <script>
 // ═══════════════════════════════════════════════════════════════════════
