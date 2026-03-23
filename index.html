@@ -1173,7 +1173,7 @@
     <div class="home-hero anim-in">
       <div class="arabic-title">تعلم العربية المحكية</div>
       <div class="hebrew-title">לומדים ערבית מדוברת בלהג פלסטיני</div>
-      <div class="tagline">מילות אמת, ניב פלסטיני, משחקים אמיתיים<br>לדוברי עברית שרוצים לדעת ערבית כמו שמדברים אותה</div>
+      <div class="tagline">מילים אמיתיות, ניב פלסטיני, משחקים אמיתיים<br>לדוברי עברית שרוצים לדעת ערבית כמו שמדברים אותה</div>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:4px;">
         <button class="btn-primary" onclick="showLevels()">!יאללה, נתחיל</button>
         <button class="btn-primary" style="background:linear-gradient(135deg,#8e44ad,#c0392b)" onclick="showSongs()">🎵 בוא נלמד שיר</button>
@@ -2008,6 +2008,20 @@ const VOCAB = [
   {id:'ep09', arabic:'على راحتك',      translit:'עַלַא רַאחְתַכּ',      meaning:'בנחת / כרצונך',         category:'expressions', level:3},
   {id:'ep10', arabic:'بدون لف ودوران', translit:'בִּדוּן לַפּ וּדַוָרַאן',meaning:'ישר לעניין',            category:'expressions', level:4},
 
+  // ─── פעלים אונומטופואיים (ABAB — רמה 4-5) ───
+  {id:'qq01', arabic:'طبطب',  translit:'טַבְּטַב',   meaning:'ליטף / טפח בעדינות',          category:'verbs', level:4},
+  {id:'qq02', arabic:'بطبط',  translit:'בַּטְבַּט',   meaning:'השמין',                         category:'verbs', level:4},
+  {id:'qq03', arabic:'بجبج',  translit:'בַּגְ\'בַּגְ\'', meaning:'להתנפח בלחיים',              category:'verbs', level:5},
+  {id:'qq04', arabic:'فضفض',  translit:'פַדְפַּד',   meaning:'לפרוק את הלב / לדבר בחופשיות', category:'verbs', level:4},
+  {id:'qq05', arabic:'فصفص',  translit:'פַצְפַּץ',   meaning:'לפצח / לקלף גרעינים',          category:'verbs', level:4},
+  {id:'qq06', arabic:'فحفح',  translit:'פַחְפַּח',   meaning:'הריח שלו מתפשט',               category:'verbs', level:5},
+  {id:'qq07', arabic:'فخفخ',  translit:'פַחְ\'פַּחְ\'', meaning:'נהיה במוד טוב',             category:'verbs', level:4},
+  {id:'qq08', arabic:'خشخش',  translit:'חַשְׁחַשׁ',  meaning:'לרשרש',                        category:'verbs', level:4},
+  {id:'qq09', arabic:'جعجع',  translit:'גַ\'עְגַ\'ע', meaning:'הרבה רעש, מעט מעשים',         category:'expressions', level:5},
+  {id:'qq10', arabic:'كنكن',  translit:'כַּנְכַּן',   meaning:'להרגיש בטוח / נעים / cozy',   category:'verbs', level:4},
+  {id:'qq11', arabic:'وشوش',  translit:'וַשְׁוַשׁ',   meaning:'ללחוש',                        category:'verbs', level:4},
+  {id:'qq12', arabic:'حلحل',  translit:'חַלְחַל',   meaning:'לפתור סבך / לשחרר קשרים',      category:'verbs', level:4},
+
   // ─── MORE TRAVEL (נסיעות) ───
   {id:'tv01', arabic:'تذكرة',          translit:'תַדְכִּירָה',          meaning:'כרטיס (נסיעה)',          category:'travel', level:3},
   {id:'tv02', arabic:'بوّابة',          translit:'בַּוַּאבַּה',          meaning:'שער (נסיעות)',           category:'travel', level:3},
@@ -2785,7 +2799,7 @@ function renderLevels() {
         <div class="lv-desc">${lv.desc}</div>
       </div>
       <div class="lv-right">
-        <div class="word-badge">${count} מילות</div>
+        <div class="word-badge">${count} מילים</div>
       </div>
     `;
     div.onclick = () => selectLevel(lv.id);
@@ -2821,7 +2835,7 @@ function renderCategories() {
     div.innerHTML = `
       <div class="cat-icon">${cat.icon}</div>
       <div class="cat-name">${cat.name}</div>
-      <div class="cat-count">${words.length} מילות</div>
+      <div class="cat-count">${words.length} מילים</div>
       <div class="cat-progress-bar"><div class="cat-progress-fill" style="width:${Math.round(progress*100)}%"></div></div>
     `;
     div.onclick = () => selectCategory(cat.id);
@@ -2847,13 +2861,13 @@ function renderGames() {
   S.words = S.category === 'all'
     ? VOCAB.filter(w => w.level <= S.level)
     : VOCAB.filter(w => w.category === S.category && w.level <= S.level);
-  document.getElementById('game-word-count').textContent = `${S.words.length} מילות זמינות`;
+  document.getElementById('game-word-count').textContent = `${S.words.length} מילים זמינות`;
 
   const games = [
     {id:'flashcards', icon:'🃏', name:'כרטיסיות',           desc:'הפוך את הכרטיס — ראה את המילה בערבית ושמע אותה'},
     {id:'quiz',       icon:'❓', name:'חידון — 4 תשובות',   desc:'ראה את המילה הערבית, בחר את התרגום הנכון'},
     {id:'memory',     icon:'🧠', name:'משחק זיכרון',        desc:'מצא את הזוגות — עברית מול ערבית'},
-    {id:'speed',      icon:'⚡', name:'מרוץ נגד הזמן',      desc:'60 שניות — כמה מילות תתרגם נכון?'},
+    {id:'speed',      icon:'⚡', name:'מרוץ נגד הזמן',      desc:'60 שניות — כמה מילים תתרגם נכון?'},
     {id:'fillblank',  icon:'✍️', name:'השלם את המשפט',      desc:'השלם את המשפט הערבי עם המילה החסרה'},
   ];
   const grid = document.getElementById('games-grid');
@@ -3061,7 +3075,7 @@ function qzSelect(el, optId, correctId) {
 function initMemory() {
   stopMemTimer();
   if (S.words.length < 2) {
-    document.getElementById('game-content').innerHTML = `<div style="text-align:center;padding:60px 20px;color:var(--muted)"><div style="font-size:3rem;margin-bottom:16px">😕</div><div>אין מספיק מילות לרמה זו. נסה רמה גבוהה יותר!</div><button class="btn-primary" style="margin-top:24px" onclick="showGames()">חזור</button></div>`;
+    document.getElementById('game-content').innerHTML = `<div style="text-align:center;padding:60px 20px;color:var(--muted)"><div style="font-size:3rem;margin-bottom:16px">😕</div><div>אין מספיק מילים לרמה זו. נסה רמה גבוהה יותר!</div><button class="btn-primary" style="margin-top:24px" onclick="showGames()">חזור</button></div>`;
     return;
   }
   // pick 8 random words (or fewer if category is small)
@@ -3171,7 +3185,7 @@ function renderSpeedStart() {
     <div class="sp-start-screen anim-in">
       <div class="big-icon">⚡</div>
       <h2>מרוץ נגד הזמן</h2>
-      <p>60 שניות לתרגם כמה שיותר מילות ערבית לעברית.<br>כל תשובה נכונה = נקודה. בנוס ×2 על רצף!</p>
+      <p>60 שניות לתרגם כמה שיותר מילים ערבית לעברית.<br>כל תשובה נכונה = נקודה. בנוס ×2 על רצף!</p>
       <button class="btn-primary" onclick="startSpeedRace()">!התחל</button>
     </div>
   `;
@@ -3489,7 +3503,7 @@ const SONGS = [
     youtube:'https://www.youtube.com/results?search_query=ليلة+عيد+فيروز',
     spotify:'https://open.spotify.com/search/ليلة%20عيد%20فيروز',
     madrasafree:'https://madrasafree.com/songs',
-    about:'שיר חג קלאסי של פיירוז — מושמע בכל ה-עיד. מילות ברכה פשוטות ויפות. מצוין ללמידת מילים עונתיות.',
+    about:'שיר חג קלאסי של פיירוז — מושמע בכל ה-עיד. מילים יפות ופשוטות. מצוין ללמידת מילים עונתיות.',
     lines:[
       {ar:'ليلة عيد وشتي ع الدني', translit:'לֵילֵת עִיד וְשְׁתִּי עַ לְדֻ\'נְיַא', literal:'ליל חג ורדת גשם על העולם', meaning:'ליל חג, וירד גשם על כל העולם'},
       {ar:'والبيوت المضوّية', translit:'וִלְבְּיוּת אִלְמְצַ\'וִּיֶּה', literal:'והבתים המוארים', meaning:'והבתים מוארים בחגיגה'},
@@ -3883,9 +3897,9 @@ const SONGS = [
     about:'מוחמד עסאף — זמר פלסטיני שזכה ב-Arab Idol. ניב פלסטיני נקי ומובן. שיר על אהבה בניב אמיתי.',
     lines:[
       {ar:'من أجمل ما قيل في الغزل', translit:'מִן אַגְ\'מַל מַא קִיל פִי(ל)עַ\'זַל', literal:'ממה שנאמר היפה ביותר על אהבה', meaning:'ממה שנאמר יפה ביותר על אהבה'},
-      {ar:'كلام ربيع طرفين', translit:'כְּלַאם רַבִּיע טְרַפֵין', literal:'מילות אביב משני עמדות', meaning:'מילות אביב של שני צדדים'},
+      {ar:'كلام ربيع طرفين', translit:'כְּלַאם רַבִּיע טְרַפֵין', literal:'מילים של אביב משני עמדות', meaning:'מילים של אביב של שני צדדים'},
       {ar:'وأحلى ما حكي', translit:'וַאחְלַא מַא חַכַּא', literal:'ומה שסופר יפה ביותר', meaning:'ומה שסופר יפה ביותר'},
-      {ar:'كلام بعيون بتحكي', translit:'כְּלַאם בְּעִיוּן בְּתַחְכִּי', literal:'מילות עיניים שמדברות', meaning:'מילים שעיניים מדברות'},
+      {ar:'كلام بعيون بتحكي', translit:'כְּלַאם בְּעִיוּן בְּתַחְכִּי', literal:'מילים שעיניים מדברות', meaning:'מילים שעיניים מדברות'},
       {ar:'ما بيقدر يتقال', translit:'מַא בִּיקְדַר יִתְקַּאל', literal:'לא ניתן לומר', meaning:'שלא ניתן לבטא במילים'},
     ]
   },
