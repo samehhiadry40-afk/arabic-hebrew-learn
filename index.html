@@ -3182,7 +3182,7 @@ function startSpeedRace() {
     }
     if (S.sp.timeLeft <= 0) {
       stopSpeedTimer();
-      showResults(S.sp.score, S.sp.asked || 1, 'speed');
+      showResults(S.sp.correct, S.sp.asked || 1, 'speed');
     }
   }, 1000);
   renderSpeedQuestion();
