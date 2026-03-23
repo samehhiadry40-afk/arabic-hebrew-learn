@@ -1357,6 +1357,10 @@
         <label>מכשיר / דפדפן (אופציונלי)</label>
         <input id="bug-device" type="text" placeholder="לדוגמה: Chrome על Windows, iPhone Safari...">
       </div>
+      <div class="fb-field">
+        <label>המייל שלך (אופציונלי — כדי שנוכל לעדכן אותך)</label>
+        <input id="bug-email" type="email" placeholder="your@email.com">
+      </div>
       <div class="fb-actions">
         <button class="fb-submit-btn bug" onclick="submitBugReport()">🐛 שלח דיווח</button>
         <button class="fb-cancel-btn" onclick="closeFeedbackModal('bug-overlay')">ביטול</button>
@@ -1365,7 +1369,7 @@
     <div class="fb-sent-msg" id="bug-sent">
       <div class="sent-icon">✅</div>
       <div class="sent-text">תודה על הדיווח!</div>
-      <div class="sent-sub">הדיווח נשלח למפתח — ננסה לתקן בהקדם</div>
+      <div class="sent-sub" id="bug-sent-sub">הדיווח נשלח למפתח — ננסה לתקן בהקדם</div>
       <button class="fb-cancel-btn" style="margin-top:16px;width:100%" onclick="closeFeedbackModal('bug-overlay')">סגור</button>
     </div>
   </div>
@@ -1409,6 +1413,10 @@
         <label>דוגמה / השראה (אופציונלי)</label>
         <input id="sug-example" type="text" placeholder="לדוגמה: כמו ב-Duolingo, כמו ב-...">
       </div>
+      <div class="fb-field">
+        <label>המייל שלך (אופציונלי — כדי שנוכל לעדכן אותך)</label>
+        <input id="sug-email" type="email" placeholder="your@email.com">
+      </div>
       <div class="fb-actions">
         <button class="fb-submit-btn sug" onclick="submitSuggest()">💡 שלח הצעה</button>
         <button class="fb-cancel-btn" onclick="closeFeedbackModal('suggest-overlay')">ביטול</button>
@@ -1417,7 +1425,7 @@
     <div class="fb-sent-msg" id="suggest-sent">
       <div class="sent-icon">🙏</div>
       <div class="sent-text">תודה על ההצעה!</div>
-      <div class="sent-sub">ההצעה נשלחה — נשקול אותה ברצינות</div>
+      <div class="sent-sub" id="sug-sent-sub">ההצעה נשלחה — נשקול אותה ברצינות</div>
       <button class="fb-cancel-btn" style="margin-top:16px;width:100%" onclick="closeFeedbackModal('suggest-overlay')">סגור</button>
     </div>
   </div>
@@ -4370,6 +4378,7 @@ function openBugReport() {
   document.getElementById('bug-desc').value = '';
   document.getElementById('bug-steps').value = '';
   document.getElementById('bug-device').value = '';
+  document.getElementById('bug-email').value = '';
   document.getElementById('bug-overlay').classList.add('open');
 }
 
@@ -4381,6 +4390,7 @@ function openSuggest() {
   document.getElementById('sug-desc').value = '';
   document.getElementById('sug-why').value = '';
   document.getElementById('sug-example').value = '';
+  document.getElementById('sug-email').value = '';
   document.getElementById('suggest-overlay').classList.add('open');
 }
 
@@ -4395,6 +4405,7 @@ function submitBugReport() {
   const desc    = document.getElementById('bug-desc').value.trim();
   const steps   = document.getElementById('bug-steps').value.trim();
   const device  = document.getElementById('bug-device').value.trim();
+  const email   = document.getElementById('bug-email').value.trim();
 
   if (!title) { showToast('נא למלא כותרת', 't-wrong', 1500); return; }
   if (!desc)  { showToast('נא למלא תיאור הבעיה', 't-wrong', 1500); return; }
@@ -4415,10 +4426,17 @@ ${steps || 'לא צוין'}
 מכשיר / דפדפן:
 ${device || 'לא צוין'}
 
+מייל לתגובה:
+${email || 'לא צוין'}
+
 ================================
 נשלח מ: ${window.location.href}
 תאריך: ${new Date().toLocaleString('he-IL')}
 `);
+  const sentSub = document.getElementById('bug-sent-sub');
+  if (sentSub) sentSub.textContent = email
+    ? `תודה! נחזור אליך ל-${email} כשהבאג יתוקן`
+    : 'הדיווח נשלח למפתח — ננסה לתקן בהקדם';
 
   window.open(`mailto:${_FEEDBACK_EMAIL}?subject=${subject}&body=${body}`);
   document.getElementById('bug-form-wrap').style.display = 'none';
@@ -4431,6 +4449,7 @@ function submitSuggest() {
   const desc     = document.getElementById('sug-desc').value.trim();
   const why      = document.getElementById('sug-why').value.trim();
   const example  = document.getElementById('sug-example').value.trim();
+  const email    = document.getElementById('sug-email').value.trim();
 
   if (!title) { showToast('נא למלא כותרת', 't-wrong', 1500); return; }
   if (!desc)  { showToast('נא למלא תיאור ההצעה', 't-wrong', 1500); return; }
@@ -4451,12 +4470,19 @@ ${why || 'לא צוין'}
 דוגמה / השראה:
 ${example || 'לא צוין'}
 
+מייל לתגובה:
+${email || 'לא צוין'}
+
 ================================
 נשלח מ: ${window.location.href}
 תאריך: ${new Date().toLocaleString('he-IL')}
 `);
 
   window.open(`mailto:${_FEEDBACK_EMAIL}?subject=${subject}&body=${body}`);
+  const sentSub = document.getElementById('sug-sent-sub');
+  if (sentSub) sentSub.textContent = email
+    ? `תודה! נחזור אליך ל-${email} אם ההצעה תיושם`
+    : 'ההצעה נשלחה — נשקול אותה ברצינות';
   document.getElementById('suggest-form-wrap').style.display = 'none';
   document.getElementById('suggest-sent').style.display = 'block';
 }
