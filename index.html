@@ -2739,21 +2739,6 @@ function showView(id) {
   window.scrollTo(0, 0);
 }
 
-function speakArabic(text) {
-  if (!window.speechSynthesis) { showToast('הדפדפן לא תומך בהקראה', 't-wrong', 2000); return; }
-  window.speechSynthesis.cancel();
-  setTimeout(() => {
-    const voices = window.speechSynthesis.getVoices();
-    const utt = new SpeechSynthesisUtterance(text);
-    const arabicVoice = voices.find(v => v.lang.startsWith('ar'));
-    if (arabicVoice) utt.voice = arabicVoice;
-    utt.lang = 'ar';
-    utt.rate = 0.85;
-    utt.onerror = e => console.error('TTS error:', e.error);
-    window.speechSynthesis.speak(utt);
-  }, 100);
-}
-
 function goHome() {
   stopSpeedTimer();
   stopMemTimer();
@@ -2964,7 +2949,6 @@ function renderFlashcard() {
           </div>
           <div class="fc-back">
             <div class="fc-arabic">${w.arabic}</div>
-            <button class="audio-btn" onclick="event.stopPropagation();speakArabic(this.dataset.text)" data-text="${w.arabic}" title="הקשב לביטוי">🔊</button>
             <div class="fc-translit">${w.translit}</div>
             <div class="fc-meaning-back">${w.meaning}</div>
           </div>
@@ -3042,8 +3026,7 @@ function renderQuizQuestion() {
     questionHtml = `
       <div class="quiz-q-label">מה המשמעות? ${masteredDot}</div>
       <div class="quiz-q-arabic">${w.arabic}</div>
-      <div class="quiz-q-translit">${w.translit}</div>
-      <div class="quiz-q-audio"><button class="audio-btn" onclick="speakArabic(this.dataset.text)" data-text="${w.arabic}" title="הקשב לביטוי">🔊 הקשב</button></div>`;
+      <div class="quiz-q-translit">${w.translit}</div>`;
     optsHtml = opts.map(opt => `
       <button class="quiz-option" data-optid="${opt.id}" onclick="qzSelect(this,'${opt.id}','${w.id}')">
         ${opt.meaning}
@@ -3150,7 +3133,6 @@ function memFlip(idx) {
   if (c.matched || S.mem.flipped.includes(idx) || S.mem.flipped.length >= 2) return;
 
   S.mem.flipped.push(idx);
-  if (c.type === 'arabic') speakArabic(c.content);
   const el = document.querySelector(`.mem-card[data-idx="${idx}"]`);
   if (el) { el.classList.add('revealed'); el.querySelector('.mc-content').style.display = 'block'; }
 
@@ -3249,7 +3231,6 @@ function renderSpeedQuestion() {
         <div class="sp-q-label">מה המשמעות?</div>
         <div class="sp-q-arabic">${w.arabic}</div>
         <div class="sp-q-translit">${w.translit}</div>
-        <div style="text-align:center;margin-top:8px"><button class="audio-btn" onclick="speakArabic(this.dataset.text)" data-text="${w.arabic}" title="הקשב לביטוי">🔊 הקשב</button></div>
       </div>
       <div class="sp-options">
         ${opts.map(opt => `
@@ -3314,7 +3295,6 @@ function renderFillBlank() {
   // Build sentence with blank highlighted
   const sentenceHtml = p.sentence.replace('___', `<span class="fb-blank" id="fb-blank">___</span>`);
   const transHtml = p.translation.replace('___', `<span class="blank-heb">${p.hint}</span>`);
-  const fullSentence = p.sentence.replace('___', p.answer);
 
   document.getElementById('game-content').innerHTML = `
     <div class="fb-wrap anim-in">
@@ -3327,7 +3307,6 @@ function renderFillBlank() {
         <div class="fb-q-num">השלם את המשפט הערבי</div>
         <div class="fb-sentence">${sentenceHtml}</div>
         <div class="fb-translation">${transHtml}</div>
-        <button class="audio-btn" onclick="speakArabic(this.dataset.text)" data-text="${fullSentence}" style="margin-top:10px">🔊 הקשב למשפט</button>
       </div>
       <div class="fb-options">
         ${p.options.map((opt, i) => `
@@ -4660,7 +4639,6 @@ function renderWordOfDay() {
       <div id="wod-front">
         <div class="wod-arabic">${w.arabic}</div>
         <div class="wod-translit">${w.translit}</div>
-        <button class="audio-btn" onclick="event.stopPropagation();speakArabic(this.dataset.text)" data-text="${w.arabic}" title="הקשב לביטוי" style="margin-top:10px">🔊 הקשב</button>
         <div class="wod-flip-hint">לחץ לגלות את המשמעות</div>
       </div>
       <div id="wod-back" style="display:none">
@@ -4713,7 +4691,6 @@ function filterVocabSearch(query) {
           <div>
             <div style="font-family:'Noto Sans Arabic',sans-serif;font-size:1.1rem">${w.arabic}</div>
             <div style="font-size:0.75rem;color:var(--muted)">${w.translit}</div>
-            <button class="audio-btn" onclick="speakArabic(this.dataset.text)" data-text="${w.arabic}" style="margin-top:6px;padding:4px 12px;font-size:0.8rem">🔊</button>
           </div>
           <div style="font-weight:700;color:var(--green)">${w.meaning}</div>
         </div>`).join('')}
