@@ -3541,12 +3541,19 @@ function renderGames() {
   const lv = LEVELS.find(l => l.id === S.level);
   const cat = CATEGORIES.find(c => c.id === S.category);
   document.getElementById('game-level-badge').textContent = `רמה ${S.level} — ${lv.name}`;
-  document.getElementById('game-breadcrumb').innerHTML =
-    `<span>${lv.icon} רמה ${S.level}</span><span class="bc-sep">›</span><span class="bc-active">${cat.icon} ${cat.name}</span>`;
-
-  S.words = S.category === 'all'
-    ? VOCAB.filter(w => w.level <= S.level)
-    : VOCAB.filter(w => w.category === S.category && w.level <= S.level);
+  if (cat) {
+    document.getElementById('game-breadcrumb').innerHTML =
+      `<span>${lv.icon} רמה ${S.level}</span><span class="bc-sep">›</span><span class="bc-active">${cat.icon} ${cat.name}</span>`;
+    S.words = S.category === 'all'
+      ? VOCAB.filter(w => w.level <= S.level)
+      : VOCAB.filter(w => w.category === S.category && w.level <= S.level);
+  } else {
+    const specialLabel = S.category === 'favorites' ? '⭐ מועדפות'
+      : S.category === 'daily-challenge' ? '📅 אתגר יומי' : '📚 שיעור';
+    document.getElementById('game-breadcrumb').innerHTML =
+      `<span>${lv.icon} רמה ${S.level}</span><span class="bc-sep">›</span><span class="bc-active">${specialLabel}</span>`;
+    // S.words already set by the caller — do not overwrite
+  }
   document.getElementById('game-word-count').textContent = `${S.words.length} מילים זמינות`;
 
   const games = [
