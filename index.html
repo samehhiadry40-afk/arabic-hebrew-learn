@@ -2743,15 +2743,20 @@ function goHome() {
   stopSpeedTimer();
   stopMemTimer();
   function speakArabic(text) {
-  if (!window.speechSynthesis) { alert('הדפדפן שלך אינו תומך בהקראה'); return; }
+  console.log('speakArabic called:', text);
+  if (!window.speechSynthesis) { showToast('הדפדפן לא תומך בהקראה', 't-wrong', 2000); return; }
+  const voices = window.speechSynthesis.getVoices();
+  console.log('voices available:', voices.length, voices.map(v => v.lang));
   window.speechSynthesis.cancel();
   setTimeout(() => {
     const utt = new SpeechSynthesisUtterance(text);
-    const voices = window.speechSynthesis.getVoices();
     const arabicVoice = voices.find(v => v.lang.startsWith('ar'));
-    if (arabicVoice) utt.voice = arabicVoice;
+    if (arabicVoice) { utt.voice = arabicVoice; console.log('using voice:', arabicVoice.name); }
+    else console.log('no Arabic voice found, using default');
     utt.lang = 'ar';
     utt.rate = 0.85;
+    utt.onerror = e => console.error('TTS error:', e.error);
+    utt.onstart = () => console.log('TTS started');
     window.speechSynthesis.speak(utt);
   }, 100);
 }
