@@ -2743,12 +2743,17 @@ function goHome() {
   stopSpeedTimer();
   stopMemTimer();
   function speakArabic(text) {
-  if (!window.speechSynthesis) return;
+  if (!window.speechSynthesis) { alert('הדפדפן שלך אינו תומך בהקראה'); return; }
   window.speechSynthesis.cancel();
-  const utt = new SpeechSynthesisUtterance(text);
-  utt.lang = 'ar';
-  utt.rate = 0.85;
-  window.speechSynthesis.speak(utt);
+  setTimeout(() => {
+    const utt = new SpeechSynthesisUtterance(text);
+    const voices = window.speechSynthesis.getVoices();
+    const arabicVoice = voices.find(v => v.lang.startsWith('ar'));
+    if (arabicVoice) utt.voice = arabicVoice;
+    utt.lang = 'ar';
+    utt.rate = 0.85;
+    window.speechSynthesis.speak(utt);
+  }, 100);
 }
 
 loadProgress();
