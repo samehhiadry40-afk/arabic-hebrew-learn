@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ערבית בשחק 🎮 — לומדים פלסטינית</title>
+  <title>ערבית בכיף 🎉 — לומדים פלסטינית</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700;900&family=Heebo:wght@300;400;700;900&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -1793,6 +1793,64 @@
       display: flex; gap: 6px; align-items: center; justify-content: center;
       margin-top: 4px; color: var(--muted); font-size: 0.72rem; opacity: 0.6;
     }
+
+    /* ══ QUIZ ANIMATIONS ════════════════════════════════════════════════ */
+    @keyframes qzCardIn {
+      from { opacity: 0; transform: translateY(28px) scale(0.95); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
+    }
+    @keyframes qzCardOut {
+      from { opacity: 1; transform: translateY(0)     scale(1); }
+      to   { opacity: 0; transform: translateY(-24px) scale(0.96); }
+    }
+    @keyframes qzOptIn {
+      from { opacity: 0; transform: translateY(14px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
+    }
+    @keyframes qzCorrectPulse {
+      0%   { transform: scale(1);    box-shadow: 0 0 0   0   rgba(0,200,150,0); }
+      35%  { transform: scale(1.05); box-shadow: 0 0 32px 6px rgba(0,200,150,0.45); }
+      100% { transform: scale(1);    box-shadow: 0 0 16px 0   rgba(0,200,150,0.15); }
+    }
+    @keyframes qzWrongShake {
+      0%,100% { transform: translateX(0) rotate(0deg); }
+      15%     { transform: translateX(-9px) rotate(-1deg); }
+      30%     { transform: translateX(9px)  rotate(1deg); }
+      45%     { transform: translateX(-6px) rotate(-0.7deg); }
+      60%     { transform: translateX(6px)  rotate(0.7deg); }
+      75%     { transform: translateX(-3px); }
+    }
+    @keyframes qzScoreUp {
+      0%   { opacity: 0; transform: translateY(0) scale(0.7); }
+      50%  { opacity: 1; transform: translateY(-22px) scale(1.2); }
+      100% { opacity: 0; transform: translateY(-44px) scale(0.9); }
+    }
+    @keyframes qzProgGlow {
+      0%,100% { box-shadow: none; }
+      50%     { box-shadow: 0 0 12px rgba(77,143,255,0.5); }
+    }
+
+    .quiz-q-card.qz-enter {
+      animation: qzCardIn 0.38s cubic-bezier(0.34,1.25,0.64,1) both;
+    }
+    .quiz-q-card.qz-exit {
+      animation: qzCardOut 0.18s cubic-bezier(0.4,0,1,1) both;
+    }
+    .quiz-options.qz-opts-enter .quiz-option:nth-child(1) { animation: qzOptIn 0.32s 0.10s cubic-bezier(0.34,1.3,0.64,1) both; }
+    .quiz-options.qz-opts-enter .quiz-option:nth-child(2) { animation: qzOptIn 0.32s 0.16s cubic-bezier(0.34,1.3,0.64,1) both; }
+    .quiz-options.qz-opts-enter .quiz-option:nth-child(3) { animation: qzOptIn 0.32s 0.22s cubic-bezier(0.34,1.3,0.64,1) both; }
+    .quiz-options.qz-opts-enter .quiz-option:nth-child(4) { animation: qzOptIn 0.32s 0.28s cubic-bezier(0.34,1.3,0.64,1) both; }
+    .quiz-option.correct  { animation: qzCorrectPulse 0.55s cubic-bezier(0.4,0,0.2,1) forwards !important; }
+    .quiz-option.shake    { animation: qzWrongShake 0.42s cubic-bezier(0.4,0,0.2,1) both; }
+    .quiz-prog-fill { animation: qzProgGlow 2s ease-in-out infinite; }
+
+    /* floating score +1 label */
+    .qz-score-pop {
+      position: fixed; pointer-events: none; z-index: 999;
+      font-size: 1.5rem; font-weight: 900; color: var(--green);
+      text-shadow: 0 2px 8px rgba(0,200,150,0.5);
+      animation: qzScoreUp 0.8s cubic-bezier(0.4,0,0.2,1) both;
+    }
   </style>
 </head>
 <body>
@@ -1800,7 +1858,7 @@
 <!-- ═══════════════════════════════════════════ VIEW: HOME ═══════════════════════════════════════════ -->
 <section id="view-home" class="view active">
   <nav class="navbar">
-    <div class="logo" onclick="goHome()">ערבית<span> בשחק</span></div>
+    <div class="logo" onclick="goHome()">ערבית<span> בכיף</span></div>
     <div class="nav-right">
       <div class="music-bar">
         <select id="music-select" class="music-select" onchange="onMusicChange(this.value)">
@@ -1864,7 +1922,7 @@
 <!-- ═════════════════════════════════════════════ VIEW: LESSONS ═════════════════════════════════════════════ -->
 <section id="view-lessons" class="view">
   <nav class="navbar">
-    <div class="logo" onclick="goHome()">ערבית<span> בשחק</span></div>
+    <div class="logo" onclick="goHome()">ערבית<span> בכיף</span></div>
     <button class="back-btn" onclick="goHome()">← בית</button>
   </nav>
   <div class="content">
@@ -1875,7 +1933,7 @@
 </section>
 <section id="view-levels" class="view">
   <nav class="navbar">
-    <div class="logo" onclick="goHome()">ערבית<span> בשחק</span></div>
+    <div class="logo" onclick="goHome()">ערבית<span> בכיף</span></div>
     <button class="back-btn" onclick="goHome()">← בית</button>
   </nav>
   <div class="content">
@@ -1888,7 +1946,7 @@
 <!-- ═══════════════════════════════════════════ VIEW: CATEGORY SELECT ═══════════════════════════════════════════ -->
 <section id="view-categories" class="view">
   <nav class="navbar">
-    <div class="logo" onclick="goHome()">ערבית<span> בשחק</span></div>
+    <div class="logo" onclick="goHome()">ערבית<span> בכיף</span></div>
     <div class="nav-right">
       <div class="level-indicator" id="cat-level-badge"></div>
       <button class="back-btn" onclick="showLevels()">← רמות</button>
@@ -1909,7 +1967,7 @@
 <!-- ═══════════════════════════════════════════ VIEW: GAME SELECT ═══════════════════════════════════════════ -->
 <section id="view-games" class="view">
   <nav class="navbar">
-    <div class="logo" onclick="goHome()">ערבית<span> בשחק</span></div>
+    <div class="logo" onclick="goHome()">ערבית<span> בכיף</span></div>
     <div class="nav-right">
       <div class="level-indicator" id="game-level-badge"></div>
       <button class="back-btn" onclick="showCategories()">← נושאים</button>
@@ -1926,7 +1984,7 @@
 <!-- ═══════════════════════════════════════════ VIEW: GAME ═══════════════════════════════════════════ -->
 <section id="view-game" class="view">
   <nav class="navbar">
-    <div class="logo" onclick="goHome()">ערבית<span> בשחק</span></div>
+    <div class="logo" onclick="goHome()">ערבית<span> בכיף</span></div>
     <div class="nav-right">
       <div class="level-indicator" id="active-level-badge"></div>
       <button class="translit-toggle" id="translit-btn" onclick="toggleTranslit()" title="הצג/הסתר תעתיק">אא תעתיק</button>
@@ -1941,7 +1999,7 @@
 <!-- ═══════════════════════════════════════════ VIEW: RESULTS ═══════════════════════════════════════════ -->
 <section id="view-results" class="view">
   <nav class="navbar">
-    <div class="logo" onclick="goHome()">ערבית<span> בשחק</span></div>
+    <div class="logo" onclick="goHome()">ערבית<span> בכיף</span></div>
     <button class="back-btn" onclick="showGames()">← חזור</button>
   </nav>
   <div class="content">
@@ -1952,7 +2010,7 @@
 <!-- ═══════════════════════════════════════════ VIEW: SONGS ═══════════════════════════════════════════ -->
 <section id="view-songs" class="view">
   <nav class="navbar">
-    <div class="logo" onclick="goHome()">ערבית<span> בשחק</span></div>
+    <div class="logo" onclick="goHome()">ערבית<span> בכיף</span></div>
     <button class="back-btn" onclick="goHome()">← בית</button>
   </nav>
   <div class="content">
@@ -1970,7 +2028,7 @@
 <!-- ═══════════════════════════════════════════ VIEW: STATS ═══════════════════════════════════════════ -->
 <section id="view-stats" class="view">
   <nav class="navbar">
-    <div class="logo" onclick="goHome()">ערבית<span> בשחק</span></div>
+    <div class="logo" onclick="goHome()">ערבית<span> בכיף</span></div>
     <button class="back-btn" onclick="goHome()">← בית</button>
   </nav>
   <div class="content">
@@ -3821,6 +3879,16 @@ function renderQuizQuestion() {
   `;
 }
 
+function _qzAnimate() {
+  requestAnimationFrame(function() {
+    var card = document.querySelector('.quiz-q-card');
+    var opts = document.querySelector('.quiz-options');
+    if (card) { card.classList.remove('qz-exit'); card.classList.add('qz-enter'); }
+    if (opts) opts.classList.add('qz-opts-enter');
+  });
+}
+
+
 function qzSelect(el, optId, correctId) {
   if (S.qz.answered) return;
   S.qz.answered = true;
@@ -3830,6 +3898,14 @@ function qzSelect(el, optId, correctId) {
     el.classList.add('correct');
     S.qz.score++;
     showToast('✓ נכון!', 't-correct', 900);
+    var pop = document.createElement('div');
+    pop.className = 'qz-score-pop';
+    pop.textContent = '+1';
+    var r = el.getBoundingClientRect();
+    pop.style.left = (r.left + r.width/2 - 16) + 'px';
+    pop.style.top  = (r.top - 10) + 'px';
+    document.body.appendChild(pop);
+    setTimeout(function() { pop.remove(); }, 800);
   } else {
     el.classList.add('wrong');
     el.classList.add('shake');
@@ -3838,7 +3914,11 @@ function qzSelect(el, optId, correctId) {
     showToast('✗ לא נכון', 't-wrong', 900);
   }
   document.querySelectorAll('.quiz-option').forEach(b => b.classList.add('answered'));
-  setTimeout(() => { S.qz.idx++; renderQuiz(); }, 1200);
+  setTimeout(function() {
+    var qCard = document.querySelector('.quiz-q-card');
+    if (qCard) qCard.classList.add('qz-exit');
+    setTimeout(function() { S.qz.idx++; renderQuiz(); }, 190);
+  }, 980);
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -3897,6 +3977,7 @@ function renderMemory() {
       </div>
     </div>
   `;
+  _qzAnimate();
 }
 
 function memFlip(idx) {
@@ -5213,7 +5294,7 @@ function submitBugReport() {
 
   const subject = encodeURIComponent(`[BUG] ${title}`);
   const body = encodeURIComponent(
-`🐛 דיווח באג — ערבית בשחק
+`🐛 דיווח באג — ערבית בכיף
 ================================
 כותרת: ${title}
 מסך / משחק: ${section || 'לא צוין'}
@@ -5257,7 +5338,7 @@ function submitSuggest() {
 
   const subject = encodeURIComponent(`[SUGGEST] ${title}`);
   const body = encodeURIComponent(
-`💡 הצעת עדכון — ערבית בשחק
+`💡 הצעת עדכון — ערבית בכיף
 ================================
 כותרת: ${title}
 קטגוריה: ${category || 'לא צוין'}
@@ -5782,8 +5863,8 @@ function toggleFcDirection() {
 (function initPWA() {
   try {
     const manifest = {
-      name: 'ערבית בשחק — לומדים פלסטינית',
-      short_name: 'ערבית בשחק',
+      name: 'ערבית בכיף — לומדים פלסטינית',
+      short_name: 'ערבית בכיף',
       description: 'לומדים ערבית מדוברת בלהג פלסטיני',
       start_url: './',
       display: 'standalone',
