@@ -3308,6 +3308,7 @@ function renderFillBlank() {
   // Build sentence with blank highlighted
   const sentenceHtml = p.sentence.replace('___', `<span class="fb-blank" id="fb-blank">___</span>`);
   const transHtml = p.translation.replace('___', `<span class="blank-heb">${p.hint}</span>`);
+  const fullSentence = p.sentence.replace('___', p.answer);
 
   document.getElementById('game-content').innerHTML = `
     <div class="fb-wrap anim-in">
@@ -3320,6 +3321,7 @@ function renderFillBlank() {
         <div class="fb-q-num">השלם את המשפט הערבי</div>
         <div class="fb-sentence">${sentenceHtml}</div>
         <div class="fb-translation">${transHtml}</div>
+        <button class="audio-btn" onclick="speakArabic(this.dataset.text)" data-text="${fullSentence}" style="margin-top:10px">🔊 הקשב למשפט</button>
       </div>
       <div class="fb-options">
         ${p.options.map((opt, i) => `
