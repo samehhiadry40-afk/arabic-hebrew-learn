@@ -967,6 +967,21 @@
     .btn-secondary-sm:hover { border-color: var(--blue); background: var(--card2); }
 
     /* ──────────────── WORD OF DAY ──────────────── */
+    .lessons-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
+    .lesson-card { background: var(--card-bg, var(--card)); border: 1.5px solid var(--border); border-radius: 14px; padding: 16px 18px; cursor: pointer; transition: all .2s; position: relative; }
+    .lesson-card:hover:not(.locked) { border-color: var(--blue); transform: translateY(-2px); }
+    .lesson-card.locked { opacity: 0.5; cursor: not-allowed; }
+    .lesson-card.done { border-color: var(--green); }
+    .lesson-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .lesson-card-icon { font-size: 1.6rem; }
+    .lesson-card-title { font-size: 1rem; font-weight: 700; }
+    .lesson-card-meta { font-size: 0.82rem; color: var(--muted); margin-bottom: 6px; }
+    .lesson-card-status { font-size: 0.78rem; margin-top: 4px; font-weight: 600; }
+    .lesson-card-status.done { color: var(--green); }
+    .lesson-card-status.locked { color: var(--muted); }
+    .daily-challenge-card { background:linear-gradient(135deg,rgba(240,192,64,.12),rgba(170,85,255,.12)); border:1.5px solid rgba(240,192,64,.4); border-radius:16px; padding:18px 20px; text-align:center; cursor:pointer; transition:all .2s; }
+    .daily-challenge-card:hover { border-color:var(--gold); transform:translateY(-2px); }
+    .daily-challenge-card.done { border-color:var(--green); background:linear-gradient(135deg,rgba(0,200,150,.1),rgba(0,200,150,.05)); cursor:default; }
     .wod-card {
       background: linear-gradient(135deg, rgba(77,143,255,.1), rgba(170,85,255,.1));
       border: 1px solid rgba(77,143,255,.3);
@@ -1189,6 +1204,7 @@
         🔁 יש לך <span id="review-count">0</span> מילים שמחכות לחזרה — לחץ לתרגל!
       </div>
     </div>
+    <div id="daily-challenge-section" style="margin-bottom:18px"></div>
     <div id="wod-container"></div>
     <div class="stats-bar anim-in" id="home-stats">
       <div class="stat-card">
@@ -1208,6 +1224,18 @@
 </section>
 
 <!-- ═══════════════════════════════════════════ VIEW: LEVEL SELECT ═══════════════════════════════════════════ -->
+<!-- ═════════════════════════════════════════════ VIEW: LESSONS ═════════════════════════════════════════════ -->
+<section id="view-lessons" class="view">
+  <nav class="navbar">
+    <div class="logo" onclick="goHome()">ערבית<span> בשחק</span></div>
+    <button class="back-btn" onclick="goHome()">← בית</button>
+  </nav>
+  <div class="content">
+    <div class="section-title anim-in">📚 שיעורים</div>
+    <div class="section-sub anim-in">למד בצעדים — כל שיעור פותח את הבא</div>
+    <div class="lessons-grid" id="lessons-grid"></div>
+  </div>
+</section>
 <section id="view-levels" class="view">
   <nav class="navbar">
     <div class="logo" onclick="goHome()">ערבית<span> בשחק</span></div>
@@ -1506,6 +1534,21 @@ const LEVELS = [
   { id: 4, name: 'מתקדם',           icon: '💪', desc: 'נסיעות, רגשות, שיחה חופשית, ביטויים מורכבים', color: '#4d8fff' },
   { id: 5, name: 'שולט בכל מדינה',  icon: '🌍', desc: 'ערבית פורמלית, ביטויים מדינות שונות, שפה ברמה גבוהה', color: '#aa55ff' },
 ];
+const LESSONS = [
+  { id: 'l1',  title: 'ברכות ובסיסים',     icon: '👋', cats: ['greetings'],              level: 1, desc: 'שלום, תודה, בקשות בסיסיות' },
+  { id: 'l2',  title: 'מספרים וזמן',        icon: '🔢', cats: ['numbers', 'time', 'days'],    level: 1, desc: 'ספירה, ימי שבוע, שעות' },
+  { id: 'l3',  title: 'משפחה ואנשים',       icon: '👨‍👩‍👧', cats: ['family', 'pronouns'],         level: 1, desc: 'בני משפחה, כינויי גוף' },
+  { id: 'l4',  title: 'אוכל ומשקאות',      icon: '🍽️', cats: ['food', 'spices'],            level: 2, desc: 'מאכלים, תבלין, חגיגות' },
+  { id: 'l5',  title: 'גוף ובריאות',         icon: '💪', cats: ['body'],                       level: 2, desc: 'אברי גוף, בריאות, רגשות פיזיים' },
+  { id: 'l6',  title: 'חיות וטבע',          icon: '🐾', cats: ['animals', 'birds', 'weather'], level: 2, desc: 'בעלי חיים, ציפורים, מזג אוויר' },
+  { id: 'l7',  title: 'צבעים ובגדים',      icon: '🎨', cats: ['colors', 'clothes'],          level: 3, desc: 'צבעים בסיסיים, לבוש, אקססורים' },
+  { id: 'l8',  title: 'בית וחיי יומיום',    icon: '🏠', cats: ['home', 'daily'],            level: 3, desc: 'חדרים, רהיטים יומיומיים' },
+  { id: 'l9',  title: 'רגשות ותכונות',     icon: '😊', cats: ['emotions', 'adjectives'],    level: 3, desc: 'יחסות, תכונות, ספרי תואר' },
+  { id: 'l10', title: 'נסיעות ועיר',        icon: '✈️', cats: ['travel', 'city', 'shopping'],  level: 4, desc: 'נסיעות, קניות, סיור בעיר' },
+  { id: 'l11', title: 'שיחה וביטויים',     icon: '💬', cats: ['expressions', 'smalltalk', 'verbs'], level: 4, desc: 'ביטויים נפוצים, פעלים בסיסיים, שיחת חולין' },
+  { id: 'l12', title: 'חגיגות וקניות',     icon: '🎉', cats: ['celebrate', 'school'],         level: 5, desc: 'חגים, בית ספר, אוצר מילים מתקדם' },
+];
+
 
 // Each word: id, arabic, translit (Hebrew letters), meaning (Hebrew), category, level
 const VOCAB = [
@@ -3396,6 +3439,21 @@ function showResults(score, total, gameId, allCards = false) {
   stopSpeedTimer();
   stopMemTimer();
 
+  if (S.isDailyChallenge && gameId === 'quiz') {
+    localStorage.setItem('dailyChallenge', JSON.stringify({ date: _dcDate(), score: score }));
+    S.isDailyChallenge = false;
+    renderDailyChallenge();
+  }
+  if (S.lesson) {
+    if (!S.progress.completedLessons) S.progress.completedLessons = [];
+    if (S.progress.completedLessons.indexOf(S.lesson) === -1) {
+      S.progress.completedLessons.push(S.lesson);
+      localStorage.setItem('arabicGameProgress', JSON.stringify(S.progress));
+      showToast('🎓 שיעור הושלם! השיעור הבא נפתח', 't-correct', 2500);
+    }
+    S.lesson = null;
+  }
+
   saveGameResult(S.category, gameId, score, total);
 
   const pct = total > 0 ? score / total : 1;
@@ -4703,6 +4761,127 @@ function showFavoritesGame() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════
+//  DAILY CHALLENGE
+// ═══════════════════════════════════════════════════════════════════════
+function _dcDate() {
+  var d = new Date();
+  return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
+}
+function _dcWords() {
+  var d = new Date();
+  var s = d.getFullYear()*10000 + (d.getMonth()+1)*100 + d.getDate();
+  var words = VOCAB.slice();
+  for (var i = words.length - 1; i > 0; i--) {
+    s = (s * 1664525 + 1013904223) & 0x7fffffff;
+    var j = s % (i + 1);
+    var tmp = words[i]; words[i] = words[j]; words[j] = tmp;
+  }
+  return words.slice(0, 10);
+}
+function getDailyResult() {
+  try { var d = JSON.parse(localStorage.getItem('dailyChallenge') || 'null'); return d && d.date === _dcDate() ? d : null; }
+  catch(e) { return null; }
+}
+function renderDailyChallenge() {
+  var el = document.getElementById('daily-challenge-section');
+  if (!el) return;
+  var result = getDailyResult();
+  if (result) {
+    el.innerHTML = '<div class="daily-challenge-card done">'
+      + '<div style="font-size:1.4rem;margin-bottom:4px">🏆 אתגר יומי — הושלם!</div>'
+      + '<div style="font-size:1.1rem;font-weight:700;color:var(--green);margin-bottom:10px">' + result.score + '/10 נכון ✓</div>'
+      + '<button class="btn-secondary-sm" onclick="copyDailyScore(' + result.score + ')">📋 שתף ניקוד</button>'
+      + '</div>';
+  } else {
+    el.innerHTML = '<div class="daily-challenge-card" onclick="startDailyChallenge()">'
+      + '<div style="font-size:1.5rem;margin-bottom:4px">🏆 אתגר יומי</div>'
+      + '<div style="font-size:0.88rem;color:var(--muted);margin-bottom:10px">10 שאלות · מתחלף כל יום</div>'
+      + '<button class="btn-primary" style="pointer-events:none">התחל אתגר ←</button>'
+      + '</div>';
+  }
+}
+function startDailyChallenge() {
+  if (getDailyResult()) return;
+  S.level = 5; S.category = 'daily-challenge';
+  S.words = _dcWords();
+  S.isDailyChallenge = true;
+  initQuiz();
+  showView('view-game');
+  document.getElementById('active-level-badge').textContent = '🏆 אתגר יומי';
+  document.getElementById('game-back-btn').onclick = function() { S.isDailyChallenge = false; goHome(); };
+}
+function copyDailyScore(score) {
+  var d = new Date();
+  var dateStr = d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear();
+  var stars = score >= 8 ? '★★★' : score >= 5 ? '★★' : '★';
+  var nl = String.fromCharCode(10);
+  var text = '🏆 אתגר ערבית יומי ' + dateStr + nl
+    + 'ניקוד: ' + score + '/10 ' + stars + nl
+    + 'שחק גם אתה: https://samehhiadry40-afk.github.io/arabic-hebrew-learn/';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function() { showToast('הועתק ללוח!', 't-correct', 1500); });
+  } else {
+    prompt('העתק:', text);
+  }
+}
+// ═══════════════════════════════════════════════════════════════════════
+//  LESSON MODE
+// ═══════════════════════════════════════════════════════════════════════
+function getLessonWords(ls) {
+  return VOCAB.filter(function(w) { return ls.cats.indexOf(w.category) !== -1; });
+}
+function isLessonUnlocked(ls, idx) {
+  if (idx === 0) return true;
+  var prev = LESSONS[idx - 1];
+  var completed = S.progress.completedLessons || [];
+  return completed.indexOf(prev.id) !== -1;
+}
+function showLessons() {
+  renderLessons();
+  showView('view-lessons');
+}
+function renderLessons() {
+  var grid = document.getElementById('lessons-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  var completed = S.progress.completedLessons || [];
+  LESSONS.forEach(function(ls, idx) {
+    var unlocked = isLessonUnlocked(ls, idx);
+    var done = completed.indexOf(ls.id) !== -1;
+    var words = getLessonWords(ls);
+    var div = document.createElement('div');
+    div.className = 'lesson-card' + (done ? ' done' : (unlocked ? '' : ' locked'));
+    var statusText = done ? '✓ הושלם' : (unlocked ? '▶ זמין' : '🔒 נעול');
+    var statusClass = done ? 'done' : (unlocked ? '' : 'locked');
+    div.innerHTML = '<div class="lesson-card-header">'
+      + '<span class="lesson-card-icon">' + ls.icon + '</span>'
+      + '<span class="lesson-card-title">' + ls.title + '</span>'
+      + '</div>'
+      + '<div class="lesson-card-meta">' + words.length + ' מילים · ' + ls.desc + '</div>'
+      + '<div class="lesson-card-status ' + statusClass + '">' + statusText + '</div>';
+    if (unlocked && !done) {
+      div.onclick = (function(id) { return function() { startLesson(id); }; })(ls.id);
+    } else if (unlocked && done) {
+      div.onclick = (function(id) { return function() { startLesson(id); }; })(ls.id);
+    }
+    grid.appendChild(div);
+  });
+}
+function startLesson(id) {
+  var ls = LESSONS.find(function(l) { return l.id === id; });
+  if (!ls) return;
+  var words = getLessonWords(ls);
+  if (!words.length) { return; }
+  S.level = ls.level;
+  S.category = 'lesson-' + id;
+  S.words = words;
+  S.lesson = id;
+  initQuiz();
+  showView('view-game');
+  document.getElementById('active-level-badge').textContent = '📚 ' + ls.title;
+  document.getElementById('game-back-btn').onclick = function() { S.lesson = null; showLessons(); };
+}
+// ═══════════════════════════════════════════════════════════════════════
 //  WORD OF THE DAY
 // ═══════════════════════════════════════════════════════════════════════
 function getWordOfDay() {
@@ -4711,6 +4890,7 @@ function getWordOfDay() {
   return VOCAB[idx];
 }
 function renderWordOfDay() {
+  renderDailyChallenge();
   const w = getWordOfDay();
   const container = document.getElementById('wod-container');
   if (!container) return;
