@@ -2739,29 +2739,25 @@ function showView(id) {
   window.scrollTo(0, 0);
 }
 
-function goHome() {
-  stopSpeedTimer();
-  stopMemTimer();
-  function speakArabic(text) {
-  console.log('speakArabic called:', text);
+function speakArabic(text) {
   if (!window.speechSynthesis) { showToast('הדפדפן לא תומך בהקראה', 't-wrong', 2000); return; }
-  const voices = window.speechSynthesis.getVoices();
-  console.log('voices available:', voices.length, voices.map(v => v.lang));
   window.speechSynthesis.cancel();
   setTimeout(() => {
+    const voices = window.speechSynthesis.getVoices();
     const utt = new SpeechSynthesisUtterance(text);
     const arabicVoice = voices.find(v => v.lang.startsWith('ar'));
-    if (arabicVoice) { utt.voice = arabicVoice; console.log('using voice:', arabicVoice.name); }
-    else console.log('no Arabic voice found, using default');
+    if (arabicVoice) utt.voice = arabicVoice;
     utt.lang = 'ar';
     utt.rate = 0.85;
     utt.onerror = e => console.error('TTS error:', e.error);
-    utt.onstart = () => console.log('TTS started');
     window.speechSynthesis.speak(utt);
   }, 100);
 }
 
-loadProgress();
+function goHome() {
+  stopSpeedTimer();
+  stopMemTimer();
+  loadProgress();
   updateHomeStats();
   updateXPDisplay();
   renderWordOfDay();
