@@ -5253,7 +5253,7 @@ function updateXPDisplay() {
   const mastEl = document.getElementById('mastery-badge');
   if (fill)    fill.style.width = Math.round(xpInLevel / xpNeeded * 100) + '%';
   if (label)   label.textContent = `XP: ${xp} | רמה ${level}`;
-  if (streakEl) streakEl.textContent = `🔥 ${streak} יום${streak!==1?'ים':''}`;
+  if (streakEl) streakEl.textContent = `🔥 ${streak} ${streak===1?'יום':'ימים'}`;
   if (mastEl)  mastEl.textContent = `⭐ ${mastered} נרכשו`;
 }
 
