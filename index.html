@@ -1851,6 +1851,42 @@
       text-shadow: 0 2px 8px rgba(0,200,150,0.5);
       animation: qzScoreUp 0.8s cubic-bezier(0.4,0,0.2,1) both;
     }
+
+    /* ══ MEMORY GAME ANIMATIONS ═══════════════════════════════════════════════ */
+    @keyframes memCardIn {
+      from { opacity: 0; transform: translateY(22px) scale(0.88); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
+    }
+    @keyframes memFlipIn {
+      0%   { transform: scale(1)    rotateY(0deg); }
+      40%  { transform: scale(0.88) rotateY(90deg); }
+      70%  { transform: scale(1.08) rotateY(0deg); }
+      100% { transform: scale(1)    rotateY(0deg); }
+    }
+    @keyframes memMatchPulse {
+      0%   { transform: scale(1);    box-shadow: 0 0 0   0   rgba(0,200,150,0); }
+      40%  { transform: scale(1.1);  box-shadow: 0 0 28px 8px rgba(0,200,150,0.5); }
+      100% { transform: scale(1);    box-shadow: 0 0 16px 0   rgba(0,200,150,0.2); }
+    }
+    @keyframes memShake {
+      0%,100% { transform: translateX(0); }
+      18%     { transform: translateX(-8px) rotate(-1.2deg); }
+      36%     { transform: translateX(8px)  rotate(1.2deg); }
+      54%     { transform: translateX(-5px) rotate(-0.7deg); }
+      72%     { transform: translateX(5px)  rotate(0.7deg); }
+    }
+    .mem-card.mem-enter {
+      animation: memCardIn 0.3s cubic-bezier(0.34,1.3,0.64,1) both;
+    }
+    .mem-card.mem-flip {
+      animation: memFlipIn 0.32s cubic-bezier(0.34,1.2,0.64,1) both;
+    }
+    .mem-card.mem-match {
+      animation: memMatchPulse 0.55s cubic-bezier(0.4,0,0.2,1) forwards !important;
+    }
+    .mem-card.mem-wrong {
+      animation: memShake 0.45s cubic-bezier(0.4,0,0.2,1) both;
+    }
   </style>
 </head>
 <body>
@@ -3972,7 +4008,8 @@ function renderMemory() {
           const innerHtml = c.type === 'arabic'
             ? `<div class="mc-content">${c.content}<br><span style="font-family:'Heebo',sans-serif;font-size:0.65rem;color:var(--blue);font-weight:600">${c.translit||''}</span></div>`
             : `<div class="mc-content">${c.content}</div>`;
-          return `<div class="${cls}" data-idx="${i}" onclick="memFlip(${i})">${innerHtml}</div>`;
+          const _delay = Math.min(i * 28, 420);
+          return `<div class="${cls} mem-enter" data-idx="${i}" onclick="memFlip(${i})" style="animation-delay:${_delay}ms">${innerHtml}</div>`;
         }).join('')}
       </div>
     </div>
@@ -3987,7 +4024,7 @@ function memFlip(idx) {
 
   S.mem.flipped.push(idx);
   const el = document.querySelector(`.mem-card[data-idx="${idx}"]`);
-  if (el) { el.classList.add('revealed'); el.querySelector('.mc-content').style.display = 'block'; }
+  if (el) { el.classList.add('revealed', 'mem-flip'); el.querySelector('.mc-content').style.display = 'block'; setTimeout(function(){ if(el) el.classList.remove('mem-flip'); }, 320); }
 
   if (S.mem.flipped.length === 2) {
     S.mem.moves++;
@@ -3997,6 +4034,10 @@ function memFlip(idx) {
 
     if (a.pairId === b.pairId && a.type !== b.type) {
       // Match!
+      var elMA = document.querySelector('.mem-card[data-idx="' + i + '"]');
+      var elMB = document.querySelector('.mem-card[data-idx="' + j + '"]');
+      if (elMA) elMA.classList.add('mem-match');
+      if (elMB) elMB.classList.add('mem-match');
       setTimeout(() => {
         S.mem.cards[i].matched = true;
         S.mem.cards[j].matched = true;
@@ -4012,6 +4053,10 @@ function memFlip(idx) {
         }
       }, 400);
     } else {
+      var elWA = document.querySelector('.mem-card[data-idx="' + i + '"]');
+      var elWB = document.querySelector('.mem-card[data-idx="' + j + '"]');
+      if (elWA) elWA.classList.add('mem-wrong');
+      if (elWB) elWB.classList.add('mem-wrong');
       setTimeout(() => {
         const elA = document.querySelector(`.mem-card[data-idx="${i}"]`);
         const elB = document.querySelector(`.mem-card[data-idx="${j}"]`);
@@ -5788,9 +5833,9 @@ function renderStatsPage() {
   const BADGES = [
     { icon:'🌱', name:'התחלה', earned: learned >= 1,      req:'לימד מילה ראשונה' },
     { icon:'🔥', name:'3 ימים', earned: streak >= 3,       req:'3 ימים ברצף' },
-    { icon:'⭐', name:'10 מלות', earned: mastered >= 10,   req:'10 מילים נרכשו' },
-    { icon:'🏅', name:'50 מלות', earned: mastered >= 50,   req:'50 מילים נרכשו' },
-    { icon:'🎖️', name:'100 מלות',earned: mastered >= 100,  req:'100 מילים נרכשו' },
+    { icon:'⭐', name:'10 מילים', earned: mastered >= 10,   req:'10 מילים נרכשו' },
+    { icon:'🏅', name:'50 מילים', earned: mastered >= 50,   req:'50 מילים נרכשו' },
+    { icon:'🎖️', name:'100 מילים',earned: mastered >= 100,  req:'100 מילים נרכשו' },
     { icon:'🚀', name:'50 משחקים', earned: gamesPlayed>=50, req:'50 משחקים' },
     { icon:'🏆', name:'מאסטר', earned: mastered >= 200,   req:'200 מילים נרכשו' },
     { icon:'💎', name:'אגדה',   earned: streak >= 30,      req:'30 ימים ברצף' },
