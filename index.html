@@ -4651,6 +4651,7 @@ function renderWordOfDay() {
       <div id="wod-front">
         <div class="wod-arabic">${w.arabic}</div>
         <div class="wod-translit">${w.translit}</div>
+        <button class="audio-btn" onclick="event.stopPropagation();speakArabic(this.dataset.text)" data-text="${w.arabic}" title="הקשב לביטוי" style="margin-top:10px">🔊 הקשב</button>
         <div class="wod-flip-hint">לחץ לגלות את המשמעות</div>
       </div>
       <div id="wod-back" style="display:none">
