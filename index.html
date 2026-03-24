@@ -6,6 +6,9 @@
   <title>ערבית בכיף 🎉 — לומדים פלסטינית</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700;900&family=Heebo:wght@300;400;700;900&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1770,9 +1773,193 @@
     .odd-card.odd-correct { background: rgba(0,200,150,0.14) !important; border-color: rgba(0,200,150,0.55) !important; }
     .odd-card.odd-wrong   { background: rgba(255,77,98,0.14) !important;  border-color: rgba(255,77,98,0.55) !important; }
     .odd-cat-hint { font-size:0.72rem; color:var(--muted); letter-spacing:1px; margin-bottom:10px; text-transform:uppercase; }
+
+    /* ══ AUTH OVERLAY ═════════════════════════════════════════════════ */
+    #auth-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(5,5,16,0.97);
+      backdrop-filter: blur(16px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .auth-card {
+      background: rgba(13,13,32,0.9);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 36px 32px 28px;
+      width: 100%; max-width: 400px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.65);
+    }
+    .auth-logo {
+      text-align: center;
+      font-size: 1.7rem; font-weight: 900;
+      color: var(--text); margin-bottom: 24px;
+    }
+    .auth-logo span { color: var(--blue); }
+    .auth-tabs {
+      display: flex; border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+      padding: 4px; margin-bottom: 24px; gap: 4px;
+    }
+    .auth-tab {
+      flex: 1; padding: 10px; border: none;
+      background: transparent; border-radius: 9px;
+      color: var(--muted); font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; font-family: inherit;
+    }
+    .auth-tab.active { background: rgba(77,143,255,0.18); color: var(--blue); }
+    .auth-field { margin-bottom: 14px; }
+    .auth-field label {
+      display: block; font-size: 0.82rem; color: var(--muted);
+      margin-bottom: 6px; font-weight: 500;
+    }
+    .auth-field input {
+      width: 100%; padding: 13px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; color: var(--text);
+      font-size: 1rem; font-family: inherit;
+      transition: border-color 0.2s; outline: none;
+    }
+    .auth-field input:focus {
+      border-color: var(--blue);
+      background: rgba(77,143,255,0.05);
+    }
+    .auth-submit {
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, var(--blue), #7b5ea7);
+      border: none; border-radius: 12px;
+      color: #fff; font-size: 1rem; font-weight: 700;
+      cursor: pointer; margin-top: 6px;
+      transition: opacity 0.2s, transform 0.15s;
+      font-family: inherit;
+    }
+    .auth-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+    .auth-submit:active { transform: translateY(0); }
+    .auth-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .auth-error {
+      color: var(--red); font-size: 0.85rem;
+      text-align: center; margin-top: 12px; min-height: 20px;
+    }
+    .auth-error.success { color: var(--green); }
+    .auth-forgot {
+      display: block; text-align: center; color: var(--blue);
+      font-size: 0.83rem; margin-top: 12px; cursor: pointer;
+      background: none; border: none; font-family: inherit;
+    }
+    .auth-forgot:hover { text-decoration: underline; }
+    #user-badge {
+      display: none; align-items: center; gap: 8px;
+      cursor: pointer; padding: 4px 10px 4px 4px;
+      border-radius: 20px;
+      background: rgba(77,143,255,0.1);
+      border: 1px solid rgba(77,143,255,0.2);
+      transition: background 0.2s;
+    }
+    #user-badge:hover { background: rgba(77,143,255,0.2); }
+    #user-avatar {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), #7b5ea7);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 900; color: #fff;
+      flex-shrink: 0;
+    }
+    #user-name-display {
+      font-size: 0.82rem; font-weight: 600; color: var(--text);
+      max-width: 90px; overflow: hidden;
+      text-overflow: ellipsis; white-space: nowrap;
+    }
+    .auth-user-menu {
+      position: fixed; top: 58px; right: 16px;
+      background: rgba(13,13,32,0.97);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px; padding: 8px;
+      min-width: 200px; z-index: 2000;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      backdrop-filter: blur(20px);
+    }
+    .auth-menu-header {
+      padding: 10px 14px 10px;
+      font-size: 0.8rem; color: var(--muted);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 4px;
+    }
+    .auth-menu-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 11px 14px; border-radius: 9px;
+      font-size: 0.9rem; color: var(--text);
+      cursor: pointer; transition: background 0.15s;
+      border: none; background: none;
+      width: 100%; text-align: right; font-family: inherit;
+    }
+    .auth-menu-item:hover { background: rgba(255,255,255,0.06); }
+    .auth-menu-item.danger { color: var(--red); }
+    html.light-mode #auth-overlay { background: rgba(230,230,250,0.97); }
+    html.light-mode .auth-card {
+      background: rgba(255,255,255,0.95);
+      border-color: rgba(0,0,0,0.08);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.15);
+    }
+    html.light-mode .auth-field input {
+      background: rgba(0,0,0,0.04);
+      border-color: rgba(0,0,0,0.12); color: #111;
+    }
+    html.light-mode .auth-field input:focus { background: rgba(77,143,255,0.06); }
+    html.light-mode .auth-tab { color: #555; }
+    html.light-mode .auth-tabs { background: rgba(0,0,0,0.05); }
+    html.light-mode .auth-user-menu {
+      background: rgba(255,255,255,0.98);
+      border-color: rgba(0,0,0,0.1);
+    }
+    html.light-mode .auth-menu-item { color: #111; }
+    html.light-mode #user-badge { background: rgba(77,143,255,0.08); }
   </style>
 </head>
 <body>
+<!-- ════════════════════════════════════ AUTH OVERLAY ════════════════════════════════════ -->
+<div id="auth-overlay">
+  <div class="auth-card">
+    <div class="auth-logo">ערבית<span> בכיף</span> 🎉</div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-login" onclick="authSwitchTab('login')">התחברות</button>
+      <button class="auth-tab" id="tab-register" onclick="authSwitchTab('register')">הרשמה</button>
+    </div>
+    <div id="auth-form-login">
+      <div class="auth-field">
+        <label>אימייל</label>
+        <input type="email" id="login-email" placeholder="your@email.com" autocomplete="email" dir="ltr">
+      </div>
+      <div class="auth-field">
+        <label>סיסמא</label>
+        <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" dir="ltr" onkeydown="if(event.key==='Enter')authDoLogin()">
+      </div>
+      <button class="auth-submit" id="login-btn" onclick="authDoLogin()">התחבר</button>
+      <button class="auth-forgot" onclick="authForgotPassword()">שכחת סיסמא?</button>
+    </div>
+    <div id="auth-form-register" style="display:none">
+      <div class="auth-field">
+        <label>שם מלא</label>
+        <input type="text" id="reg-name" placeholder="ישראל ישראלי" autocomplete="name">
+      </div>
+      <div class="auth-field">
+        <label>אימייל</label>
+        <input type="email" id="reg-email" placeholder="your@email.com" autocomplete="email" dir="ltr">
+      </div>
+      <div class="auth-field">
+        <label>סיסמא (לפחות 6 תווים)</label>
+        <input type="password" id="reg-password" placeholder="••••••••" autocomplete="new-password" dir="ltr" onkeydown="if(event.key==='Enter')authDoRegister()">
+      </div>
+      <button class="auth-submit" id="register-btn" onclick="authDoRegister()">צור חשבון</button>
+    </div>
+    <div class="auth-error" id="auth-error"></div>
+  </div>
+</div>
+
+<div id="auth-user-menu" class="auth-user-menu" style="display:none">
+  <div class="auth-menu-header" id="auth-menu-header"></div>
+  <button class="auth-menu-item" onclick="hideUserMenu();showStats()">📊 הסטטיסטיקות שלי</button>
+  <button class="auth-menu-item danger" onclick="authDoSignOut()">🚶 התנתק</button>
+</div>
 
 <!-- ═══════════════════════════════════════════ VIEW: HOME ═══════════════════════════════════════════ -->
 <section id="view-home" class="view active">
@@ -1789,6 +1976,10 @@
         </select>
       </div>
       <button class="theme-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="החלף מצב תאורה">🌙</button>
+      <div id="user-badge" onclick="toggleUserMenu()">
+        <div id="user-avatar">?</div>
+        <span id="user-name-display"></span>
+      </div>
     </div>
   </nav>
   <div class="xp-streak-row" id="xp-streak-row">
@@ -3077,6 +3268,7 @@ function saveGameResult(catId, gameId, score, total) {
   S.progress.xp += bonus;
   updateStreak();
   localStorage.setItem('arabicGameProgress', JSON.stringify(S.progress));
+  saveProgressToFirestore();
   updateXPDisplay();
   checkBadgeUnlocks();
 }
@@ -5773,6 +5965,7 @@ function getFavorites() {
 }
 function saveFavorites(set) {
   localStorage.setItem('arabicFavorites', JSON.stringify([...set]));
+  saveProgressToFirestore();
 }
 function toggleFavorite(wordId) {
   const favs = getFavorites();
@@ -6145,14 +6338,189 @@ function toggleFcDirection() {
 })();
 
 // ═══════════════════════════════════════════════════════════════════════
+//  FIREBASE AUTH + FIRESTORE
+// ═══════════════════════════════════════════════════════════════════════
+firebase.initializeApp({
+  apiKey: 'AIzaSyASdLygd1j_QvD7pxE4wzD0V4yaSVhWwe4',
+  authDomain: 'arabic-learn-5f5ba.firebaseapp.com',
+  projectId: 'arabic-learn-5f5ba',
+  storageBucket: 'arabic-learn-5f5ba.firebasestorage.app',
+  messagingSenderId: '582551612607',
+  appId: '1:582551612607:web:809d1be933def03514aa0a'
+});
+var _auth = firebase.auth();
+var _db   = firebase.firestore();
+var _currentUser = null;
+var _fsaveTimer  = null;
+
+function _userDoc() {
+  return _currentUser ? _db.collection('users').doc(_currentUser.uid) : null;
+}
+
+async function loadProgressFromFirestore() {
+  var doc = _userDoc();
+  if (!doc) return;
+  try {
+    var snap = await doc.get();
+    if (snap.exists) {
+      var data = snap.data();
+      if (data.progress)  { S.progress = data.progress; localStorage.setItem('arabicGameProgress', JSON.stringify(S.progress)); }
+      if (data.favorites) { localStorage.setItem('arabicFavorites', JSON.stringify(data.favorites)); }
+    }
+  } catch(e) { console.warn('Firestore load failed, using localStorage:', e); }
+}
+
+function saveProgressToFirestore() {
+  var doc = _userDoc();
+  if (!doc) return;
+  clearTimeout(_fsaveTimer);
+  _fsaveTimer = setTimeout(function() {
+    var favs = Array.from(getFavorites());
+    doc.set({ progress: S.progress, favorites: favs, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true })
+       .catch(function(e) { console.warn('Firestore save failed:', e); });
+  }, 1500);
+}
+
+// ── Auth UI ───────────────────────────────────────────────────────────────────────
+function authSwitchTab(tab) {
+  var isLogin = tab === 'login';
+  document.getElementById('auth-form-login').style.display    = isLogin ? '' : 'none';
+  document.getElementById('auth-form-register').style.display = isLogin ? 'none' : '';
+  document.getElementById('tab-login').classList.toggle('active', isLogin);
+  document.getElementById('tab-register').classList.toggle('active', !isLogin);
+  document.getElementById('auth-error').textContent = '';
+  document.getElementById('auth-error').className = 'auth-error';
+}
+
+function _authSetLoading(btnId, loading) {
+  var el = document.getElementById(btnId);
+  if (!el) return;
+  el.disabled = loading;
+  if (btnId === 'login-btn')    el.textContent = loading ? '...' : 'התחבר';
+  if (btnId === 'register-btn') el.textContent = loading ? '...' : 'צור חשבון';
+}
+
+function _authShowError(msg, isSuccess) {
+  var el = document.getElementById('auth-error');
+  el.textContent = msg;
+  el.className = 'auth-error' + (isSuccess ? ' success' : '');
+}
+
+var _fbErrMap = {
+  'auth/user-not-found':        'משתמש לא נמצא',
+  'auth/wrong-password':        'סיסמא שגויא',
+  'auth/invalid-email':         'כתובת אימייל לא תקינה',
+  'auth/email-already-in-use':  'האימייל כבר רשום',
+  'auth/weak-password':         'סיסמא קצרה מדי (לפחות 6 תווים)',
+  'auth/too-many-requests':     'יותר מדי ניסיונות — נסה שוב מאוחר יותר',
+  'auth/invalid-credential':    'אימייל או סיסמא שגויים',
+  'auth/network-request-failed':'שגיאת רשת — בדוק חיבור אינטרנט'
+};
+
+function authDoLogin() {
+  var email    = (document.getElementById('login-email').value    || '').trim();
+  var password =  document.getElementById('login-password').value || '';
+  if (!email || !password) { _authShowError('מלא אימייל וסיסמא'); return; }
+  _authSetLoading('login-btn', true);
+  _authShowError('');
+  _auth.signInWithEmailAndPassword(email, password)
+    .catch(function(e) {
+      _authSetLoading('login-btn', false);
+      _authShowError(_fbErrMap[e.code] || e.message);
+    });
+}
+
+function authDoRegister() {
+  var name     = (document.getElementById('reg-name').value     || '').trim();
+  var email    = (document.getElementById('reg-email').value    || '').trim();
+  var password =  document.getElementById('reg-password').value || '';
+  if (!name)             { _authShowError('הכנס שם מלא'); return; }
+  if (!email || !password) { _authShowError('מלא את כל השדות'); return; }
+  _authSetLoading('register-btn', true);
+  _authShowError('');
+  _auth.createUserWithEmailAndPassword(email, password)
+    .then(function(cred) {
+      return cred.user.updateProfile({ displayName: name })
+        .then(function() {
+          return _db.collection('users').doc(cred.user.uid).set({
+            displayName: name,
+            email: email,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          }, { merge: true });
+        });
+    })
+    .catch(function(e) {
+      _authSetLoading('register-btn', false);
+      _authShowError(_fbErrMap[e.code] || e.message);
+    });
+}
+
+function authForgotPassword() {
+  var email = (document.getElementById('login-email').value || '').trim();
+  if (!email) { _authShowError('הכנס אימייל לאיפוס סיסמא'); return; }
+  _auth.sendPasswordResetEmail(email)
+    .then(function()  { _authShowError('📧 נשלח מייל לאיפוס סיסמא', true); })
+    .catch(function(e){ _authShowError(_fbErrMap[e.code] || e.message); });
+}
+
+function authDoSignOut() {
+  hideUserMenu();
+  _auth.signOut();
+}
+
+function toggleUserMenu() {
+  var menu = document.getElementById('auth-user-menu');
+  if (menu) menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+}
+function hideUserMenu() {
+  var menu = document.getElementById('auth-user-menu');
+  if (menu) menu.style.display = 'none';
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#user-badge') && !e.target.closest('#auth-user-menu')) hideUserMenu();
+});
+
+function _updateNavUser(user) {
+  var badge  = document.getElementById('user-badge');
+  var avatar = document.getElementById('user-avatar');
+  var nameEl = document.getElementById('user-name-display');
+  var header = document.getElementById('auth-menu-header');
+  if (!badge) return;
+  if (user) {
+    var name = user.displayName || user.email.split('@')[0];
+    badge.style.display = 'flex';
+    if (avatar) avatar.textContent = name.charAt(0).toUpperCase();
+    if (nameEl) nameEl.textContent = name;
+    if (header) header.textContent = name + '  ·  ' + user.email;
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+// ── Auth state listener ─────────────────────────────────────────────────
+_auth.onAuthStateChanged(async function(user) {
+  _currentUser = user;
+  var overlay = document.getElementById('auth-overlay');
+  if (user) {
+    if (overlay) overlay.style.display = 'none';
+    _updateNavUser(user);
+    loadProgress();
+    await loadProgressFromFirestore();
+    updateHomeStats();
+    updateStreak();
+    updateXPDisplay();
+    renderWordOfDay();
+    initMusic();
+    applyTranslit();
+  } else {
+    if (overlay) overlay.style.display = 'flex';
+    _updateNavUser(null);
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════════════════════
-loadProgress();
-updateHomeStats();
-updateStreak();
-updateXPDisplay();
-renderWordOfDay();
-initMusic();
 initTheme();
 applyTranslit();
 </script>
