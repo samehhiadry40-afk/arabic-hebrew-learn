@@ -1185,6 +1185,9 @@
         <button class="btn-secondary-sm" onclick="showStats()">📊 הסטטיסטיקות שלי</button>
         <button class="btn-secondary-sm" onclick="showFavoritesGame()">⭐ מילים מועדפות</button>
       </div>
+      <div id="review-reminder" style="display:none;margin-top:14px;background:rgba(240,192,64,0.12);border:1px solid rgba(240,192,64,0.35);border-radius:12px;padding:10px 18px;font-size:0.88rem;cursor:pointer" onclick="showLevels()">
+        🔁 יש לך <span id="review-count">0</span> מילים שמחכות לחזרה — לחץ לתרגל!
+      </div>
     </div>
     <div id="wod-container"></div>
     <div class="stats-bar anim-in" id="home-stats">
@@ -2792,6 +2795,13 @@ function updateHomeStats() {
   document.getElementById('stat-words').textContent = learned;
   document.getElementById('stat-games').textContent = games;
   document.getElementById('stat-stars').textContent = stars;
+  const due = getDueCount();
+  const reminder = document.getElementById('review-reminder');
+  const countEl = document.getElementById('review-count');
+  if (reminder && countEl) {
+    countEl.textContent = due;
+    reminder.style.display = due > 0 ? 'block' : 'none';
+  }
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -2962,22 +2972,37 @@ function renderFlashcard() {
       <div class="flashcard" id="fc-card" onclick="flipCard()">
         <div class="fc-inner">
           <div class="fc-front">
-            <div class="fc-label">עברית ${isWordMastered(w.id) ? '<span style="color:var(--green);font-size:0.75rem">✓ נרכש</span>' : ''}</div>
-            <div class="fc-meaning">${w.meaning}</div>
-            <div class="fc-hint">לחץ להפוך ←→</div>
+            ${_fcReverse
+              ? `<div class="fc-label">ערבית ${isWordMastered(w.id) ? '<span style="color:var(--green);font-size:0.75rem">✓ נרכש</span>' : ''}</div>
+                 <div class="fc-arabic">${w.arabic}</div>
+                 <div class="fc-translit fc-translit">${w.translit}</div>
+                 <div class="fc-hint">לחץ להפוך ←→</div>`
+              : `<div class="fc-label">עברית ${isWordMastered(w.id) ? '<span style="color:var(--green);font-size:0.75rem">✓ נרכש</span>' : ''}</div>
+                 <div class="fc-meaning">${w.meaning}</div>
+                 <div class="fc-hint">לחץ להפוך ←→</div>`
+            }
           </div>
           <div class="fc-back">
-            <div class="fc-arabic">${w.arabic}</div>
-            <div class="fc-translit">${w.translit}</div>
-            <div class="fc-meaning-back">${w.meaning}</div>
+            ${_fcReverse
+              ? `<div class="fc-meaning-back">${w.meaning}</div>`
+              : `<div class="fc-arabic">${w.arabic}</div>
+                 <div class="fc-translit">${w.translit}</div>
+                 <div class="fc-meaning-back">${w.meaning}</div>`
+            }
           </div>
         </div>
+      </div>
+      <div style="text-align:center;margin-bottom:6px">
+        <button class="quiz-dir-toggle${_fcReverse ? ' active' : ''}" onclick="toggleFcDirection()" style="font-size:0.8rem">
+          ${_fcReverse ? '🔄 ערבית → עברית' : '🔄 עברית → ערבית'}
+        </button>
       </div>
       <div class="fc-nav" style="gap:8px;flex-wrap:wrap;">
         <button class="nav-btn" id="fc-prev" onclick="fcPrev()" ${idx === 0 ? 'disabled' : ''}>→ הקודם</button>
         <button id="fav-btn-${w.id}" class="fav-btn${getFavorites().has(w.id)?' active':''}" onclick="toggleFavorite('${w.id}');event.stopPropagation()">
           ${getFavorites().has(w.id) ? '⭐ מועדף' : '☆ מועדף'}
         </button>
+        <button class="fav-btn" onclick="showWordDetail('${w.id}')" title="פרטי מילה">ℹ️</button>
         ${idx < words.length - 1
           ? `<button class="nav-btn" onclick="fcNext()">הבא ←</button>`
           : `<button class="nav-btn done-btn" onclick="fcDone()">סיימתי! ✓</button>`
@@ -4592,6 +4617,7 @@ function recordWordAnswer(wordId, correct) {
   } else {
     S.progress.wordStats[wordId].w++;
   }
+  S.progress.wordStats[wordId].lastSeen = Date.now();
   localStorage.setItem('arabicGameProgress', JSON.stringify(S.progress));
 }
 function isWordMastered(wordId) {
@@ -4602,6 +4628,15 @@ function getMasteredCount() {
   const ws = S.progress.wordStats || {};
   return Object.values(ws).filter(s => s.c >= 3).length;
 }
+function getDueCount() {
+  const ws = S.progress.wordStats || {};
+  const now = Date.now();
+  const DAY = 24 * 60 * 60 * 1000;
+  return VOCAB.filter(w => {
+    const s = ws[w.id];
+    return s && s.lastSeen && (now - s.lastSeen) > DAY && s.c < 5;
+  }).length;
+}
 function getSpacedPool(words) {
   const ws = S.progress.wordStats || {};
   return [...words].sort((a, b) => {
@@ -4611,6 +4646,34 @@ function getSpacedPool(words) {
     const scoreB = sb.c - sb.w * 0.5;
     return scoreA - scoreB;
   });
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  WORD DETAIL
+// ═══════════════════════════════════════════════════════════════════════
+function showWordDetail(wordId) {
+  const w = VOCAB.find(v => v.id === wordId);
+  if (!w) return;
+  const cat = CATEGORIES.find(c => c.id === w.category);
+  const stats = (S.progress.wordStats || {})[w.id] || { c: 0, w: 0 };
+  const mastered = isWordMastered(w.id);
+  const overlay = document.getElementById('word-detail-overlay');
+  document.getElementById('wd-arabic').textContent = w.arabic;
+  document.getElementById('wd-translit').textContent = w.translit;
+  document.getElementById('wd-meaning').textContent = w.meaning;
+  document.getElementById('wd-meta').innerHTML = `
+    <span style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:4px 12px;font-size:0.78rem">${cat ? cat.icon + ' ' + cat.name : ''}</span>
+    <span style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:4px 12px;font-size:0.78rem">רמה ${w.level}</span>
+    ${mastered ? '<span style="background:rgba(0,200,150,0.15);border:1px solid var(--green);border-radius:8px;padding:4px 12px;font-size:0.78rem;color:var(--green)">✓ נרכש</span>' : ''}
+  `;
+  document.getElementById('wd-stats').innerHTML = stats.c + stats.w > 0
+    ? `נענה ${stats.c + stats.w} פעמים · ${stats.c} נכון · ${stats.w} טעות`
+    : 'עדיין לא תורגל';
+  overlay.style.display = 'flex';
+}
+function closeWordDetail(e) {
+  if (e && e.target !== document.getElementById('word-detail-overlay')) return;
+  document.getElementById('word-detail-overlay').style.display = 'none';
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -4792,12 +4855,17 @@ function renderStatsPage() {
 //  REVERSE QUIZ MODE
 // ═══════════════════════════════════════════════════════════════════════
 let _quizReverse = false;
+let _fcReverse = false;
 
 function toggleQuizDirection() {
   _quizReverse = !_quizReverse;
   const btn = document.getElementById('quiz-dir-btn');
   if (btn) { btn.classList.toggle('active', _quizReverse); btn.textContent = _quizReverse ? '🔄 עברית ← ערבית' : '🔄 ערבית → עברית'; }
   if (S.game === 'quiz') renderQuizQuestion();
+}
+function toggleFcDirection() {
+  _fcReverse = !_fcReverse;
+  if (S.game === 'flashcards') renderFlashcard();
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -4835,5 +4903,16 @@ initMusic();
 initTheme();
 applyTranslit();
 </script>
+<!-- WORD DETAIL MODAL -->
+<div id="word-detail-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;align-items:center;justify-content:center" onclick="closeWordDetail(event)">
+  <div id="word-detail-box" style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px 24px;max-width:380px;width:90%;position:relative;text-align:center">
+    <button onclick="closeWordDetail()" style="position:absolute;top:12px;left:14px;background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer">✕</button>
+    <div id="wd-arabic" style="font-family:'Noto Sans Arabic',sans-serif;font-size:2.8rem;font-weight:900;color:var(--gold);line-height:1.2;margin-bottom:6px"></div>
+    <div id="wd-translit" style="font-size:1rem;color:var(--blue);font-weight:600;margin-bottom:4px"></div>
+    <div id="wd-meaning" style="font-size:1.3rem;font-weight:700;margin-bottom:16px;color:var(--text)"></div>
+    <div id="wd-meta" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:16px"></div>
+    <div id="wd-stats" style="background:var(--bg2);border-radius:10px;padding:10px 16px;font-size:0.82rem;color:var(--muted)"></div>
+  </div>
+</div>
 </body>
 </html>
