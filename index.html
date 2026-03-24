@@ -2742,7 +2742,16 @@ function showView(id) {
 function goHome() {
   stopSpeedTimer();
   stopMemTimer();
-  loadProgress();
+  function speakArabic(text) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = 'ar';
+  utt.rate = 0.85;
+  window.speechSynthesis.speak(utt);
+}
+
+loadProgress();
   updateHomeStats();
   updateXPDisplay();
   renderWordOfDay();
@@ -2949,6 +2958,7 @@ function renderFlashcard() {
           </div>
           <div class="fc-back">
             <div class="fc-arabic">${w.arabic}</div>
+            <button class="audio-btn" onclick="event.stopPropagation();speakArabic(this.dataset.text)" data-text="${w.arabic}" title="הקשב לביטוי">🔊</button>
             <div class="fc-translit">${w.translit}</div>
             <div class="fc-meaning-back">${w.meaning}</div>
           </div>
@@ -3026,7 +3036,8 @@ function renderQuizQuestion() {
     questionHtml = `
       <div class="quiz-q-label">מה המשמעות? ${masteredDot}</div>
       <div class="quiz-q-arabic">${w.arabic}</div>
-      <div class="quiz-q-translit">${w.translit}</div>`;
+      <div class="quiz-q-translit">${w.translit}</div>
+      <div class="quiz-q-audio"><button class="audio-btn" onclick="speakArabic(this.dataset.text)" data-text="${w.arabic}" title="הקשב לביטוי">🔊 הקשב</button></div>`;
     optsHtml = opts.map(opt => `
       <button class="quiz-option" data-optid="${opt.id}" onclick="qzSelect(this,'${opt.id}','${w.id}')">
         ${opt.meaning}
@@ -3231,6 +3242,7 @@ function renderSpeedQuestion() {
         <div class="sp-q-label">מה המשמעות?</div>
         <div class="sp-q-arabic">${w.arabic}</div>
         <div class="sp-q-translit">${w.translit}</div>
+        <div style="text-align:center;margin-top:8px"><button class="audio-btn" onclick="speakArabic(this.dataset.text)" data-text="${w.arabic}" title="הקשב לביטוי">🔊 הקשב</button></div>
       </div>
       <div class="sp-options">
         ${opts.map(opt => `
