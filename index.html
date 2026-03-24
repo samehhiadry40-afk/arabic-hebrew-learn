@@ -1670,6 +1670,106 @@
     .mem-card.mem-wrong {
       animation: memShake 0.45s cubic-bezier(0.4,0,0.2,1) both;
     }
+
+    /* ══ NEW GAME CARD ACCENTS ══════════════════════════════════════════ */
+    .game-card[data-game="truefalse"] { border-left: 4px solid rgba(255,200,50,0.7) !important; }
+    .game-card[data-game="spelling"]  { border-left: 4px solid rgba(255,100,200,0.7) !important; }
+    .game-card[data-game="sprint"]    { border-left: 4px solid rgba(80,230,160,0.7) !important; }
+    .game-card[data-game="catsort"]   { border-left: 4px solid rgba(180,130,255,0.7) !important; }
+    .game-card[data-game="listen"]    { border-left: 4px solid rgba(80,200,255,0.7) !important; }
+    .game-card[data-game="oddone"]    { border-left: 4px solid rgba(255,140,80,0.7) !important; }
+    .game-card[data-game="truefalse"]:hover { border-color:rgba(255,200,50,0.5)!important; box-shadow:var(--shadow-md),0 0 32px rgba(255,200,50,0.12); }
+    .game-card[data-game="spelling"]:hover  { border-color:rgba(255,100,200,0.5)!important; box-shadow:var(--shadow-md),0 0 32px rgba(255,100,200,0.12); }
+    .game-card[data-game="sprint"]:hover    { border-color:rgba(80,230,160,0.5)!important;  box-shadow:var(--shadow-md),0 0 32px rgba(80,230,160,0.12); }
+    .game-card[data-game="catsort"]:hover   { border-color:rgba(180,130,255,0.5)!important; box-shadow:var(--shadow-md),0 0 32px rgba(180,130,255,0.12); }
+    .game-card[data-game="listen"]:hover    { border-color:rgba(80,200,255,0.5)!important;  box-shadow:var(--shadow-md),0 0 32px rgba(80,200,255,0.12); }
+    .game-card[data-game="oddone"]:hover    { border-color:rgba(255,140,80,0.5)!important;  box-shadow:var(--shadow-md),0 0 32px rgba(255,140,80,0.12); }
+    .game-card:nth-child(6){animation:slideUp .35s .28s var(--ease) both}
+    .game-card:nth-child(7){animation:slideUp .35s .31s var(--ease) both}
+    .game-card:nth-child(8){animation:slideUp .35s .34s var(--ease) both}
+    .game-card:nth-child(9){animation:slideUp .35s .37s var(--ease) both}
+    .game-card:nth-child(10){animation:slideUp .35s .40s var(--ease) both}
+    .game-card:nth-child(11){animation:slideUp .35s .43s var(--ease) both}
+
+    /* ══ SPELL TILES ═══════════════════════════════════════════════════ */
+    .spell-answer-box {
+      min-height: 70px; background: rgba(255,255,255,0.04);
+      border: 2px dashed rgba(255,255,255,0.15); border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: 6px; padding: 10px 14px; direction: rtl;
+      font-family: 'Noto Sans Arabic', sans-serif; font-size: 2rem;
+      font-weight: 900; color: var(--gold); letter-spacing: 2px;
+      transition: border-color .2s, background .2s;
+    }
+    .spell-answer-box.correct { border-color: var(--green); background: rgba(0,200,150,0.08); }
+    .spell-answer-box.wrong   { border-color: var(--red);   background: rgba(255,77,98,0.08); }
+    .spell-tiles-row {
+      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+      padding: 8px 0;
+    }
+    .spell-tile {
+      background: rgba(77,143,255,0.12); border: 1.5px solid rgba(77,143,255,0.35);
+      border-radius: 10px; padding: 10px 14px; cursor: pointer;
+      font-family: 'Noto Sans Arabic', sans-serif; font-size: 1.5rem;
+      font-weight: 700; color: var(--text); transition: all .15s;
+      min-width: 44px; text-align: center;
+    }
+    .spell-tile:hover { background: rgba(77,143,255,0.22); transform: translateY(-2px); }
+    .spell-tile:disabled { opacity: 0.25; cursor: default; transform: none; }
+
+    /* ══ SPRINT GAME ═══════════════════════════════════════════════════ */
+    .sprint-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .sprint-opt {
+      background: rgba(13,13,32,0.55); backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.07); border-radius: var(--radius-md,18px);
+      color: var(--text); padding: 28px 16px; cursor: pointer;
+      font-size: 1.1rem; font-family: 'Heebo',sans-serif; font-weight: 700;
+      text-align: center; transition: all .18s; position: relative;
+    }
+    .sprint-opt:hover { background: rgba(77,143,255,0.14); border-color: rgba(77,143,255,0.45); transform: translateY(-3px); }
+    .sprint-opt.sp-correct { background: rgba(0,200,150,0.2) !important; border-color: var(--green) !important; }
+    .sprint-opt.sp-wrong   { background: rgba(255,77,98,0.2) !important;  border-color: var(--red) !important; }
+
+    /* ══ CATEGORY SORT ═════════════════════════════════════════════════ */
+    .csort-word-card {
+      background: var(--glass-bg,rgba(13,13,32,0.65)); backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-lg,24px);
+      padding: 40px 28px; text-align: center;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.4);
+    }
+    .csort-buckets { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .csort-bucket {
+      border-radius: var(--radius-md,18px); padding: 20px 14px; cursor: pointer;
+      font-size: 1rem; font-family: 'Heebo',sans-serif; font-weight: 700;
+      text-align: center; transition: all .2s; border: 2px solid;
+    }
+    .csort-bucket:hover { transform: translateY(-3px); filter: brightness(1.15); }
+
+    /* ══ LISTEN GAME ═══════════════════════════════════════════════════ */
+    .listen-play-btn {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border: none; border-radius: 50%; width: 88px; height: 88px;
+      cursor: pointer; font-size: 2.2rem; color: #fff;
+      box-shadow: 0 4px 24px rgba(77,143,255,0.4);
+      transition: transform .2s, box-shadow .2s; margin: 10px auto;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .listen-play-btn:hover { transform: scale(1.08); box-shadow: 0 8px 40px rgba(77,143,255,0.55); }
+    .listen-play-btn.playing { animation: listenPulse 0.8s ease-in-out infinite alternate; }
+    @keyframes listenPulse { from{box-shadow:0 4px 24px rgba(77,143,255,0.4);} to{box-shadow:0 4px 40px rgba(77,143,255,0.8);} }
+
+    /* ══ ODD ONE OUT ═══════════════════════════════════════════════════ */
+    .odd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .odd-card {
+      background: rgba(13,13,32,0.55); backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(255,255,255,0.08); border-radius: var(--radius-md,18px);
+      padding: 20px 14px; cursor: pointer; text-align: center;
+      transition: all .2s; position: relative; overflow: hidden;
+    }
+    .odd-card:hover { background: rgba(77,143,255,0.12); border-color: rgba(77,143,255,0.45); transform: translateY(-3px); box-shadow: 0 6px 24px rgba(77,143,255,0.2); }
+    .odd-card.odd-correct { background: rgba(0,200,150,0.14) !important; border-color: rgba(0,200,150,0.55) !important; }
+    .odd-card.odd-wrong   { background: rgba(255,77,98,0.14) !important;  border-color: rgba(255,77,98,0.55) !important; }
+    .odd-cat-hint { font-size:0.72rem; color:var(--muted); letter-spacing:1px; margin-bottom:10px; text-transform:uppercase; }
   </style>
 </head>
 <body>
@@ -3455,6 +3555,12 @@ function renderGames() {
     {id:'memory',     icon:'🧠', name:'משחק זיכרון',        desc:'מצא את הזוגות — עברית מול ערבית'},
     {id:'speed',      icon:'⚡', name:'מרוץ נגד הזמן',      desc:'60 שניות — כמה מילים תתרגם נכון?'},
     {id:'fillblank',  icon:'✍️', name:'השלם את המשפט',      desc:'השלם את המשפט הערבי עם המילה החסרה'},
+    {id:'truefalse', icon:'✅', name:'נכון / לא נכון',   desc:'האם התרגום נכון? לחץ ✓ או ✗ על כל מילה מהר'},
+    {id:'spelling',  icon:'🔤', name:'כתיב ערבי',           desc:'בנה את המילה הערבית מאותיות — כמה תזכור?'},
+    {id:'sprint',    icon:'🏃', name:'ספרינט — 2 אפשרויות', desc:'60 שניות, 2 אפשרויות בלבד — לחץ הכי מהר שאפשר'},
+    {id:'catsort',   icon:'🗂️', name:'מיון קטגוריות', desc:'מיין כל מילה לקטגוריה הנכונה — יד ימין!'},
+    {id:'listen',    icon:'👂', name:'משחק האזנה',           desc:'שמע את המילה הערבית — בחר את התרגום הנכון'},
+    {id:'oddone',    icon:'🔍', name:'מה לא שייך?',          desc:'מצא את המילה שלא שייכת לקבוצה — 4 מילים, אחת מתחפשת'},
   ];
   const grid = document.getElementById('games-grid');
   grid.innerHTML = '';
@@ -3486,6 +3592,8 @@ function selectGame(gameId) {
 function startGame(gameId) {
   stopSpeedTimer();
   stopMemTimer();
+  if (S.spr && S.spr.timerInt) { clearInterval(S.spr.timerInt); S.spr.timerInt = null; }
+  if (S.chain && S.chain.timerInt) { clearInterval(S.chain.timerInt); S.chain.timerInt = null; }
   const content = document.getElementById('game-content');
   content.innerHTML = '';
   switch(gameId) {
@@ -3494,6 +3602,12 @@ function startGame(gameId) {
     case 'memory':     initMemory();     break;
     case 'speed':      initSpeed();      break;
     case 'fillblank':  initFillBlank();  break;
+    case 'truefalse': initTrueFalse(); break;
+    case 'spelling':  initSpelling();  break;
+    case 'sprint':    initSprint();    break;
+    case 'catsort':   initCatSort();   break;
+    case 'listen':    initListen();    break;
+    case 'oddone':    initOddOne();    break;
   }
 }
 
@@ -4027,6 +4141,321 @@ function fbSelect(el, optIdx) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════
+//  GAME 6 — TRUE / FALSE (נכון / לא נכון)
+// ═══════════════════════════════════════════════════════════════════════
+function initTrueFalse() {
+  if (S.words.length < 2) { document.getElementById('game-content').innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--muted)"><div style="font-size:3rem;margin-bottom:16px">😕</div><div>אין מספיק מילים. נסה רמה גבוהה יותר!</div><button class="btn-primary" style="margin-top:24px" onclick="showGames()">חזור</button></div>'; return; }
+  const pool = shuffle([...S.words]);
+  const total = Math.min(20, pool.length * 2);
+  const qs = [];
+  for (let i = 0; i < total; i++) {
+    const w = pool[i % pool.length];
+    const isCorrect = Math.random() > 0.5;
+    const shownMeaning = isCorrect ? w.meaning : shuffle(S.words.filter(x => x.id !== w.id))[0]?.meaning || w.meaning;
+    qs.push({ w, shownMeaning, isCorrect });
+  }
+  S.tf = { idx: 0, score: 0, qs, streak: 0, answered: false };
+  renderTrueFalse();
+}
+function renderTrueFalse() {
+  var d = S.tf; if (d.idx >= d.qs.length) { showResults(d.score, d.qs.length, 'truefalse'); return; }
+  var q = d.qs[d.idx]; d.answered = false;
+  var pct = Math.round(d.idx / d.qs.length * 100);
+  var streakHtml = d.streak > 2 ? '<div style="text-align:center;color:var(--gold);font-weight:700;font-size:0.9rem;margin-top:8px">🔥 רצף: ' + d.streak + '</div>' : '';
+  document.getElementById('game-content').innerHTML =
+    '<div class="quiz-wrap anim-in">' +
+    '<div class="quiz-hdr"><div class="quiz-score-box">נכון: <span>' + d.score + '</span> / <span>' + d.qs.length + '</span></div>' +
+    '<div class="quiz-prog-bar"><div class="quiz-prog-fill" style="width:' + pct + '%"></div></div>' +
+    '<div style="font-size:0.82rem;color:var(--muted)">' + (d.idx+1) + '/' + d.qs.length + '</div></div>' +
+    '<div class="quiz-q-card" style="text-align:center;padding:32px 24px">' +
+    '<div style="font-size:0.72rem;color:var(--muted);letter-spacing:2px;margin-bottom:16px">האם התרגום נכון?</div>' +
+    '<div style="font-size:3rem;font-weight:900;color:var(--gold);margin-bottom:10px">' + q.w.arabic + '</div>' +
+    '<div style="font-size:0.9rem;color:var(--blue);margin-bottom:16px">' + q.w.translit + '</div>' +
+    '<div style="font-size:1.3rem;color:rgba(232,232,255,0.4);margin-bottom:16px">↕</div>' +
+    '<div style="font-size:1.55rem;font-weight:700;color:var(--text)">' + q.shownMeaning + '</div>' +
+    '</div>' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">' +
+    '<button class="quiz-option" style="padding:24px 16px;font-size:1.9rem;border-color:rgba(255,77,98,0.35)" onclick="tfAnswer(false)">✗<div style="font-size:0.8rem;margin-top:6px;color:var(--red)">לא נכון</div></button>' +
+    '<button class="quiz-option" style="padding:24px 16px;font-size:1.9rem;border-color:rgba(0,200,150,0.35)" onclick="tfAnswer(true)">✓<div style="font-size:0.8rem;margin-top:6px;color:var(--green)">נכון</div></button>' +
+    '</div>' + streakHtml + '</div>';
+}
+function tfAnswer(userTrue) {
+  if (S.tf.answered) return; S.tf.answered = true;
+  var q = S.tf.qs[S.tf.idx]; var correct = userTrue === q.isCorrect;
+  recordWordAnswer(q.w.id, correct);
+  if (correct) { S.tf.score++; S.tf.streak++; showToast('✓ נכון!' + (S.tf.streak > 2 ? ' 🔥×' + S.tf.streak : ''), 't-correct', 700); }
+  else { S.tf.streak = 0; showToast('✗ ' + (q.isCorrect ? q.w.meaning + ' = ' + q.shownMeaning : q.w.meaning + ' ≠ ' + q.shownMeaning), 't-wrong', 1300); }
+  setTimeout(function(){ S.tf.idx++; renderTrueFalse(); }, correct ? 600 : 1250);
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  GAME 7 — SPELLING (כתיב ערבי)
+// ═══════════════════════════════════════════════════════════════════════
+var _spellTyped = [];
+var _spellTiles = [];
+function initSpelling() {
+  if (S.words.length < 1) { document.getElementById('game-content').innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--muted)"><div style="font-size:3rem">😕</div><div>אין מספיק מילים</div><button class="btn-primary" style="margin-top:24px" onclick="showGames()">חזור</button></div>'; return; }
+  var pool = shuffle([...S.words]).slice(0, Math.min(10, S.words.length));
+  S.spell = { idx: 0, score: 0, words: pool, answered: false };
+  renderSpelling();
+}
+function renderSpelling() {
+  var d = S.spell; if (d.idx >= d.words.length) { showResults(d.score, d.words.length, 'spelling'); return; }
+  var w = d.words[d.idx]; d.answered = false;
+  _spellTyped = [];
+  var letters = w.arabic.split('');
+  var distractors = 'بتجحخدذرزسشصضطظعغفقكلمنهوي'.split('').filter(function(l){ return !letters.includes(l); });
+  _spellTiles = shuffle(letters.concat(shuffle(distractors).slice(0, Math.min(3, letters.length))));
+  var pct = Math.round(d.idx / d.words.length * 100);
+  var tilesHtml = _spellTiles.map(function(l, i){ return '<button class="spell-tile" id="sp-tile-' + i + '" onclick="spellPick(' + i + ')">' + l + '</button>'; }).join('');
+  document.getElementById('game-content').innerHTML =
+    '<div class="quiz-wrap anim-in">' +
+    '<div class="quiz-hdr"><div class="quiz-score-box">נכון: <span>' + d.score + '</span> / <span>' + d.words.length + '</span></div>' +
+    '<div class="quiz-prog-bar"><div class="quiz-prog-fill" style="width:' + pct + '%"></div></div>' +
+    '<div style="font-size:0.82rem;color:var(--muted)">' + (d.idx+1) + '/' + d.words.length + '</div></div>' +
+    '<div class="quiz-q-card" style="text-align:center">' +
+    '<div style="font-size:0.72rem;color:var(--muted);letter-spacing:2px;margin-bottom:12px">כתוב בערבית:</div>' +
+    '<div style="font-size:2rem;font-weight:900;color:var(--text);margin-bottom:6px">' + w.meaning + '</div>' +
+    '<div style="font-size:0.85rem;color:var(--muted);font-style:italic">רמז: ' + w.translit + '</div>' +
+    '</div>' +
+    '<div class="spell-answer-box" id="spell-answer">לחץ על אותיות למטה...</div>' +
+    '<div class="spell-tiles-row" id="spell-tiles">' + tilesHtml + '</div>' +
+    '<div style="display:flex;gap:10px;justify-content:center;margin-top:8px">' +
+    '<button class="nav-btn" onclick="spellClear()">🗑️ נקה</button>' +
+    '<button class="btn-primary" style="padding:12px 28px;font-size:1rem" onclick="spellCheck()">✓ בדוק</button>' +
+    '</div></div>';
+}
+function spellPick(i) {
+  if (S.spell.answered) return;
+  var btn = document.getElementById('sp-tile-' + i);
+  if (!btn || btn.disabled) return;
+  btn.disabled = true; btn.style.opacity = '0.3';
+  _spellTyped.push({ idx: i, letter: _spellTiles[i] });
+  var ansEl = document.getElementById('spell-answer');
+  if (ansEl) ansEl.textContent = _spellTyped.map(function(x){ return x.letter; }).join('');
+}
+function spellClear() {
+  _spellTyped = [];
+  _spellTiles.forEach(function(_, i){ var b = document.getElementById('sp-tile-' + i); if (b) { b.disabled = false; b.style.opacity = '1'; } });
+  var ansEl = document.getElementById('spell-answer');
+  if (ansEl) ansEl.textContent = 'לחץ על אותיות למטה...';
+}
+function spellCheck() {
+  if (S.spell.answered || !_spellTyped.length) return;
+  S.spell.answered = true;
+  var w = S.spell.words[S.spell.idx];
+  var typed = _spellTyped.map(function(x){ return x.letter; }).join('');
+  var correct = typed === w.arabic;
+  var ansEl = document.getElementById('spell-answer');
+  if (ansEl) { ansEl.textContent = typed; ansEl.classList.add(correct ? 'correct' : 'wrong'); }
+  recordWordAnswer(w.id, correct);
+  if (correct) { S.spell.score++; showToast('✓ מדויק!', 't-correct', 900); }
+  else { showToast('✗ התשובה הנכונה: ' + w.arabic, 't-wrong', 2000); }
+  setTimeout(function(){ S.spell.idx++; renderSpelling(); }, correct ? 900 : 2000);
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  GAME 8 — SPRINT (ספרינט)
+// ═══════════════════════════════════════════════════════════════════════
+function initSprint() {
+  if (S.words.length < 2) { document.getElementById('game-content').innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--muted)"><div style="font-size:3rem">😕</div><div>אין מספיק מילים</div><button class="btn-primary" style="margin-top:24px" onclick="showGames()">חזור</button></div>'; return; }
+  S.spr = { timerInt: null, timeLeft: 60, score: 0, total: 0, pool: shuffle([...S.words]), idx: 0, answered: false, combo: 0 };
+  renderSprintQ();
+  S.spr.timerInt = setInterval(function(){
+    S.spr.timeLeft--;
+    var el = document.getElementById('spr-timer');
+    if (el) el.textContent = S.spr.timeLeft + 's';
+    if (el && S.spr.timeLeft <= 10) el.style.color = 'var(--red)';
+    if (S.spr.timeLeft <= 0) { clearInterval(S.spr.timerInt); S.spr.timerInt = null; showResults(S.spr.score, S.spr.total || 1, 'sprint'); }
+  }, 1000);
+}
+function renderSprintQ() {
+  var d = S.spr;
+  if (d.idx >= d.pool.length) { d.idx = 0; d.pool = shuffle([...S.words]); }
+  var w = d.pool[d.idx]; d.answered = false;
+  var wrong = shuffle(S.words.filter(function(x){ return x.id !== w.id; }))[0] || { meaning: '---' };
+  var opts = Math.random() > 0.5 ? [{ m: w.meaning, correct: true }, { m: wrong.meaning, correct: false }] : [{ m: wrong.meaning, correct: false }, { m: w.meaning, correct: true }];
+  var comboHtml = d.combo > 2 ? '<div style="color:var(--gold);font-size:0.8rem;font-weight:700">🔥 קומבו ×' + d.combo + '</div>' : '';
+  document.getElementById('game-content').innerHTML =
+    '<div class="quiz-wrap anim-in">' +
+    '<div class="quiz-hdr" style="align-items:center">' +
+    '<div class="quiz-score-box">נקודות: <span id="spr-score">' + d.score + '</span></div>' +
+    '<div id="spr-timer" style="font-size:1.5rem;font-weight:900;color:var(--green)">' + d.timeLeft + 's</div>' +
+    comboHtml + '</div>' +
+    '<div class="quiz-q-card" style="text-align:center">' +
+    '<div style="font-size:0.72rem;color:var(--muted);letter-spacing:2px;margin-bottom:14px">מה המשמעות?</div>' +
+    '<div style="font-size:3.2rem;font-weight:900;color:var(--gold)">' + w.arabic + '</div>' +
+    '<div style="font-size:0.9rem;color:var(--blue);margin-top:8px">' + w.translit + '</div>' +
+    '</div>' +
+    '<div class="sprint-opts">' +
+    opts.map(function(o, i){ return '<button class="sprint-opt" id="spr-opt-' + i + '" onclick="sprintPick(this,' + o.correct + ')">' + o.m + '</button>'; }).join('') +
+    '</div></div>';
+}
+function sprintPick(el, correct) {
+  if (S.spr.answered) return; S.spr.answered = true; S.spr.total++;
+  el.classList.add(correct ? 'sp-correct' : 'sp-wrong');
+  var w = S.spr.pool[S.spr.idx];
+  recordWordAnswer(w.id, correct);
+  if (correct) { S.spr.score++; S.spr.combo++; }
+  else { S.spr.combo = 0; }
+  setTimeout(function(){ S.spr.idx++; if (S.spr.timerInt) renderSprintQ(); }, 350);
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  GAME 9 — CATEGORY SORT (מיון)
+// ═══════════════════════════════════════════════════════════════════════
+function initCatSort() {
+  var catMap = {};
+  VOCAB.forEach(function(w){ if(!catMap[w.category]) catMap[w.category]=[]; catMap[w.category].push(w); });
+  var goodCats = Object.keys(catMap).filter(function(k){ return catMap[k].length >= 3; });
+  if (goodCats.length < 2) { document.getElementById('game-content').innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--muted)"><div style="font-size:3rem">😕</div><div>אין מספיק קטגוריות</div><button class="btn-primary" style="margin-top:24px" onclick="showGames()">חזור</button></div>'; return; }
+  var twoC = shuffle(goodCats).slice(0, 2);
+  var words = [];
+  twoC.forEach(function(cat){ words = words.concat(shuffle(catMap[cat]).slice(0, 5)); });
+  words = shuffle(words);
+  var catNames = {};
+  CATEGORIES.forEach(function(c){ catNames[c.id] = c.name; });
+  S.csort = { idx: 0, score: 0, words: words, cats: twoC, catNames: catNames, answered: false };
+  renderCatSort();
+}
+function renderCatSort() {
+  var d = S.csort; if (d.idx >= d.words.length) { showResults(d.score, d.words.length, 'catsort'); return; }
+  var w = d.words[d.idx]; d.answered = false;
+  var pct = Math.round(d.idx / d.words.length * 100);
+  var colors = ['rgba(77,143,255,', 'rgba(170,85,255,'];
+  var buckets = d.cats.map(function(cat, i){ return '<button class="csort-bucket" data-cat="' + cat + '" style="background:' + colors[i] + '0.12);border-color:' + colors[i] + '0.4);color:var(--text)" onclick="csortPick(this.dataset.cat)">' + (d.catNames[cat] || cat) + '</button>'; }).join('');
+  document.getElementById('game-content').innerHTML =
+    '<div class="quiz-wrap anim-in">' +
+    '<div class="quiz-hdr"><div class="quiz-score-box">נכון: <span>' + d.score + '</span> / <span>' + d.words.length + '</span></div>' +
+    '<div class="quiz-prog-bar"><div class="quiz-prog-fill" style="width:' + pct + '%"></div></div>' +
+    '<div style="font-size:0.82rem;color:var(--muted)">' + (d.idx+1) + '/' + d.words.length + '</div></div>' +
+    '<div class="csort-word-card">' +
+    '<div style="font-size:0.72rem;color:var(--muted);letter-spacing:2px;margin-bottom:14px">לאיזה קטגוריה שייך?</div>' +
+    '<div style="font-size:2.8rem;font-weight:900;color:var(--gold);margin-bottom:8px">' + w.arabic + '</div>' +
+    '<div style="font-size:0.9rem;color:var(--blue);margin-bottom:6px">' + w.translit + '</div>' +
+    '<div style="font-size:1.1rem;font-weight:700;color:var(--text)">' + w.meaning + '</div>' +
+    '</div>' +
+    '<div class="csort-buckets">' + buckets + '</div></div>';
+}
+function csortPick(chosenCat) {
+  if (S.csort.answered) return; S.csort.answered = true;
+  var w = S.csort.words[S.csort.idx];
+  var correct = w.category === chosenCat;
+  recordWordAnswer(w.id, correct);
+  if (correct) { S.csort.score++; showToast('✓ נכון!', 't-correct', 700); }
+  else { showToast('✗ שייך ל: ' + (S.csort.catNames[w.category] || w.category), 't-wrong', 1200); }
+  setTimeout(function(){ S.csort.idx++; renderCatSort(); }, correct ? 650 : 1150);
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  GAME 10 — LISTEN & PICK (האזנה)
+// ═══════════════════════════════════════════════════════════════════════
+var _lisHasTTS = false;
+function initListen() {
+  _lisHasTTS = typeof speechSynthesis !== 'undefined';
+  if (S.words.length < 4) { document.getElementById('game-content').innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--muted)"><div style="font-size:3rem">😕</div><div>אין מספיק מילים</div><button class="btn-primary" style="margin-top:24px" onclick="showGames()">חזור</button></div>'; return; }
+  var pool = shuffle([...S.words]).slice(0, 15);
+  S.lis = { idx: 0, score: 0, words: pool, answered: false };
+  renderListen();
+}
+function renderListen() {
+  var d = S.lis; if (d.idx >= d.words.length) { showResults(d.score, d.words.length, 'listen'); return; }
+  var w = d.words[d.idx]; d.answered = false;
+  var pool = S.words.length >= 4 ? S.words : VOCAB;
+  var opts = rand4(w, pool);
+  var pct = Math.round(d.idx / d.words.length * 100);
+  var optsHtml = opts.map(function(o){ return '<button class="quiz-option" data-optid="' + o.id + '" data-correct="' + w.id + '" onclick="lisSelect(this,this.dataset.optid,this.dataset.correct)">' + o.meaning + '</button>'; }).join('');
+  var ttsHint = _lisHasTTS ? '' : '<div style="font-size:0.75rem;color:var(--muted);margin-top:6px">👁️ הקרא: ' + w.translit + '</div>';
+  document.getElementById('game-content').innerHTML =
+    '<div class="quiz-wrap anim-in">' +
+    '<div class="quiz-hdr"><div class="quiz-score-box">נכון: <span>' + d.score + '</span> / <span>' + d.words.length + '</span></div>' +
+    '<div class="quiz-prog-bar"><div class="quiz-prog-fill" style="width:' + pct + '%"></div></div>' +
+    '<div style="font-size:0.82rem;color:var(--muted)">' + (d.idx+1) + '/' + d.words.length + '</div></div>' +
+    '<div class="quiz-q-card" style="text-align:center">' +
+    '<div style="font-size:0.72rem;color:var(--muted);letter-spacing:2px;margin-bottom:14px">שמע את המילה ובחר תרגום</div>' +
+    '<button class="listen-play-btn" id="lis-play-btn" data-arabic="' + w.arabic.replace(/"/g, '&quot;') + '" data-wid="' + w.id + '" onclick="lisPlay(this.dataset.arabic,this.dataset.wid)">🔊</button>' +
+    ttsHint +
+    '</div>' +
+    '<div class="quiz-options">' + optsHtml + '</div></div>';
+  setTimeout(function(){ lisPlay(w.arabic, w.id); }, 400);
+}
+function lisPlay(arabic, wordId) {
+  var btn = document.getElementById('lis-play-btn');
+  if (_lisHasTTS) {
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(arabic);
+    u.lang = 'ar-PS'; u.rate = 0.8;
+    if (btn) { btn.classList.add('playing'); u.onend = function(){ btn.classList.remove('playing'); }; }
+    speechSynthesis.speak(u);
+  } else if (btn) {
+    var w = S.lis.words[S.lis.idx];
+    if (btn) btn.textContent = w ? w.translit : arabic;
+  }
+}
+function lisSelect(el, optId, correctId) {
+  if (S.lis.answered) return; S.lis.answered = true;
+  var correct = optId === correctId;
+  recordWordAnswer(correctId, correct);
+  document.querySelectorAll('.quiz-option').forEach(function(b){ b.classList.add('answered'); });
+  if (correct) { el.classList.add('correct'); S.lis.score++; showToast('✓ נכון!', 't-correct', 900); }
+  else { el.classList.add('wrong'); var cb = document.querySelector('.quiz-option[data-optid="' + correctId + '"]'); if(cb) cb.classList.add('correct'); showToast('✗ לא נכון', 't-wrong', 900); }
+  setTimeout(function(){ S.lis.idx++; renderListen(); }, 1300);
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  GAME 11 — ODD ONE OUT (מה לא שייך?)
+// ═══════════════════════════════════════════════════════════════════════
+function initOddOne() {
+  var catMap = {};
+  VOCAB.forEach(function(w){ if(!catMap[w.category]) catMap[w.category]=[]; catMap[w.category].push(w); });
+  var goodCats = Object.keys(catMap).filter(function(k){ return catMap[k].length >= 3; });
+  if (goodCats.length < 2) { document.getElementById('game-content').innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--muted)"><div style="font-size:3rem">😕</div><div>אין מספיק קטגוריות</div><button class="btn-primary" style="margin-top:24px" onclick="showGames()">חזור</button></div>'; return; }
+  var catNames = {};
+  CATEGORIES.forEach(function(c){ catNames[c.id] = c.name; });
+  var qs = [];
+  for (var i = 0; i < 15; i++) {
+    var cat = goodCats[Math.floor(Math.random() * goodCats.length)];
+    var catWords = shuffle(catMap[cat].slice()).slice(0, 3);
+    var otherCats = goodCats.filter(function(c){ return c !== cat; });
+    var otherCat = otherCats[Math.floor(Math.random() * otherCats.length)];
+    var oddWord = shuffle(catMap[otherCat].slice())[0];
+    if (!oddWord || catWords.length < 3) { i--; continue; }
+    var opts = shuffle(catWords.concat([oddWord]));
+    qs.push({ opts: opts, oddId: oddWord.id, catName: catNames[cat] || cat });
+  }
+  S.odd = { idx: 0, score: 0, qs: qs, answered: false };
+  renderOddOne();
+}
+function renderOddOne() {
+  var d = S.odd; if (d.idx >= d.qs.length) { showResults(d.score, d.qs.length, 'oddone'); return; }
+  var q = d.qs[d.idx]; d.answered = false;
+  var pct = Math.round(d.idx / d.qs.length * 100);
+  var cardsHtml = q.opts.map(function(w){ return '<div class="odd-card" id="odd-' + w.id + '" data-wid="' + w.id + '" data-odd="' + q.oddId + '" onclick="oddPick(this.dataset.wid,this.dataset.odd)">' + '<div style="font-size:1.5rem;font-weight:900;color:var(--gold);margin-bottom:4px">' + w.arabic + '</div>' + '<div style="font-size:0.78rem;color:var(--blue)">' + w.translit + '</div>' + '<div style="font-size:0.9rem;color:var(--text);margin-top:4px">' + w.meaning + '</div></div>'; }).join('');
+  document.getElementById('game-content').innerHTML =
+    '<div class="quiz-wrap anim-in">' +
+    '<div class="quiz-hdr"><div class="quiz-score-box">נכון: <span>' + d.score + '</span> / <span>' + d.qs.length + '</span></div>' +
+    '<div class="quiz-prog-bar"><div class="quiz-prog-fill" style="width:' + pct + '%"></div></div>' +
+    '<div style="font-size:0.82rem;color:var(--muted)">' + (d.idx+1) + '/' + d.qs.length + '</div></div>' +
+    '<div class="quiz-q-card" style="text-align:center;padding:20px 16px">' +
+    '<div class="odd-cat-hint">🔍 מצא מה לא שייך ל: <strong style="color:var(--gold)">' + q.catName + '</strong></div>' +
+    '<div class="odd-grid">' + cardsHtml + '</div>' +
+    '</div></div>';
+}
+function oddPick(pickedId, oddId) {
+  if (S.odd.answered) return; S.odd.answered = true;
+  var correct = pickedId === oddId;
+  var q = S.odd.qs[S.odd.idx];
+  q.opts.forEach(function(w){ recordWordAnswer(w.id, correct && w.id !== oddId || !correct && w.id === pickedId); });
+  var el = document.getElementById('odd-' + pickedId);
+  var correctEl = document.getElementById('odd-' + oddId);
+  if (el) el.classList.add(correct ? 'odd-correct' : 'odd-wrong');
+  if (!correct && correctEl) correctEl.classList.add('odd-correct');
+  if (correct) { S.odd.score++; showToast('✓ נכון! המילה הזרה היתה המתפשט', 't-correct', 1100); }
+  else { showToast('✗ לא נכון', 't-wrong', 1000); }
+  setTimeout(function(){ S.odd.idx++; renderOddOne(); }, correct ? 1000 : 1300);
+}
+
+// ═══════════════════════════════════════════════════════════════════════
 //  RESULTS
 // ═══════════════════════════════════════════════════════════════════════
 function showResults(score, total, gameId, allCards = false) {
@@ -4053,7 +4482,7 @@ function showResults(score, total, gameId, allCards = false) {
   const pct = total > 0 ? score / total : 1;
   const stars = allCards ? 3 : pct >= 0.9 ? 3 : pct >= 0.6 ? 2 : pct >= 0.3 ? 1 : 0;
   const starsHtml = [1,2,3].map(i => `<span class="${i <= stars ? 'star-lit' : 'star-dim'}">★</span>`).join('');
-  const gameNames = { flashcards:'כרטיסיות', quiz:'חידון', memory:'זיכרון', speed:'מרוץ', fillblank:'השלמה' };
+  const gameNames = { flashcards:'כרטיסיות', quiz:'חידון', memory:'זיכרון', speed:'מרוץ', fillblank:'השלמה', truefalse:'נכון/לא', spelling:'כתיב', sprint:'ספרינט', catsort:'מיון', listen:'אזנה', oddone:'מה לא שייך' };
   const msgs = [
     ['ממשיכים לתרגל! אפשר לשפר 💪', 'אל תוותר, הכל הולך ונשפר', 'ניסיון נוסף ותצליח!'],
     ['יפה מאוד! ממשיכים 👍', 'עבודה טובה! אפשר לשפר עוד', 'כמעט מושלם — עוד קצת!'],
