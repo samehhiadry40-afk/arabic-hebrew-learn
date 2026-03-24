@@ -3144,6 +3144,7 @@ function memFlip(idx) {
   if (c.matched || S.mem.flipped.includes(idx) || S.mem.flipped.length >= 2) return;
 
   S.mem.flipped.push(idx);
+  if (c.type === 'arabic') speakArabic(c.content);
   const el = document.querySelector(`.mem-card[data-idx="${idx}"]`);
   if (el) { el.classList.add('revealed'); el.querySelector('.mc-content').style.display = 'block'; }
 
