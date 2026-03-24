@@ -72,6 +72,9 @@
       transition: all 0.2s;
     }
     .back-btn:hover { background: var(--card2); border-color: var(--blue); }
+    .translit-toggle { background: var(--card); border: 1px solid var(--border); color: var(--muted); padding: 5px 12px; border-radius: 8px; cursor: pointer; font-family: 'Heebo', sans-serif; font-size: 0.78rem; font-weight: 600; transition: all 0.2s; }
+    .translit-toggle:hover, .translit-toggle.active { border-color: var(--purple); color: var(--purple); background: rgba(170,85,255,.1); }
+    .hide-translit .fc-translit, .hide-translit .quiz-q-translit, .hide-translit .sp-q-translit, .hide-translit .wod-translit { display: none !important; }
     .level-indicator {
       background: rgba(240,192,64,0.15);
       border: 1px solid rgba(240,192,64,0.3);
@@ -1258,6 +1261,7 @@
     <div class="logo" onclick="goHome()">ערבית<span> בשחק</span></div>
     <div class="nav-right">
       <div class="level-indicator" id="active-level-badge"></div>
+      <button class="translit-toggle" id="translit-btn" onclick="toggleTranslit()" title="הצג/הסתר תעתיק">אא תעתיק</button>
       <button class="back-btn" id="game-back-btn" onclick="showGames()">← משחקים</button>
     </div>
   </nav>
@@ -2739,6 +2743,18 @@ function showView(id) {
   window.scrollTo(0, 0);
 }
 
+let _hideTranslit = localStorage.getItem('hideTranslit') === '1';
+function applyTranslit() {
+  document.body.classList.toggle('hide-translit', _hideTranslit);
+  const btn = document.getElementById('translit-btn');
+  if (btn) btn.classList.toggle('active', _hideTranslit);
+}
+function toggleTranslit() {
+  _hideTranslit = !_hideTranslit;
+  localStorage.setItem('hideTranslit', _hideTranslit ? '1' : '0');
+  applyTranslit();
+}
+
 function goHome() {
   stopSpeedTimer();
   stopMemTimer();
@@ -2836,7 +2852,10 @@ function renderCategories() {
       <div class="cat-icon">${cat.icon}</div>
       <div class="cat-name">${cat.name}</div>
       <div class="cat-count">${words.length} מילים</div>
-      <div class="cat-progress-bar"><div class="cat-progress-fill" style="width:${Math.round(progress*100)}%"></div></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="cat-progress-bar" style="flex:1"><div class="cat-progress-fill" style="width:${Math.round(progress*100)}%"></div></div>
+        ${progress > 0 ? `<div style="font-size:0.7rem;color:var(--muted);min-width:28px;text-align:left">${Math.round(progress*100)}%</div>` : ''}
+      </div>
     `;
     div.onclick = () => selectCategory(cat.id);
     grid.appendChild(div);
@@ -4814,6 +4833,7 @@ updateXPDisplay();
 renderWordOfDay();
 initMusic();
 initTheme();
+applyTranslit();
 </script>
 </body>
 </html>
