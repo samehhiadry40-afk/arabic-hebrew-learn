@@ -1936,6 +1936,103 @@
     }
     html.light-mode .auth-menu-item { color: #111; }
     html.light-mode #user-badge { background: rgba(77,143,255,0.08); }
+
+    /* ──────────────── PHRASE OF DAY ──────────────── */
+    .pod-card { background:var(--card2); border:1px solid var(--border); border-radius:16px; padding:18px 20px; margin:14px 0; text-align:center; }
+    .pod-label { font-size:0.72rem; color:var(--purple); font-weight:700; letter-spacing:.06em; text-transform:uppercase; margin-bottom:8px; }
+    .pod-arabic { font-family:'Noto Sans Arabic',sans-serif; font-size:1.5rem; font-weight:700; color:var(--gold); margin-bottom:4px; direction:rtl; }
+    .pod-meaning { font-size:1rem; font-weight:700; color:var(--text); }
+
+    /* ──────────────── STREAK CALENDAR ──────────────── */
+    .streak-cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-top:8px; }
+    .cal-day { aspect-ratio:1; border-radius:6px; background:var(--card); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:0.6rem; color:var(--muted); }
+    .cal-day.active { background:var(--green); border-color:var(--green); color:#000; font-weight:700; }
+    .cal-day.today { border-color:var(--gold); }
+    .cal-day-label { font-size:0.65rem; color:var(--muted); text-align:center; }
+
+    /* ──────────────── SHARE BUTTON ──────────────── */
+    .share-row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:12px; }
+    .share-btn { padding:10px 20px; border-radius:50px; border:none; cursor:pointer; font-size:0.88rem; font-weight:700; font-family:'Heebo',sans-serif; transition:transform .15s; }
+    .share-btn:hover { transform:translateY(-2px); }
+    .share-copy { background:var(--card2); color:var(--text); border:1px solid var(--border); }
+    .share-wa   { background:#25D366; color:#fff; }
+
+    /* ──────────────── FONT SLIDER ──────────────── */
+    .font-size-row { display:flex; align-items:center; gap:10px; padding:10px 20px; background:var(--card); border-radius:12px; margin:8px 0; }
+    .font-size-row label { font-size:0.82rem; color:var(--muted); white-space:nowrap; }
+    .font-size-row input[type=range] { flex:1; accent-color:var(--gold); }
+    .font-size-val { font-size:0.82rem; color:var(--gold); font-weight:700; min-width:36px; text-align:center; }
+
+    /* ──────────────── ONBOARDING ──────────────── */
+    .onboard-overlay { position:fixed; inset:0; background:rgba(0,0,0,.92); z-index:9999; display:flex; align-items:center; justify-content:center; }
+    .onboard-box { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:32px 24px; max-width:420px; width:90%; text-align:center; }
+    .onboard-step { font-size:0.75rem; color:var(--muted); margin-bottom:8px; letter-spacing:.08em; }
+    .onboard-q { font-size:1.2rem; font-weight:700; margin-bottom:20px; line-height:1.4; }
+    .onboard-opts { display:flex; flex-direction:column; gap:10px; }
+    .onboard-opt { background:var(--card2); border:2px solid var(--border); border-radius:12px; padding:12px 16px; cursor:pointer; font-size:0.95rem; text-align:right; transition:border-color .15s; font-family:'Heebo',sans-serif; color:var(--text); }
+    .onboard-opt:hover { border-color:var(--gold); }
+    .onboard-skip { margin-top:16px; font-size:0.78rem; color:var(--muted); cursor:pointer; text-decoration:underline; }
+
+    /* ──────────────── SENTENCE BUILDER ──────────────── */
+    .sb-wrap { padding:16px 0; }
+    .sb-prompt { text-align:center; margin-bottom:16px; }
+    .sb-prompt-he { font-size:1rem; color:var(--muted); margin-bottom:4px; }
+    .sb-drop-zone { min-height:56px; border:2px dashed var(--border); border-radius:12px; padding:8px 12px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:center; margin-bottom:14px; direction:rtl; }
+    .sb-drop-zone.has-words { border-color:var(--blue); }
+    .sb-word-bank { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:16px; }
+    .sb-word { background:var(--card2); border:2px solid var(--border); border-radius:10px; padding:10px 16px; cursor:pointer; font-family:'Noto Sans Arabic',sans-serif; font-size:1.1rem; color:var(--text); transition:all .15s; user-select:none; }
+    .sb-word:hover { border-color:var(--gold); }
+    .sb-word.used { opacity:.35; pointer-events:none; }
+    .sb-word.placed { background:var(--blue); border-color:var(--blue); color:#fff; cursor:pointer; }
+    .sb-progress { text-align:center; font-size:0.8rem; color:var(--muted); margin-bottom:12px; }
+
+    /* ──────────────── DIALOGUES ──────────────── */
+    .dialogue-grid { display:flex; flex-direction:column; gap:14px; }
+    .dialogue-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:20px; cursor:pointer; transition:border-color .2s; }
+    .dialogue-card:hover { border-color:var(--gold); }
+    .dl-header { display:flex; align-items:center; gap:12px; }
+    .dl-icon { font-size:2rem; }
+    .dl-title { font-size:1.1rem; font-weight:700; }
+    .dl-sub { font-size:0.8rem; color:var(--muted); margin-top:2px; }
+    .dl-body { margin-top:16px; display:none; flex-direction:column; gap:10px; }
+    .dl-body.open { display:flex; }
+    .dl-line { display:flex; gap:10px; align-items:flex-start; }
+    .dl-speaker { font-size:0.72rem; color:var(--purple); font-weight:700; min-width:28px; padding-top:2px; }
+    .dl-ar { font-family:'Noto Sans Arabic',sans-serif; font-size:1.1rem; direction:rtl; }
+    .dl-tr { font-size:0.78rem; color:var(--muted); margin-top:1px; }
+    .dl-he { font-size:0.88rem; color:var(--green); margin-top:2px; }
+
+    /* ──────────────── GRAMMAR TIPS ──────────────── */
+    .grammar-grid { display:flex; flex-direction:column; gap:12px; }
+    .grammar-card { background:var(--card); border:1px solid var(--border); border-right:4px solid var(--blue); border-radius:12px; padding:16px 18px; cursor:pointer; }
+    .grammar-card:hover { border-right-color:var(--gold); }
+    .gc-title { font-size:1rem; font-weight:700; display:flex; justify-content:space-between; align-items:center; }
+    .gc-body { display:none; margin-top:12px; }
+    .gc-body.open { display:block; }
+    .gc-rule { font-size:0.88rem; color:var(--muted); margin-bottom:8px; line-height:1.6; }
+    .gc-example { background:var(--card2); border-radius:8px; padding:10px 12px; margin:6px 0; }
+    .gc-example .ar { font-family:'Noto Sans Arabic',sans-serif; font-size:1.1rem; direction:rtl; margin-bottom:3px; }
+    .gc-example .tr { font-size:0.78rem; color:var(--muted); }
+    .gc-example .he { font-size:0.88rem; color:var(--green); margin-top:2px; }
+
+    /* ──────────────── DAILY CHALLENGES ──────────────── */
+    .dc-list { display:flex; flex-direction:column; gap:8px; }
+    .dc-item { display:flex; align-items:center; gap:10px; padding:10px 12px; background:var(--card2); border-radius:10px; border:1px solid var(--border); }
+    .dc-item.done { border-color:var(--green); opacity:.7; }
+    .dc-check { width:22px; height:22px; border-radius:50%; border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:0.8rem; flex-shrink:0; }
+    .dc-item.done .dc-check { background:var(--green); border-color:var(--green); color:#000; }
+    .dc-text { flex:1; font-size:0.88rem; }
+    .dc-xp { font-size:0.72rem; color:var(--gold); font-weight:700; }
+
+    /* ──────────────── SONG QUIZ ──────────────── */
+    .sq-wrap { padding:8px 0; text-align:center; }
+    .sq-song-info { font-size:0.8rem; color:var(--muted); margin-bottom:16px; }
+    .sq-line-ctx { font-family:'Noto Sans Arabic',sans-serif; font-size:1.2rem; direction:rtl; color:var(--text); line-height:1.8; margin-bottom:8px; }
+    .sq-blank { display:inline-block; background:var(--card2); border:2px solid var(--gold); border-radius:8px; min-width:80px; padding:2px 12px; vertical-align:middle; }
+    .sq-line-he { font-size:0.85rem; color:var(--muted); margin-bottom:16px; }
+    .sq-opts { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:16px; }
+    .sq-opt { background:var(--card2); border:2px solid var(--border); border-radius:10px; padding:10px 20px; cursor:pointer; font-family:'Noto Sans Arabic',sans-serif; font-size:1.05rem; transition:all .15s; color:var(--text); }
+    .sq-opt:hover { border-color:var(--gold); }
   </style>
 </head>
 <body>
@@ -2055,6 +2152,8 @@
         <button class="btn-secondary-sm" onclick="showStats()">📊 הסטטיסטיקות שלי</button>
         <button class="btn-secondary-sm" onclick="showFavoritesGame()">⭐ מילים מועדפות</button>
         <button class="btn-secondary-sm" onclick="showLessons()">📚 שיעורים</button>
+        <button class="btn-secondary-sm" onclick="showDialogues()">💬 שיחות</button>
+        <button class="btn-secondary-sm" onclick="showGrammar()">📖 דקדוק</button>
       </div>
       <div id="review-reminder" style="display:none;margin-top:14px;background:rgba(240,192,64,0.12);border:1px solid rgba(240,192,64,0.35);border-radius:12px;padding:10px 18px;font-size:0.88rem;cursor:pointer" onclick="showLevels()">
         🔁 יש לך <span id="review-count">0</span> מילים שמחכות לחזרה — לחץ לתרגל!
@@ -2062,6 +2161,13 @@
     </div>
     <div id="daily-challenge-section" style="margin-bottom:18px"></div>
     <div id="wod-container"></div>
+    <div id="pod-container"></div>
+    <div id="dc-container"></div>
+    <div class="font-size-row anim-in">
+      <label>🔤 גודל טקסט</label>
+      <input type="range" min="85" max="130" value="100" id="font-slider" oninput="applyFontSize(this.value)">
+      <span class="font-size-val" id="font-size-val">100%</span>
+    </div>
     <div id="joke-of-day-container"></div>
     <div class="stats-bar anim-in" id="home-stats">
       <div class="stat-card">
@@ -2178,6 +2284,10 @@
   <div class="content">
     <div class="section-title anim-in">🎵 בוא נלמד שיר</div>
     <div class="section-sub anim-in">בחר שיר — תרגום מילולי, תרגום משמעותי, ולינק לנגן</div>
+    <div style="display:flex;gap:10px;justify-content:center;margin-bottom:16px;flex-wrap:wrap;">
+      <button class="btn-secondary-sm" onclick="showSongQuiz()">🎤 חידון שירים</button>
+      <button class="btn-secondary-sm" onclick="startPlaylist()">▶ השמע הכל</button>
+    </div>
     <div class="song-grid" id="song-grid"></div>
   </div>
 </section>
@@ -2320,6 +2430,51 @@
       <div class="sent-sub" id="sug-sent-sub">ההצעה נשלחה — נשקול אותה ברצינות</div>
       <button class="fb-cancel-btn" style="margin-top:16px;width:100%" onclick="closeFeedbackModal('suggest-overlay')">סגור</button>
     </div>
+  </div>
+</div>
+
+<!-- ═══ VIEW: DIALOGUES ═══ -->
+<section id="view-dialogues" class="view">
+  <nav class="navbar">
+    <div class="logo" onclick="goHome()">ערבית<span> בשחק</span></div>
+    <button class="back-btn" onclick="goHome()">← בית</button>
+  </nav>
+  <div class="content">
+    <div class="section-title anim-in">💬 שיחות יומיומיות</div>
+    <div class="section-sub anim-in">לחץ על שיחה כדי לפתוח אותה</div>
+    <div class="dialogue-grid" id="dialogue-grid"></div>
+  </div>
+</section>
+
+<!-- ═══ VIEW: GRAMMAR TIPS ═══ -->
+<section id="view-grammar" class="view">
+  <nav class="navbar">
+    <div class="logo" onclick="goHome()">ערבית<span> בשחק</span></div>
+    <button class="back-btn" onclick="goHome()">← בית</button>
+  </nav>
+  <div class="content">
+    <div class="section-title anim-in">📖 טיפים בדקדוק</div>
+    <div class="section-sub anim-in">כללים בסיסיים בערבית פלסטינית — לחץ לפתיחה</div>
+    <div class="grammar-grid" id="grammar-grid"></div>
+  </div>
+</section>
+
+<!-- ═══ VIEW: SONG QUIZ ═══ -->
+<section id="view-song-quiz" class="view">
+  <nav class="navbar">
+    <div class="logo" onclick="goHome()">ערבית<span> בשחק</span></div>
+    <button class="back-btn" onclick="showSongs()">← שירים</button>
+  </nav>
+  <div class="content" id="song-quiz-content"></div>
+</section>
+
+<!-- ONBOARDING OVERLAY -->
+<div class="onboard-overlay" id="onboard-overlay" style="display:none">
+  <div class="onboard-box">
+    <div class="onboard-step" id="ob-step">שאלה 1 מתוך 5</div>
+    <div class="onboard-q" id="ob-q"></div>
+    <div class="onboard-opts" id="ob-opts"></div>
+    <div class="onboard-skip" onclick="closeOnboarding()">דלג — אבחר רמה בעצמי</div>
   </div>
 </div>
 
@@ -3662,10 +3817,13 @@ function toggleTranslit() {
 function goHome() {
   stopSpeedTimer();
   stopMemTimer();
+  _playlist.active = false;
   loadProgress();
   updateHomeStats();
   updateXPDisplay();
   renderWordOfDay();
+  renderPhraseOfDay();
+  renderDailyChallengesWidget();
   showView('view-home');
 }
 
@@ -3809,7 +3967,8 @@ function renderGames() {
     {id:'truefalse', icon:'✅', name:'נכון / לא נכון',   desc:'האם התרגום נכון? לחץ ✓ או ✗ על כל מילה מהר'},
     {id:'spelling',  icon:'🔤', name:'כתיב ערבי',           desc:'בנה את המילה הערבית מאותיות — כמה תזכור?'},
     {id:'sprint',    icon:'🏃', name:'ספרינט — 2 אפשרויות', desc:'60 שניות, 2 אפשרויות בלבד — לחץ הכי מהר שאפשר'},
-    {id:'catsort',   icon:'🗂️', name:'מיון קטגוריות', desc:'מיין כל מילה לקטגוריה הנכונה — יד ימין!'},
+    {id:'catsort',   icon:'🗂️', name:'מיון קטגוריות',  desc:'מיין כל מילה לקטגוריה הנכונה — יד ימין!'},
+    {id:'sentence',  icon:'🔀', name:'בנה משפט',        desc:'סדר את המילים לפי הסדר הנכון בערבית'},
     {id:'listen',    icon:'👂', name:'משחק האזנה',           desc:'שמע את המילה הערבית — בחר את התרגום הנכון'},
     {id:'oddone',    icon:'🔍', name:'מה לא שייך?',          desc:'מצא את המילה שלא שייכת לקבוצה — 4 מילים, אחת מתחפשת'},
   ];
@@ -3852,7 +4011,8 @@ function startGame(gameId) {
     case 'quiz':       initQuiz();       break;
     case 'memory':     initMemory();     break;
     case 'speed':      initSpeed();      break;
-    case 'fillblank':  initFillBlank();  break;
+    case 'fillblank':  initFillBlank();      break;
+    case 'sentence':   initSentenceBuilder(); break;
     case 'truefalse': initTrueFalse(); break;
     case 'spelling':  initSpelling();  break;
     case 'sprint':    initSprint();    break;
@@ -3969,6 +4129,8 @@ function _fcAnimate(dir) {
 function fcNext() { _fcAnimate(1); }
 function fcPrev() { if (S.fc.idx > 0) _fcAnimate(-1); }
 function fcDone() {
+  completeDailyChallenge('learn_5');
+  completeDailyChallenge('play_game');
   showResults(S.fc.words.length, S.fc.words.length, 'flashcards', true);
 }
 
@@ -4765,6 +4927,10 @@ function showResults(score, total, gameId, allCards = false) {
       <button class="btn-secondary" onclick="showGames()">משחק אחר</button>
       <button class="btn-secondary" onclick="showCategories()">נושא אחר</button>
       <button class="btn-secondary" onclick="goHome()">בית 🏠</button>
+    </div>
+    <div class="share-row">
+      <button class="share-btn share-copy" onclick="shareResult('copy','${gameNames[gameId]||gameId}',${Math.round(pct*100)})">📋 העתק תוצאה</button>
+      <button class="share-btn share-wa"   onclick="shareResult('wa','${gameNames[gameId]||gameId}',${Math.round(pct*100)})">💬 WhatsApp</button>
     </div>
   `;
   showView('view-results');
@@ -6318,6 +6484,10 @@ function renderStatsPage() {
       </div>
     </div>
     <div>
+      <div class="stats-section-title">📅 לוח ימי פעילות</div>
+      ${renderStreakCalendar()}
+    </div>
+    <div>
       <div class="stats-section-title">התקדמות לפי נושא</div>
       <div style="display:flex;flex-direction:column;gap:7px">
         ${CATEGORIES.filter(c => c.id !== 'all').map(cat => {
@@ -6364,6 +6534,456 @@ function toggleQuizDirection() {
 function toggleFcDirection() {
   _fcReverse = !_fcReverse;
   if (S.game === 'flashcards') renderFlashcard();
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  SHARE SCORE
+// ═══════════════════════════════════════════════════════════════════════
+function shareResult(method, gameName, pct) {
+  const url = 'https://samehhiadry40-afk.github.io/arabic-hebrew-learn/';
+  const text = `🎮 שיחקתי ערבית בשחק!\n🏆 ${gameName}: ${pct}%\nבוא גם אתה ללמוד ערבית פלסטינית! 👇\n${url}`;
+  if (method === 'copy') {
+    navigator.clipboard.writeText(text).then(() => showToast('הועתק! 📋', 't-correct', 1500)).catch(() => showToast('העתקה נכשלה', 't-wrong', 1500));
+  } else if (method === 'wa') {
+    window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  FONT SIZE
+// ═══════════════════════════════════════════════════════════════════════
+function applyFontSize(val) {
+  document.documentElement.style.fontSize = val + '%';
+  const el = document.getElementById('font-size-val');
+  if (el) el.textContent = val + '%';
+  localStorage.setItem('fontSize', val);
+}
+function initFontSize() {
+  const saved = localStorage.getItem('fontSize') || '100';
+  applyFontSize(saved);
+  const slider = document.getElementById('font-slider');
+  if (slider) slider.value = saved;
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  PHRASE OF THE DAY
+// ═══════════════════════════════════════════════════════════════════════
+function renderPhraseOfDay() {
+  const container = document.getElementById('pod-container');
+  if (!container || !PHRASES || !PHRASES.length) return;
+  const todayIdx = Math.floor(Date.now() / 86400000) % PHRASES.length;
+  const p = PHRASES[todayIdx];
+  if (!p) return;
+  const answer = p.answer;
+  const full_ar = p.sentence.replace('___', `<span style="color:var(--gold)">${answer}</span>`);
+  const full_he = p.translation.replace('___', `<span style="color:var(--gold)">${p.hint}</span>`);
+  container.innerHTML = `
+    <div class="pod-card anim-in">
+      <div class="pod-label">💬 ביטוי היום</div>
+      <div class="pod-arabic">${full_ar}</div>
+      <div class="pod-meaning">${full_he}</div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  DAILY CHALLENGES
+// ═══════════════════════════════════════════════════════════════════════
+const DC_TASKS = [
+  { id:'play_game', icon:'🎮', text:'שחק משחק אחד עד הסוף',    xp:15 },
+  { id:'learn_5',   icon:'📚', text:'עבור על 5 כרטיסיות',       xp:10 },
+  { id:'quiz_3',    icon:'✅', text:'ענה נכון על 3 שאלות',       xp:10 },
+];
+function getDCProgress() {
+  const today = new Date().toDateString();
+  try {
+    const d = JSON.parse(localStorage.getItem('dailyChallenges2') || '{}');
+    if (d.date !== today) return { date: today, done: {} };
+    return d;
+  } catch(e) { return { date: today, done: {} }; }
+}
+function saveDCProgress(d) { localStorage.setItem('dailyChallenges2', JSON.stringify(d)); }
+function completeDailyChallenge(taskId) {
+  const d = getDCProgress();
+  if (d.done[taskId]) return;
+  d.done[taskId] = true;
+  saveDCProgress(d);
+  const task = DC_TASKS.find(t => t.id === taskId);
+  if (task) { addXP(task.xp); showToast(`✅ אתגר יומי: +${task.xp} XP!`, 't-correct', 2000); }
+  renderDailyChallengesWidget();
+}
+function renderDailyChallengesWidget() {
+  const container = document.getElementById('dc-container');
+  if (!container) return;
+  const d = getDCProgress();
+  const doneCount = Object.keys(d.done).length;
+  container.innerHTML = `
+    <div class="daily-challenges-card anim-in" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px 20px;margin:10px 0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div style="font-weight:700">⚡ אתגרים יומיים</div>
+        <div style="font-size:0.75rem;color:var(--muted)">${doneCount}/${DC_TASKS.length}</div>
+      </div>
+      <div class="dc-list">
+        ${DC_TASKS.map(t => `
+          <div class="dc-item ${d.done[t.id]?'done':''}">
+            <div class="dc-check">${d.done[t.id]?'✓':''}</div>
+            <div class="dc-text">${t.icon} ${t.text}</div>
+            <div class="dc-xp">+${t.xp} XP</div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  STREAK CALENDAR
+// ═══════════════════════════════════════════════════════════════════════
+function renderStreakCalendar() {
+  let streakDays = [];
+  try { streakDays = JSON.parse(localStorage.getItem('streakDays') || '[]'); } catch(e) {}
+  const today = new Date();
+  const days = [];
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(today); d.setDate(today.getDate() - i);
+    const key = d.toDateString();
+    days.push({ key, day: d.getDate(), active: streakDays.includes(key), isToday: i === 0 });
+  }
+  const dow = ['א','ב','ג','ד','ה','ו','ש'];
+  return `<div style="margin-top:10px">
+    <div style="font-size:0.82rem;color:var(--muted);margin-bottom:6px">📅 30 הימים האחרונים</div>
+    <div class="streak-cal-grid">
+      ${dow.map(d=>`<div class="cal-day-label">${d}</div>`).join('')}
+      ${days.map(d=>`<div class="cal-day ${d.active?'active':''} ${d.isToday?'today':''}" title="${d.key}">${d.day}</div>`).join('')}
+    </div></div>`;
+}
+// Record today as active day on any streak update
+const _origUpdateStreak2 = typeof updateStreak === 'function' ? updateStreak : null;
+function updateStreakAndRecord() {
+  if (_origUpdateStreak2) _origUpdateStreak2();
+  try {
+    const today = new Date().toDateString();
+    let days = JSON.parse(localStorage.getItem('streakDays') || '[]');
+    if (!days.includes(today)) { days.push(today); if (days.length > 90) days = days.slice(-90); localStorage.setItem('streakDays', JSON.stringify(days)); }
+  } catch(e) {}
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  DIALOGUES
+// ═══════════════════════════════════════════════════════════════════════
+const DIALOGUES = [
+  { icon:'👋', title:'הכרות ראשונה', sub:'Meeting someone new', lines:[
+    { sp:'א', ar:'مرحبا! اسمك شو؟', tr:'מַרְחַבַּא! אִסְמַכּ שׁוּ?', he:'שלום! מה שמך?' },
+    { sp:'ב', ar:'أهلاً! اسمي سامي، وإنت؟', tr:'אַהְלַן! אִסְמִי סַאמִי, וְאִנְתּ?', he:'אהלן! שמי סאמי, ואתה?' },
+    { sp:'א', ar:'أنا ليلى، شرفنا!', tr:'אַנַא לֵילַא, שַׁרַּפְנַא!', he:'אני לילא, שמחה להכיר!' },
+    { sp:'ב', ar:'شرفنا، كيفك؟', tr:'שַׁרַּפְנַא, כֵּיפִכּ?', he:'שמח להכיר, מה שלומך?' },
+    { sp:'א', ar:'منيحة الحمد لله، وإنت؟', tr:'מְנִיחַה אַלְחַמְדּוּ לִלַּה, וְאִנְתּ?', he:'טוב תודה לאל, ואתה?' },
+  ]},
+  { icon:'🍽️', title:'במסעדה', sub:'At a restaurant', lines:[
+    { sp:'מ', ar:'أهلاً وسهلاً، شو بتشتهوا؟', tr:'אַהְלַן וְסַהְלַן, שׁוּ בְּתִשְׁתַּהוּ?', he:'ברוכים הבאים, מה תרצו?' },
+    { sp:'ל', ar:'بدي منسف وسلطة من فضلك', tr:'בִּדִּי מַנְסַף וְסַלַּטַה מִן פַדְּלַכּ', he:'אני רוצה מנסף וסלט בבקשה' },
+    { sp:'א', ar:'بدي مقلوبة وعصير', tr:'בִּדִּי מַקְלוּבַּה וְעַצִּיר', he:'אני רוצה מקלובה ועסיס' },
+    { sp:'מ', ar:'حاضر! والحساب مع بعض؟', tr:'חַ\'אדֶ\'ר! וַלְחִסַּאב מַע בַּעַד?', he:'בסדר! החשבון ביחד?' },
+  ]},
+  { icon:'🛒', title:'בשוק', sub:'At the market', lines:[
+    { sp:'ל', ar:'بكام الكيلو البندورة؟', tr:'בִּכַּאם אִלְכִּילוּ אַלְבַּנְדּוּרַה?', he:'כמה עולה קילו עגבניות?' },
+    { sp:'ב', ar:'خمس شواقل الكيلو', tr:'חַמְשׁ שׁוָאקֶל אִלְכִּילוּ', he:'חמישה שקל לקילו' },
+    { sp:'ל', ar:'غالي كتير! بدك تحط تلاتة؟', tr:'עַ\'אלִי כְּתִיר! בַּדַּכּ תְּחֻטּ תְּלַאתֵה?', he:'יקר מאוד! תוריד לשלושה?' },
+    { sp:'ב', ar:'تمام، كيلين من فضلك', tr:'תַמַּאם, כִּילֵין מִן פַדְּלַכּ', he:'בסדר, שני קילו בבקשה' },
+  ]},
+  { icon:'🚕', title:'במונית', sub:'In a taxi', lines:[
+    { sp:'נ', ar:'وين بدك تروح؟', tr:'וֵין בַּדַּכּ תְּרוּחׂ?', he:'לאן תרצה ללכת?' },
+    { sp:'ל', ar:'على شارع الملك عبدالله', tr:'עַלַא שַׁארֵע אִלְמַלֵּכ עַבְּדַּלַּה', he:'לרחוב המלך עבדאללה' },
+    { sp:'נ', ar:'حاضر، بس في زحمة هلق', tr:'חַ\'אדֶ\'ר, בַּס פִי זַחְמֶה הַלַּק', he:'בסדר, אבל יש פקק עכשיו' },
+    { sp:'ל', ar:'مش مشكلة، عندي وقت', tr:'מִשׁ מֻשְׁכְּלֶה, עִנְדִּי וַקְתּ', he:'לא נורא, יש לי זמן' },
+    { sp:'נ', ar:'وصلنا، عشر شواقل', tr:'וְצַּלְנַא, עַשְׁר שׁוָאקֶל', he:'הגענו, עשרה שקל' },
+  ]},
+  { icon:'🗺️', title:'לבקש כיוון', sub:'Asking for directions', lines:[
+    { sp:'א', ar:'عفواً، وين المحطة من هون؟', tr:'עַפְוַן, וֵין אִלְמַחַטַּה מִן הוֹן?', he:'סליחה, איפה התחנה מכאן?' },
+    { sp:'ב', ar:'دغري، بعدين شمال', tr:'דֻּגֵ\'רִי, בַּעְדֵין שְׁמַאל', he:'ישר, ואז שמאלה' },
+    { sp:'א', ar:'بعيدة؟', tr:'בְּעִידֵה?', he:'רחוקה?' },
+    { sp:'ב', ar:'لا، خمس دقايق مشي', tr:'לַא, חַמְשׁ דְּקַאיִק מַשִׁי', he:'לא, חמש דקות הליכה' },
+    { sp:'א', ar:'شكراً كتير، الله يعطيك العافية!', tr:'שׁוּכְרַן כְּתִיר, אַלַּה יִעְטִיכּ אַלְעַאפִיֵה!', he:'תודה רבה, תהיה בריא!' },
+  ]},
+  { icon:'📞', title:'שיחת טלפון', sub:'Phone conversation', lines:[
+    { sp:'א', ar:'ألو، مين معي؟', tr:'אַלּוֹ, מִין מַעִי?', he:'הלו, מי מדבר?' },
+    { sp:'ב', ar:'أهلاً، أنا سارة، بدي أحكي مع أحمد', tr:'אַהְלַן, אַנַא סַארַה, בִּדִּי אַחְכִי מַע אַחְמַד', he:'אהלן, אני סארה, רוצה לדבר עם אחמד' },
+    { sp:'א', ar:'لحظة، أنا أحمد!', tr:'לַחְ\'זַ, אַנַא אַחְמַד!', he:'רגע, אני אחמד!' },
+    { sp:'ב', ar:'آه! كيفك أحمد؟', tr:'אַה! כֵּיפַכּ אַחְמַד?', he:'אה! מה שלומך אחמד?' },
+    { sp:'א', ar:'الحمد لله، شو في؟', tr:'אַלְחַמְדּוּ לִלַּה, שׁוּ פִי?', he:'תודה לאל, מה יש?' },
+  ]},
+];
+
+function showDialogues() {
+  showView('view-dialogues');
+  const grid = document.getElementById('dialogue-grid');
+  if (!grid) return;
+  grid.innerHTML = DIALOGUES.map((d, i) => `
+    <div class="dialogue-card" onclick="toggleDialogue(${i})">
+      <div class="dl-header">
+        <div class="dl-icon">${d.icon}</div>
+        <div style="flex:1">
+          <div class="dl-title">${d.title}</div>
+          <div class="dl-sub">${d.sub}</div>
+        </div>
+        <div id="dl-arrow-${i}">▼</div>
+      </div>
+      <div class="dl-body" id="dl-body-${i}">
+        ${d.lines.map(l => `
+          <div class="dl-line">
+            <div class="dl-speaker">${l.sp}</div>
+            <div>
+              <div class="dl-ar">${l.ar}</div>
+              <div class="dl-tr">${l.tr}</div>
+              <div class="dl-he">${l.he}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+function toggleDialogue(i) {
+  const body = document.getElementById(`dl-body-${i}`);
+  const arrow = document.getElementById(`dl-arrow-${i}`);
+  if (!body) return;
+  body.classList.toggle('open');
+  if (arrow) arrow.textContent = body.classList.contains('open') ? '▲' : '▼';
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  GRAMMAR TIPS
+// ═══════════════════════════════════════════════════════════════════════
+const GRAMMAR_TIPS = [
+  { title:'🔤 זכר ונקבה', rule:'שמות עצם נקביים מסתיימים ב-ة (ta marbuta), נהגית "ה" בסוף מילה.',
+    examples:[{ar:'ولد / بنت', tr:'וֶלֶד / בִּנְתּ', he:'ילד / ילדה'},{ar:'كبير / كبيرة', tr:'כְּבִיר / כְּבִירֵה', he:'גדול / גדולה'}]},
+  { title:'💬 "אני רוצה" — بدي', rule:'בניב הפלסטיני "אני רוצה" הוא بدي. לא אומרים أريد כמו בפורמלי.',
+    examples:[{ar:'بدي ماي', tr:'בִּדִּי מַאי', he:'אני רוצה מים'},{ar:'بدك شو؟', tr:'בַּדַּכּ שׁוּ?', he:'מה אתה רוצה?'}]},
+  { title:'❌ שלילה — مش / ما', rule:'مش שולל שמות תואר. ما שולל פעלים.',
+    examples:[{ar:'مش منيح', tr:'מִשׁ מְנִיחׂ', he:'לא טוב'},{ar:'ما بعرف', tr:'מַא בַּעְרַף', he:'אני לא יודע'}]},
+  { title:'❓ שאלות — شو وين كيف ليش', rule:'ארבעת מילות השאלה הבסיסיות.',
+    examples:[{ar:'شو هاد؟', tr:'שׁוּ הַאד?', he:'מה זה?'},{ar:'وين رايح؟', tr:'וֵין רַאיִחׂ?', he:'לאן הולך?'},{ar:'كيف؟ / ليش؟', tr:'כֵּיף? / לֵישׁ?', he:'איך? / למה?'}]},
+  { title:'⚡ ה-B של הווה', rule:'פעלים בהווה מתחילים ב-بـ. סימן ייחודי של ערבית מדוברת.',
+    examples:[{ar:'بروح', tr:'בְּרוּחׂ', he:'אני הולך'},{ar:'بتاكل', tr:'בְּתַאכֶּל', he:'אתה אוכל'}]},
+  { title:'✅ יש / אין — في / ما في', rule:'في = יש. ما في = אין. שימושי מאוד.',
+    examples:[{ar:'في ماي؟', tr:'פִי מַאי?', he:'יש מים?'},{ar:'ما في خبز', tr:'מַא פִי חُבֶּז', he:'אין לחם'}]},
+  { title:'🏠 שייכות — סיומות', rule:'מוסיפים סיומת: ـي (שלי), ـك (שלך), ـه (שלו)',
+    examples:[{ar:'بيتي / بيتك / بيته', tr:'בֵּיתִי / בֵּיתַכּ / בֵּיתוּ', he:'הבית שלי / שלך / שלו'}]},
+  { title:'🕐 ביטויי זמן', rule:'ביטויים זמניים נפוצים.',
+    examples:[{ar:'هلق', tr:'הַלַּק', he:'עכשיו'},{ar:'بكرا', tr:'בּוּכְרַה', he:'מחר'},{ar:'امبارح', tr:'אִמְבַּארֶחׂ', he:'אתמול'}]},
+  { title:'❤️ "אני אוהב" — بحب', rule:'بحب = אני אוהב. פשוט וישיר.',
+    examples:[{ar:'بحب القهوة', tr:'בּחבּ אִלְקַהְוֶה', he:'אני אוהב קפה'},{ar:'بحبك', tr:'בּחַבַּכּ', he:'אני אוהב אותך'}]},
+  { title:'🎭 פנייה חברותית', rule:'ביטויים לפנות לאחרים.',
+    examples:[{ar:'يا زلمة!', tr:'יַא זַלְמֵה!', he:'אחי!'},{ar:'ولك!', tr:'וּלַכ!', he:'הי! יא אחי!'}]},
+];
+
+function showGrammar() {
+  showView('view-grammar');
+  const grid = document.getElementById('grammar-grid');
+  if (!grid) return;
+  grid.innerHTML = GRAMMAR_TIPS.map((g, i) => `
+    <div class="grammar-card" onclick="toggleGrammar(${i})">
+      <div class="gc-title"><span>${g.title}</span><span id="gc-arrow-${i}">▼</span></div>
+      <div class="gc-body" id="gc-body-${i}">
+        <div class="gc-rule">${g.rule}</div>
+        ${g.examples.map(e => `
+          <div class="gc-example">
+            <div class="ar">${e.ar}</div>
+            <div class="tr">${e.tr}</div>
+            <div class="he">${e.he}</div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+function toggleGrammar(i) {
+  const body = document.getElementById(`gc-body-${i}`); const arrow = document.getElementById(`gc-arrow-${i}`);
+  if (!body) return;
+  body.classList.toggle('open');
+  if (arrow) arrow.textContent = body.classList.contains('open') ? '▲' : '▼';
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  SENTENCE BUILDER GAME
+// ═══════════════════════════════════════════════════════════════════════
+const SB_SENTENCES = [
+  { words:['أنا','بحب','القهوة','كتير'], he:'אני אוהב קפה מאוד', level:1 },
+  { words:['وين','المحطة','من','هون؟'], he:'איפה התחנה מכאן?', level:1 },
+  { words:['بدي','ماي','من','فضلك'], he:'אני רוצה מים בבקשה', level:1 },
+  { words:['كيف','حالك','اليوم؟'], he:'מה שלומך היום?', level:1 },
+  { words:['الأكل','لذيذ','كتير','هون'], he:'האוכל טעים מאוד כאן', level:2 },
+  { words:['بكام','هاد','القميص؟'], he:'כמה עולה החולצה הזאת?', level:2 },
+  { words:['بدي','أروح','على','البيت','هلق'], he:'אני רוצה ללכת הביתה עכשיו', level:2 },
+  { words:['في','مشكلة','مع','السيارة'], he:'יש בעיה עם המכונית', level:3 },
+  { words:['ممكن','تحكي','بطيء','كمان','شوية؟'], he:'אפשר לדבר לאט עוד קצת?', level:3 },
+  { words:['بكرا','بروح','على','السوق','الصبح'], he:'מחר אלך לשוק בבוקר', level:2 },
+  { words:['ما','بعرف','وين','بدي','روح'], he:'אני לא יודע לאן אני רוצה ללכת', level:2 },
+  { words:['الحمد','لله','على','كل','حال'], he:'תודה לאל על כל מצב', level:3 },
+];
+let _sbState = { idx: 0, sentences: [], placed: [], score: 0 };
+let _playlist = { active: false, idx: 0 };
+
+function initSentenceBuilder() {
+  S.game = 'sentence';
+  const pool = SB_SENTENCES.filter(s => s.level <= (S.level || 5));
+  _sbState = { idx: 0, sentences: shuffle([...pool]).slice(0, 8), placed: [], score: 0 };
+  renderSentenceBuilder();
+  document.getElementById('game-back-btn').onclick = () => showGames();
+}
+function renderSentenceBuilder() {
+  const { idx, sentences, placed, score } = _sbState;
+  if (idx >= sentences.length) { showResults(score, sentences.length, 'sentence'); return; }
+  const s = sentences[idx];
+  const bankWords = shuffle([...s.words]);
+  document.getElementById('game-content').innerHTML = `
+    <div class="sb-wrap anim-in">
+      <div class="sb-progress">${idx + 1} / ${sentences.length} | ✓ ${score}</div>
+      <div class="sb-prompt">
+        <div class="sb-prompt-he">${s.he}</div>
+        <div style="font-size:0.78rem;color:var(--muted)">סדר את המילים לפי הסדר הנכון</div>
+      </div>
+      <div class="sb-drop-zone ${placed.length?'has-words':''}" id="sb-drop">
+        ${placed.map((w,i) => `<span class="sb-word placed" onclick="sbRemove(${i})">${w}</span>`).join('')}
+      </div>
+      <div class="sb-word-bank">
+        ${bankWords.map((w,i) => `<span class="sb-word ${placed.includes(w)?'used':''}" onclick="sbAdd('${w.replace(/'/g,"\\'")}',${i})">${w}</span>`).join('')}
+      </div>
+      <button class="btn-primary sb-check-btn" onclick="sbCheck()" ${placed.length<s.words.length?'disabled style="opacity:.4"':''}>✓ בדוק</button>
+    </div>`;
+}
+function sbAdd(word) {
+  const s = _sbState.sentences[_sbState.idx];
+  if (_sbState.placed.length >= s.words.length) return;
+  _sbState.placed.push(word);
+  renderSentenceBuilder();
+}
+function sbRemove(idx) { _sbState.placed.splice(idx, 1); renderSentenceBuilder(); }
+function sbCheck() {
+  const s = _sbState.sentences[_sbState.idx];
+  const correct = _sbState.placed.join(' ') === s.words.join(' ');
+  if (correct) { _sbState.score++; showToast('✓ נכון!', 't-correct', 800); completeDailyChallenge('quiz_3'); }
+  else showToast('✗ ' + s.words.join(' '), 't-wrong', 2000);
+  setTimeout(() => { _sbState.idx++; _sbState.placed = []; renderSentenceBuilder(); }, correct ? 900 : 2100);
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  SONG QUIZ
+// ═══════════════════════════════════════════════════════════════════════
+let _sqState = { pool: [], qIdx: 0, score: 0 };
+function showSongQuiz() {
+  showView('view-song-quiz');
+  const pool = [];
+  (SONGS || []).forEach(song => {
+    (song.lines || []).forEach(line => {
+      if (!line.ar || line.ar.length < 5) return;
+      const words = line.ar.split(' ').filter(w => w.length > 2);
+      if (words.length < 3) return;
+      const blankIdx = Math.floor(Math.random() * words.length);
+      const answer = words[blankIdx];
+      const otherWords = [];
+      (SONGS || []).forEach(s2 => (s2.lines || []).forEach(l2 => {
+        if (l2.ar) l2.ar.split(' ').filter(w => w.length > 2 && w !== answer).forEach(w => otherWords.push(w));
+      }));
+      const wrongs = shuffle([...new Set(otherWords)]).slice(0, 3);
+      if (wrongs.length < 3) return;
+      pool.push({ song: song.title, ar: line.ar, he: line.meaning || line.literal || '', answer, blankIdx, words, opts: shuffle([answer, ...wrongs]) });
+    });
+  });
+  _sqState = { pool: shuffle(pool).slice(0, 12), qIdx: 0, score: 0 };
+  renderSongQuiz();
+}
+function renderSongQuiz() {
+  const { pool, qIdx, score } = _sqState;
+  const content = document.getElementById('song-quiz-content');
+  if (!content) return;
+  if (qIdx >= pool.length) {
+    content.innerHTML = `<div style="text-align:center;padding:40px 20px">
+      <div style="font-size:4rem;margin-bottom:16px">🎤</div>
+      <div class="results-title">סיימת!</div>
+      <div class="results-score-big">${Math.round(score/pool.length*100)}%</div>
+      <div style="color:var(--muted);margin-bottom:24px">${score} נכון מתוך ${pool.length}</div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn-primary" onclick="showSongQuiz()">שוב</button>
+        <button class="btn-secondary" onclick="showSongs()">חזור</button>
+      </div></div>`;
+    return;
+  }
+  const q = pool[qIdx];
+  const lineHtml = q.words.map((w,i) => i===q.blankIdx ? `<span class="sq-blank">_____</span>` : w).join(' ');
+  content.innerHTML = `<div class="sq-wrap anim-in">
+    <div class="sq-song-info">🎵 ${q.song} | שאלה ${qIdx+1}/${pool.length} | ✓ ${score}</div>
+    <div style="background:var(--card);border-radius:14px;padding:20px;margin:12px 0;text-align:center">
+      <div class="sq-line-ctx" dir="rtl">${lineHtml}</div>
+      <div class="sq-line-he">${q.he}</div>
+    </div>
+    <div class="sq-opts">${q.opts.map(opt=>`<button class="sq-opt" onclick="sqSelect(this,${JSON.stringify(opt)},${JSON.stringify(q.answer)})">${opt}</button>`).join('')}</div>
+  </div>`;
+}
+function sqSelect(el, chosen, answer) {
+  document.querySelectorAll('.sq-opt').forEach(b => b.style.pointerEvents = 'none');
+  if (chosen === answer) { el.style.background='var(--green)'; el.style.borderColor='var(--green)'; _sqState.score++; showToast('✓','t-correct',600); }
+  else {
+    el.style.background='var(--red)'; el.style.borderColor='var(--red)';
+    document.querySelectorAll('.sq-opt').forEach(b => { if (b.textContent.trim()===answer) { b.style.background='var(--green)'; b.style.borderColor='var(--green)'; } });
+    showToast('✗','t-wrong',600);
+  }
+  setTimeout(() => { _sqState.qIdx++; renderSongQuiz(); }, 900);
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  PLAYLIST MODE
+// ═══════════════════════════════════════════════════════════════════════
+function startPlaylist() {
+  _playlist = { active: true, idx: 0 };
+  if (typeof openSong === 'function') openSong(0);
+  showToast('▶ מצב פלייליסט — החלק ימינה לשיר הבא', 't-correct', 2000);
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  ONBOARDING QUIZ
+// ═══════════════════════════════════════════════════════════════════════
+const OB_QUESTIONS = [
+  { q:'מה המשמעות של مرحبا?', opts:['שלום','תודה','בבקשה','כן'], answer:0 },
+  { q:'מה המשמעות של بدي?', opts:['אני יודע','אני רוצה','אני הולך','אין לי'], answer:1 },
+  { q:'איך אומרים "טעים" בערבית?', opts:['كتير','لذيذ','غالي','منيح'], answer:1 },
+  { q:'מה המשמעות של في مشكلة?', opts:['אין בעיה','הרבה בעיות','יש בעיה','מה הבעיה?'], answer:2 },
+  { q:'מה פירוש الحمد لله?', opts:['תודה לאל','שלום לך','יישר כוח','עם הזמן'], answer:0 },
+];
+let _obScore = 0, _obIdx = 0;
+function initOnboarding() {
+  if (localStorage.getItem('onboardingDone')) return;
+  _obScore = 0; _obIdx = 0;
+  const overlay = document.getElementById('onboard-overlay');
+  if (overlay) { overlay.style.display = 'flex'; renderOnboardQuestion(); }
+}
+function renderOnboardQuestion() {
+  const q = OB_QUESTIONS[_obIdx];
+  const step = document.getElementById('ob-step'); const qEl = document.getElementById('ob-q'); const optsEl = document.getElementById('ob-opts');
+  if (step) step.textContent = `שאלה ${_obIdx+1} מתוך ${OB_QUESTIONS.length}`;
+  if (qEl) qEl.textContent = q.q;
+  if (optsEl) optsEl.innerHTML = q.opts.map((o,i) => `<button class="onboard-opt" onclick="obAnswer(${i})">${o}</button>`).join('');
+}
+function obAnswer(chosen) {
+  if (chosen === OB_QUESTIONS[_obIdx].answer) _obScore++;
+  _obIdx++;
+  if (_obIdx >= OB_QUESTIONS.length) {
+    const lvl = _obScore >= 4 ? 4 : _obScore >= 3 ? 3 : _obScore >= 2 ? 2 : 1;
+    closeOnboarding(lvl);
+  } else renderOnboardQuestion();
+}
+function closeOnboarding(suggestedLevel) {
+  const overlay = document.getElementById('onboard-overlay');
+  if (overlay) overlay.style.display = 'none';
+  localStorage.setItem('onboardingDone', '1');
+  if (suggestedLevel) setTimeout(() => showToast(`💡 הרמה המומלצת לך: רמה ${suggestedLevel}`, 't-correct', 3000), 300);
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  FONT SIZE
+// ═══════════════════════════════════════════════════════════════════════
+function applyFontSize(val) {
+  document.documentElement.style.fontSize = val + '%';
+  const el = document.getElementById('font-size-val'); if (el) el.textContent = val + '%';
+  localStorage.setItem('fontSize', val);
+}
+function initFontSize() {
+  const saved = localStorage.getItem('fontSize') || '100';
+  applyFontSize(saved);
+  const slider = document.getElementById('font-slider'); if (slider) slider.value = saved;
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -6625,6 +7245,8 @@ _auth.onAuthStateChanged(async function(user) {
     updateStreak();
     updateXPDisplay();
     renderWordOfDay();
+    renderPhraseOfDay();
+    renderDailyChallengesWidget();
     initMusic();
     applyTranslit();
   } else {
@@ -6638,6 +7260,8 @@ _auth.onAuthStateChanged(async function(user) {
 // ═══════════════════════════════════════════════════════════════════════
 initTheme();
 applyTranslit();
+initFontSize();
+initOnboarding();
 </script>
 <!-- WORD DETAIL MODAL -->
 <div id="word-detail-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;align-items:center;justify-content:center" onclick="closeWordDetail(event)">
