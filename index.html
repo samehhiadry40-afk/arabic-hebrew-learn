@@ -957,10 +957,8 @@
       border-radius: 20px; padding: 4px 12px; font-size: 0.82rem;
       color: var(--green); font-weight: 700;
     }
-    .home-extra-btns {
-      display: flex; gap: 8px; justify-content: center;
-      margin-top: 10px; flex-wrap: wrap;
-    }
+    /* home-extra-btns kept for legacy contexts */
+    .home-extra-btns { display:none; }
     .btn-secondary-sm {
       background: var(--card); border: 1px solid var(--border);
       color: var(--text); border-radius: 20px; padding: 6px 16px;
@@ -968,6 +966,35 @@
       font-family: 'Heebo', sans-serif; transition: all .2s;
     }
     .btn-secondary-sm:hover { border-color: var(--blue); background: var(--card2); }
+
+    /* suppress duplicate inner labels inside widget containers */
+    .home-widget .wod-label, .home-widget .pod-label { display:none; }
+    .home-widget .wod-card { margin:0; border:none; background:none; padding:0; }
+    .home-widget .pod-card { margin:0; border:none; background:none; padding:0; }
+
+    /* ── HOME SECTION CARDS ── */
+    .home-sections { display:flex; flex-direction:column; gap:20px; margin-top:20px; }
+    .home-section { background:var(--card); border:1px solid var(--border); border-radius:18px; overflow:hidden; }
+    .home-section-header { display:flex; align-items:center; gap:10px; padding:14px 18px 12px; border-bottom:1px solid var(--border); }
+    .home-section-icon { font-size:1.4rem; }
+    .home-section-title { font-size:1rem; font-weight:800; }
+    .home-section-sub { font-size:0.78rem; color:var(--muted); margin-top:1px; }
+    .home-section-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); gap:1px; background:var(--border); }
+    .home-tile { background:var(--card); padding:16px 12px; text-align:center; cursor:pointer; transition:background .15s; display:flex; flex-direction:column; align-items:center; gap:6px; }
+    .home-tile:hover { background:var(--card2); }
+    .home-tile:active { background:var(--card2); transform:scale(.97); }
+    .home-tile-icon { font-size:1.6rem; }
+    .home-tile-label { font-size:0.82rem; font-weight:700; line-height:1.25; }
+    .home-tile-sub { font-size:0.7rem; color:var(--muted); }
+    /* wide tile spans 2 columns */
+    .home-tile-wide { grid-column: span 2; }
+    @media (max-width:380px) { .home-tile-wide { grid-column: span 1; } .home-section-grid { grid-template-columns:repeat(2,1fr); } }
+
+    /* ── WIDGET ROW ── */
+    .home-widgets { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:0; }
+    @media (max-width:480px) { .home-widgets { grid-template-columns:1fr; } }
+    .home-widget { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px 16px; }
+    .home-widget-title { font-size:0.78rem; color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px; }
 
     /* ──────────────── WORD OF DAY ──────────────── */
     .lessons-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
@@ -2228,54 +2255,180 @@
     <div class="mastery-badge" id="mastery-badge">⭐ 0 מילים נרכשו</div>
   </div>
   <div class="content">
+    <!-- HERO -->
     <div class="home-hero anim-in">
       <div class="arabic-title">تعلم العربية المحكية</div>
       <div class="hebrew-title">לומדים ערבית מדוברת בלהג פלסטיני</div>
       <div class="tagline">מילים אמיתיות, ניב פלסטיני, משחקים אמיתיים<br>לדוברי עברית שרוצים לדעת ערבית כמו שמדברים אותה</div>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:4px;">
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:10px;">
         <button class="btn-primary" onclick="showLevels()">!יאללה, נתחיל</button>
         <button class="btn-primary" style="background:linear-gradient(135deg,#8e44ad,#c0392b)" onclick="showSongs()">🎵 בוא נלמד שיר</button>
-      </div>
-      <div class="home-extra-btns">
-        <button class="btn-secondary-sm" onclick="showStats()">📊 הסטטיסטיקות שלי</button>
-        <button class="btn-secondary-sm" onclick="showFavoritesGame()">⭐ מילים מועדפות</button>
-        <button class="btn-secondary-sm" onclick="showLessons()">📚 שיעורים</button>
-        <button class="btn-secondary-sm" onclick="showDialogues()">💬 שיחות</button>
-        <button class="btn-secondary-sm" onclick="showGrammar()">📖 דקדוק</button>
-        <button class="btn-secondary-sm" onclick="showPronunciation()">🗣️ הגייה</button>
-        <button class="btn-secondary-sm" onclick="showConvList()">🤖 שיחה חופשית</button>
-        <button class="btn-secondary-sm" onclick="showCustomLists()">📋 הרשימות שלי</button>
-        <button class="btn-secondary-sm" onclick="showWeeklyReport()">📈 דוח שבועי</button>
-        <button class="btn-secondary-sm" onclick="exportFlashcards()">🖨️ הדפס כרטיסיות</button>
       </div>
       <div id="review-reminder" style="display:none;margin-top:14px;background:rgba(240,192,64,0.12);border:1px solid rgba(240,192,64,0.35);border-radius:12px;padding:10px 18px;font-size:0.88rem;cursor:pointer" onclick="showLevels()">
         🔁 יש לך <span id="review-count">0</span> מילים שמחכות לחזרה — לחץ לתרגל!
       </div>
     </div>
-    <div id="daily-challenge-section" style="margin-bottom:18px"></div>
-    <div id="wod-container"></div>
-    <div id="pod-container"></div>
-    <div id="dc-container"></div>
-    <div class="font-size-row anim-in">
-      <label>🔤 גודל טקסט</label>
-      <input type="range" min="85" max="130" value="100" id="font-slider" oninput="applyFontSize(this.value)">
-      <span class="font-size-val" id="font-size-val">100%</span>
+
+    <!-- WIDGETS ROW: WOD + POD -->
+    <div class="home-widgets anim-in" style="margin-top:16px;">
+      <div class="home-widget">
+        <div class="home-widget-title">📅 מילת היום</div>
+        <div id="wod-container"></div>
+      </div>
+      <div class="home-widget">
+        <div class="home-widget-title">💬 ביטוי היום</div>
+        <div id="pod-container"></div>
+      </div>
     </div>
-    <div id="joke-of-day-container"></div>
-    <div class="stats-bar anim-in" id="home-stats">
+
+    <!-- DAILY CHALLENGES -->
+    <div id="dc-container" style="margin-top:12px;"></div>
+
+    <!-- STATS MINI-BAR -->
+    <div class="stats-bar anim-in" id="home-stats" style="margin-top:12px;">
       <div class="stat-card">
         <div class="num" id="stat-words">0</div>
         <div class="label">מילים שנלמדו</div>
       </div>
       <div class="stat-card">
         <div class="num" id="stat-games">0</div>
-        <div class="label">משחקים שהושלמו</div>
+        <div class="label">משחקים</div>
       </div>
       <div class="stat-card">
         <div class="num" id="stat-stars">0</div>
-        <div class="label">כוכבים שנצברו</div>
+        <div class="label">כוכבים</div>
       </div>
     </div>
+
+    <!-- SECTION CARDS -->
+    <div class="home-sections anim-in">
+
+      <!-- LEARN -->
+      <div class="home-section">
+        <div class="home-section-header">
+          <div class="home-section-icon">🎮</div>
+          <div>
+            <div class="home-section-title">לומדים</div>
+            <div class="home-section-sub">משחקים, שירים, שיעורים ומועדפות</div>
+          </div>
+        </div>
+        <div class="home-section-grid">
+          <div class="home-tile home-tile-wide" onclick="showLevels()">
+            <div class="home-tile-icon">🚀</div>
+            <div class="home-tile-label">משחקי מילים</div>
+            <div class="home-tile-sub">בחר רמה והתחל</div>
+          </div>
+          <div class="home-tile home-tile-wide" onclick="showSongs()">
+            <div class="home-tile-icon">🎵</div>
+            <div class="home-tile-label">ספריית שירים</div>
+            <div class="home-tile-sub">50+ שירים עם תרגום</div>
+          </div>
+          <div class="home-tile" onclick="showLessons()">
+            <div class="home-tile-icon">📚</div>
+            <div class="home-tile-label">שיעורים</div>
+            <div class="home-tile-sub">צעד אחר צעד</div>
+          </div>
+          <div class="home-tile" onclick="showFavoritesGame()">
+            <div class="home-tile-icon">⭐</div>
+            <div class="home-tile-label">מועדפות</div>
+            <div class="home-tile-sub">המילים שלי</div>
+          </div>
+          <div class="home-tile" onclick="showCustomLists()">
+            <div class="home-tile-icon">📋</div>
+            <div class="home-tile-label">רשימות</div>
+            <div class="home-tile-sub">אישיות</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXPLORE -->
+      <div class="home-section">
+        <div class="home-section-header">
+          <div class="home-section-icon">🗺️</div>
+          <div>
+            <div class="home-section-title">חוקרים</div>
+            <div class="home-section-sub">שיחות, דקדוק, הגייה ועוד</div>
+          </div>
+        </div>
+        <div class="home-section-grid">
+          <div class="home-tile" onclick="showConvList()">
+            <div class="home-tile-icon">🤖</div>
+            <div class="home-tile-label">שיחה חופשית</div>
+            <div class="home-tile-sub">בחר סיטואציה</div>
+          </div>
+          <div class="home-tile" onclick="showDialogues()">
+            <div class="home-tile-icon">💬</div>
+            <div class="home-tile-label">דיאלוגים</div>
+            <div class="home-tile-sub">שיחות לדוגמה</div>
+          </div>
+          <div class="home-tile" onclick="showGrammar()">
+            <div class="home-tile-icon">📖</div>
+            <div class="home-tile-label">דקדוק</div>
+            <div class="home-tile-sub">כללי ניב פלסטיני</div>
+          </div>
+          <div class="home-tile" onclick="showPronunciation()">
+            <div class="home-tile-icon">🗣️</div>
+            <div class="home-tile-label">הגייה</div>
+            <div class="home-tile-sub">צלילים קשים</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MY PROGRESS -->
+      <div class="home-section">
+        <div class="home-section-header">
+          <div class="home-section-icon">📊</div>
+          <div>
+            <div class="home-section-title">ההתקדמות שלי</div>
+            <div class="home-section-sub">סטטיסטיקות, דוחות וכלים</div>
+          </div>
+        </div>
+        <div class="home-section-grid">
+          <div class="home-tile" onclick="showStats()">
+            <div class="home-tile-icon">📈</div>
+            <div class="home-tile-label">סטטיסטיקות</div>
+            <div class="home-tile-sub">כל הנתונים</div>
+          </div>
+          <div class="home-tile" onclick="showWeeklyReport()">
+            <div class="home-tile-icon">📅</div>
+            <div class="home-tile-label">דוח שבועי</div>
+            <div class="home-tile-sub">השוואה לשבוע שעבר</div>
+          </div>
+          <div class="home-tile" onclick="exportFlashcards()">
+            <div class="home-tile-icon">🖨️</div>
+            <div class="home-tile-label">הדפס</div>
+            <div class="home-tile-sub">כרטיסיות PDF</div>
+          </div>
+          <div class="home-tile" onclick="showRec()">
+            <div class="home-tile-icon">🎲</div>
+            <div class="home-tile-label">המלץ לי</div>
+            <div class="home-tile-sub">שירים, סדרות, ספרים</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="home-section">
+        <div class="home-section-header">
+          <div class="home-section-icon">⚙️</div>
+          <div>
+            <div class="home-section-title">הגדרות</div>
+            <div class="home-section-sub">גודל טקסט ומוזיקה</div>
+          </div>
+        </div>
+        <div style="padding:16px 18px">
+          <div class="font-size-row" style="margin:0 0 0 0;background:none;padding:0;border-radius:0">
+            <label>🔤 גודל טקסט</label>
+            <input type="range" min="85" max="130" value="100" id="font-slider" oninput="applyFontSize(this.value)">
+            <span class="font-size-val" id="font-size-val">100%</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /home-sections -->
+
+    <div id="daily-challenge-section" style="display:none"></div>
+    <div id="joke-of-day-container"></div>
   </div>
 </section>
 
@@ -2648,7 +2801,7 @@
 </div>
 
 <!-- FLOATING REC BUTTON -->
-<button class="fab-rec" onclick="showRec()">🎲 המלץ לי!</button>
+<!-- fab-rec moved to home section card -->
 <div class="fab-feedback-group">
   <button class="fab-feedback-btn fab-sug" onclick="openSuggest()">💡 הצע עדכון</button>
   <button class="fab-feedback-btn fab-bug" onclick="openBugReport()">🐛 Report a Bug</button>
